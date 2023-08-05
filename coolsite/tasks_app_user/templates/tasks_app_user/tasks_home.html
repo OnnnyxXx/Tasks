@@ -1,0 +1,26 @@
+{% extends 'tasks_app/layout.html' %}
+
+
+{% block title %}Задания{% endblock %}
+
+
+{% block content %}
+<div class="features1">
+        <a href="{% url 'create' %}"><li><button class="btn btn-danger"><i class="fas fa-plus-circle"></i>Добавить задания</button></li></a>
+</div>
+
+<div class="features">
+    {% if tasks_all %}
+        {% for el in tasks_all %}
+            <div class="alert alert-dark">
+                 <h3>{{ el.title }}</h3>
+                <p>Что взять с собой ({{ el.anons }})</p>
+                <h4>{{ el.prise }} ₽</h4>
+                <a href="{% url 'details_tasks' el.id %}" class="btn btn-warning">Читать полностью</a>
+            </div>
+        {% endfor %}
+        {% else %}
+            <p>Нет задания!</p>
+        {% endif %}
+</div>
+{% endblock %}

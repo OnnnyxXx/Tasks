@@ -1,0 +1,22 @@
+{% extends 'tasks_app/layout.html' %}
+
+{% block title %}Форма по добавлению задания{% endblock %}
+
+{% block content %}
+    {% if request.user.is_authenticated %}
+    <div class="features">
+    <h1>Форма по добавлению задания</h1>
+    <form method="post">
+        {% csrf_token %}<br>
+        {{ form.title }}<br>
+        {{ form.anons }}<br>
+        {{ form.phope }}<br>
+        {{ form.prise}}<br>
+        {{ form.full_text }}<br>
+        <span>{{ error }}</span>
+      <button class="btn btn-success" type="submit">Опубликовать</button><br>
+    </form>
+</div>
+{% endif %}
+
+{% endblock %}
