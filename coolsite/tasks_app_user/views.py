@@ -4,9 +4,8 @@ from django.contrib.auth.views import LoginView
 from django.http import HttpResponseForbidden
 from django.urls import reverse_lazy
 
-
 from .forms import ArticlesForm, RegisterUserForm, LoginUserForm
-from django.views.generic import DetailView, CreateView, UpdateView
+from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
@@ -18,12 +17,32 @@ from .models import Articles
 from django.utils import timezone
 from datetime import timedelta
 
+from django.views.generic.detail import DetailView
+from .models import *
+
 
 def tasks_home(request):
     tasks_all = Articles.objects.order_by('-data')
     return render(request, 'tasks_app_user/tasks_home.html', {"tasks_all": tasks_all})
-timezone.now() - timedelta(1)
-Articles.objects.all().delete()
+
+
+# AutoDeleteTasks
+# timezone.now() - timedelta(7)
+# Articles.objects.all().delete()
+
+
+# UpdateTasks
+class TasksUpdateView(UpdateView):
+    model = Articles
+    template_name = 'tasks_app_user/create.html'
+    form_class = ArticlesForm
+
+
+# DeleteTasks
+class TasksDeleteView(DeleteView):
+    model = Articles
+    success_url = '/tasks'
+    template_name = 'tasks_app_user/delete_tasks.html'
 
 
 class TasksDetailView(DetailView, LoginRequiredMixin):
@@ -83,7 +102,3 @@ class LoginUser(LoginView):
 def logout_user(request):
     logout(request)
     return redirect('login')
-
-
-
-

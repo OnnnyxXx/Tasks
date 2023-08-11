@@ -4,11 +4,12 @@ body{
 .features {
     padding: 1em;
     padding: 1em;
-    width: 60%;
+    width: 40%;
     margin: auto;
     text-align: center;
 }
-.odject {
+
+.object {
     background-color: #808080;
     padding: 1em;
     padding: 1em;
@@ -30,7 +31,9 @@ body{
     margin: auto;
 }
 
-
+li {
+  display: inline-block;
+}
 
 
 

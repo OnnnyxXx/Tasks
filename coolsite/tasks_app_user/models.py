@@ -10,7 +10,7 @@ class Articles(models.Model):
     prise = models.CharField('Цена', max_length=15)
     full_text = models.TextField("Задания")
     data = models.DateTimeField(auto_now_add=True)
-
+    user_name = models.CharField("User_name", max_length=15)
 
     def __str__(self):
         return self.title
@@ -21,6 +21,5 @@ class Articles(models.Model):
 
     def get_absolute_url(self):
         return f'/tasks/{self.id}'
-
 
 
