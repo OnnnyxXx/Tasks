@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 
 
 class Articles(models.Model):
-    title = models.CharField("Название Задания", max_length=50)
-    anons = models.CharField("О задании", max_length=250)
+    title = models.CharField("Название Задания", max_length=35)
+    anons = models.CharField("О задании", max_length=25)
     phope = models.CharField('Телефон для связи с вами', max_length=11)
     prise = models.CharField('Цена', max_length=15)
     full_text = models.TextField("Задания")
@@ -21,5 +21,3 @@ class Articles(models.Model):
 
     def get_absolute_url(self):
         return f'/tasks/{self.id}'
-
-

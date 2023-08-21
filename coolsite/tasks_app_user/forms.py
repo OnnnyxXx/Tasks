@@ -32,6 +32,7 @@ class ArticlesForm(ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Все о задании'
             }),
+
             "user_name": TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Ваше Имя'
@@ -49,7 +50,7 @@ class ArticlesForm(ModelForm):
 #        fields = ('username', 'email', 'password1', 'password2')
 
 class RegisterUserForm(UserCreationForm):
-    username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
+    username = forms.CharField(label='Ваше Имя', widget=forms.TextInput(attrs={'class': 'form-input'}))
     email = forms.EmailField(label='Email', widget=forms.EmailInput(attrs={'class': 'form-input'}))
     password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
     password2 = forms.CharField(label='Повтор пароля', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
@@ -60,7 +61,7 @@ class RegisterUserForm(UserCreationForm):
 
 
 class LoginUserForm(AuthenticationForm):
-    username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
+    username = forms.CharField(label='Ваше Имя', widget=forms.TextInput(attrs={'class': 'form-input'}))
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
 
 

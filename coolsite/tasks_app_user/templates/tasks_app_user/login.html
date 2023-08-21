@@ -1,4 +1,6 @@
-{% load static %}
+{% extends 'tasks_app/layout.html' %}
+
+{% block content %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -161,7 +163,7 @@ button{
     <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
     <div class="form-error">{{ f.errors }}</div>
     {% endfor %}
-    <a href="{% url 'register' %}">Регистрация</a>
+    <a  href="{% url 'register' %}">Регистрация</a>
         <button type="submit">Войти</button>
 </form>
 </body>
@@ -171,3 +173,4 @@ button{
 
 </body>
 </html>
+{% endblock %}

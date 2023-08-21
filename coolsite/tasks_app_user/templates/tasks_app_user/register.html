@@ -1,4 +1,6 @@
-{% load static %}
+{% extends 'tasks_app/layout.html' %}
+
+{% block content %}
 <head>
         <!--    Иконка для сайта-->
     <link rel="apple-touch-icon" sizes="180x180" href="static/tasks_app/img/apple-touch-icon.png">
@@ -60,8 +62,8 @@ body{
     bottom: -80px;
 }
 form{
-    height: 640px;
-    width: 400px;
+    height: auto;
+    width: auto;
     background-color: rgba(255,255,255,0.13);
     position: absolute;
     transform: translate(-50%,-50%);
@@ -166,3 +168,4 @@ button{
 
 </body>
 </html>
+{% endblock %}

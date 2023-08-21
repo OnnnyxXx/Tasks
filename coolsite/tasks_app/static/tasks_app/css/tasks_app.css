@@ -1,5 +1,5 @@
 body{
-    background-color: White;
+    background-color: While;
 }
 .features {
     padding: 1em;
@@ -35,9 +35,29 @@ li {
   display: inline-block;
 }
 
+.dropdown-menu {
+    --bs-dropdown-min-width: 0px;
+    }
 
+@media (max-width: 430px) {
+    .nav-link {
+        padding: 8px;
 
+    }
 
+}
+@media (max-width: 432px) {
+    .nav-link {
+        padding: 8px;
+    }
+}
+
+@media (max-width: 384px) {
+    .nav-link {
+        padding: 8px;
+
+    }
+}
 
 
 
