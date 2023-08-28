@@ -1,0 +1,48 @@
+{% extends 'tasks_app/layout.html' %}
+
+
+{% block title %}Профиль{% endblock %}
+
+
+{% block content %}
+
+<style>
+	.profile-pic{
+		max-width: 157px;
+		max-height:200px;
+		margin: auto;
+
+		width: 400;
+		height: auto;
+	}
+</style>
+
+<br>
+<div class="row">
+	<div class="col-md-3">
+		<div class="card card-body">
+			<hr>
+			<h3 style="text-align: center">Account Settings</h3>
+			<hr>
+           <img class="profile-pic" src="{{ request.user.profile.profile_picture.url }}" >
+
+		</div>
+	</div>
+	<div class="col-md-9">
+		<div class="card card-body">
+
+				<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p>Фото: {{ form.profile_picture }}</p>
+    <p>Имя: {{ form.first_name }}</p>
+    <p>Фамилия: {{ form.last_name }}</p>
+    <p>Email: {{ form.email }}</p>
+    <button type="submit">Сохранить</button>
+  </form>
+		</div>
+	</div>
+</div>
+
+<!--https://www.youtube.com/watch?v=BOx0wAXink8-->
+
+{% endblock %}

@@ -1,23 +1,22 @@
-import time
-
 from django.contrib.auth.views import LoginView
 from django.http import HttpResponseForbidden
 from django.urls import reverse_lazy
 
-from .forms import ArticlesForm, RegisterUserForm, LoginUserForm
+from .forms import ArticlesForm, RegisterUserForm, LoginUserForm, ProfileForm
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, get_user_model
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Articles
 
 from django.utils import timezone
 from datetime import timedelta
+from django.contrib.auth.decorators import login_required
 
 from django.views.generic.detail import DetailView
+
 from .models import *
 
 
@@ -66,7 +65,7 @@ def create(request):
     form = ArticlesForm()
     date = {
         'form': form,
-        'error': error
+        'error': error,
     }
 
     return render(request, 'tasks_app_user/create.html', date)
@@ -102,3 +101,33 @@ class LoginUser(LoginView):
 def logout_user(request):
     logout(request)
     return redirect('login')
+
+
+@login_required
+def profile(request):
+    profile = request.user.profile
+    form = ProfileForm(instance=profile)
+
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('user_home')
+
+    context = {'form': form}
+    return render(request, 'tasks_app_user/profile.html', context)
+
+
+def User_View(request):
+    profile = request.user.profile
+    form = ProfileForm(instance=profile)
+
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('user_home')
+
+    context = {'form': form}
+
+    return render(request, 'tasks_app_user/home_user.html', context)

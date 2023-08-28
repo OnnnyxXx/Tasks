@@ -1,4 +1,3 @@
-import time
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -10,7 +9,7 @@ class Articles(models.Model):
     prise = models.CharField('Цена', max_length=15)
     full_text = models.TextField("Задания")
     data = models.DateTimeField(auto_now_add=True)
-    user_name = models.CharField("User_name", max_length=15)
+    user_name = models.CharField("User_name", max_length=15,)
 
     def __str__(self):
         return self.title
@@ -21,3 +20,14 @@ class Articles(models.Model):
 
     def get_absolute_url(self):
         return f'/tasks/{self.id}'
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email = models.EmailField()
+    profile_picture = models.ImageField("Изображения", default="static/tasks_app/img/logo.jpg", null=True, blank=True)
+
+    def __str__(self):
+        return self.user.username

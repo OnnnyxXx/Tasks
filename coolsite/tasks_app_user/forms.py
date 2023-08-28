@@ -1,4 +1,4 @@
-from .models import Articles
+from .models import Articles, Profile
 from django.forms import ModelForm, TextInput, DateTimeInput, Textarea
 
 from django import forms
@@ -35,14 +35,19 @@ class ArticlesForm(ModelForm):
 
             "user_name": TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Ваше Имя'
+                'placeholder': 'Ваш Логин'
             }),
-
 
         }
 
 
-#class SignUpForm(UserCreationForm):
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['first_name', 'last_name', 'email', 'profile_picture']
+
+
+# class SignUpForm(UserCreationForm):
 #   email = forms.CharField(max_length=254, required=True, widget=forms.EmailInput())
 
 #    class Meta:
@@ -50,7 +55,7 @@ class ArticlesForm(ModelForm):
 #        fields = ('username', 'email', 'password1', 'password2')
 
 class RegisterUserForm(UserCreationForm):
-    username = forms.CharField(label='Ваше Имя', widget=forms.TextInput(attrs={'class': 'form-input'}))
+    username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
     email = forms.EmailField(label='Email', widget=forms.EmailInput(attrs={'class': 'form-input'}))
     password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
     password2 = forms.CharField(label='Повтор пароля', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
@@ -61,7 +66,7 @@ class RegisterUserForm(UserCreationForm):
 
 
 class LoginUserForm(AuthenticationForm):
-    username = forms.CharField(label='Ваше Имя', widget=forms.TextInput(attrs={'class': 'form-input'}))
+    username = forms.CharField(label='Ваш Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
 
 

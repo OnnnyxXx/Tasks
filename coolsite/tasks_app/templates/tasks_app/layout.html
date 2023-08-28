@@ -18,31 +18,58 @@
 
 </head>
 <body>
-<aside>
-    <style>
+<!--<aside>-->
+<!--    <style>-->
 
-    </style>
-        <ul class="nav justify-content-center navbar navbar-expand-lg navbar-dark bg-dark ">
-<!--             <img src="static/tasks_app/img/IB.png" alt="logo" width="40">-->
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Главная страница</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'tasks_home' %}">Задания</a>
-            </li>
+<!--    </style>-->
+<!--        <ul class="nav justify-content-center navbar navbar-expand-lg navbar-dark bg-dark ">-->
+<!--&lt;!&ndash;             <img src="static/tasks_app/img/IB.png" alt="logo" width="40">&ndash;&gt;-->
 <!--            <li class="nav-item">-->
-<!--                <a class="nav-link" href="">Поддержка</a>-->
+<!--                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Главная страница</a>-->
 <!--            </li>-->
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'about' %}">О нас</a>
-            </li>
-                <ul class="nav justify-content-end">
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="{% url 'tasks_home' %}">Задания</a>-->
+<!--            </li>-->
+<!--&lt;!&ndash;            <li class="nav-item">&ndash;&gt;-->
+<!--&lt;!&ndash;                <a class="nav-link" href="">Поддержка</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            </li>&ndash;&gt;-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="{% url 'about' %}">О нас</a>-->
+<!--            </li>-->
+<!--                <ul class="nav justify-content-end">-->
+<!--                    {% if request.user.is_authenticated %}-->
+<!--                            <li class="nav-item dropdown">-->
+<!--                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">-->
+<!--                    {{ user.username }}-->
+<!--                  </a>-->
+<!--                  <ul class="dropdown-menu">-->
+
+<!--                    <li><a class="dropdown-item" href="{% url 'logout' %}">Выйти</a></li>-->
+<!--                  </ul>-->
+<!--                    {% else %}-->
+<!--                </ul>-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="{% url 'register' %}">Регистрация</a>-->
+<!--            </li>-->
+<!--            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Войти</a>-->
+<!--                {% endif %}-->
+
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </aside>-->
+<input type="checkbox" id="side-checkbox" />
+<div class="side-panel">
+    <label class="side-button-2" for="side-checkbox">+</label>
+    <div class="side-title">Выдвижная панель:</div>
+     <ul class="nav-link">
                     {% if request.user.is_authenticated %}
+
                             <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     {{ user.username }}
                   </a>
                   <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="{% url 'user_home' %}">Профиль</a></li>
                     <li><a class="dropdown-item" href="{% url 'logout' %}">Выйти</a></li>
                   </ul>
                     {% else %}
@@ -53,9 +80,31 @@
             <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Войти</a>
                 {% endif %}
 
+            <li class="nav-link">
+                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Главная страница</a>
             </li>
-        </ul>
-    </aside>
+            <li class="nav-link">
+                <a class="nav-link" href="{% url 'tasks_home' %}">Задания</a>
+            </li>
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="">Поддержка</a>-->
+<!--            </li>-->
+            <li class="nav-link">
+                <a class="nav-link" href="{% url 'about' %}">О нас</a>
+            </li>
+
+    <a href="{% url 'create' %}"><li><button class="btn btn-outline-danger"><i class="fas fa-plus-circle"></i>Добавить задания</button></li></a>
+    <style>
+
+    </style>
+</div>
+<div style="float: left;">
+    <label class="side-button-1" for="side-checkbox">
+        <div class="side-b side-open">☰</div>
+        <div class="side-b side-close">Закрыть</div>
+    </label>
+
+</div>
     <main>
         {% block content %}
         {% endblock %}
