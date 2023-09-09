@@ -27,7 +27,7 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField()
-    profile_picture = models.ImageField("Изображения", default="static/tasks_app/img/logo.jpg", null=True, blank=True)
+    profile_picture = models.ImageField("Изображения", default="logo.jpg", null=True, blank=True, upload_to='media/profile_pictures')
 
     def __str__(self):
         return self.user.username

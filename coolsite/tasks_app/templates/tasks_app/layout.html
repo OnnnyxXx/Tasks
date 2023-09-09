@@ -57,20 +57,22 @@
 <!--            </li>-->
 <!--        </ul>-->
 <!--    </aside>-->
+
 <input type="checkbox" id="side-checkbox" />
 <div class="side-panel">
     <label class="side-button-2" for="side-checkbox">+</label>
     <div class="side-title">Выдвижная панель:</div>
      <ul class="nav-link">
                     {% if request.user.is_authenticated %}
-
+                    <img class="nav-img" src="{{ request.user.profile.profile_picture.url }}">
                             <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     {{ user.username }}
                   </a>
                   <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="{% url 'user_home' %}">Профиль</a></li>
-                    <li><a class="dropdown-item" href="{% url 'logout' %}">Выйти</a></li>
+                      <li><a class="dropdown-item" href="{% url 'user_home'  %}">Профиль</a></li>
+                      <hr>
+                      <li><a class="dropdown-item" href="{% url 'logout' %}">Выйти</a></li>
                   </ul>
                     {% else %}
                 </ul>

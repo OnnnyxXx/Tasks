@@ -66,8 +66,7 @@ body{
 }
 form{
     height: 520px;
-    width: 400px;
-    background-color: rgba(255,255,255,0.13);
+    width: 328px;
     position: absolute;
     transform: translate(-50%,-50%);
     top: 50%;
@@ -146,6 +145,23 @@ button{
   margin-right: 4px;
 }
 
+.signin .content .form .links
+{
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.signin .content .form .links a
+{
+  color: #fff;
+  text-decoration: none;
+}
+.signin .content .form .links a:nth-child(2)
+{
+  color: #0f0;
+  font-weight: 600;
+}
     </style>
 </body>
 <body>
@@ -163,7 +179,7 @@ button{
     <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
     <div class="form-error">{{ f.errors }}</div>
     {% endfor %}
-    <a  href="{% url 'register' %}">Регистрация</a>
+    <div class="links">Нет аккаунта --> <a href="{% url 'register' %}">Регистрация</a>
         <button type="submit">Войти</button>
 </form>
 </body>
