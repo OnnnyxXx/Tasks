@@ -2,7 +2,82 @@
 
 {% block title %}{{ article.title }}{% endblock %}
 {% block content %}
-    <div class="features alert alert-dark">
+<style>
+    .blog_post {
+  background: #fff;
+  max-width: 500px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.img_pod {
+  height: 110px;
+  width: 110px;
+  z-index: 10;
+    box-shadow: 1px 1px 5rem rgba(7, 46, 255, 0.71);
+  border-radius: 100%;
+  position: absolute;
+  left: -10%;
+  top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+img {
+  width: 4.3rem;
+  position: relative;
+  border-radius: 100%;
+  box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+h3 {
+  margin: 0 0 0.5rem 0;
+  color: #999;
+}
+
+h1 {
+  margin: 0 0 1rem 0;
+  font-size: 2.5rem;
+  letter-spacing: 0.5px;
+  color: #333;
+}
+
+p {
+  margin: 0 0 2.5rem 0;
+  line-height: 1.45;
+  color: #333;
+}
+
+.btn_primary {
+  border: none;
+  outline: none;
+  background: linear-gradient(90deg, #ff9966, #ff5e62);
+  padding: 0.9rem 1rem;
+  border-radius: 50px;
+  color: white;
+  font-size: 1.2rem;
+  box-shadow: 1px 10px 2rem rgba(255, 94, 98, 0.5);
+  transition: all 0.2s ease-in;
+  text-decoration: none;
+}
+.features {
+    padding: 1em;
+    padding: 1em;
+    width: 70%;
+    margin: auto;
+    text-align: center;
+    margin-right: 12px;
+}
+</style>
+<div class="features">
+<div class="blog_post">
+<!--  <div class="img_pod">-->
+<!--      <img src="{{ request.user.profile.profile_picture.url }}">-->
+<!--  </div>-->
+  <div class="container_copy">
         <h1>{{ article.title }}</h1><br>
         <p>{{ article.full_text|linebreaks|urlize  }} </p>
          <p>Цена-{{ article.prise }}₽</p>
@@ -12,6 +87,8 @@
             <a href="{% url 'delete_tasks' article.id %}" class="btn btn-danger">Удалить задания</a>
             <a href="{% url 'update_tasks' article.id %}" class="btn btn-info">Редактировать задания</a>
         {% endif %}
-    </div>
+            </div>
+  </div>
 
+</div>
 {% endblock %}

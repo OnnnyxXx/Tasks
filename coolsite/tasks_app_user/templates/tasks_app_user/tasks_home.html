@@ -5,19 +5,152 @@
 
 
 {% block content %}
-<div class="features1">
-<!--        <a href="{% url 'create' %}"><li><button class="btn btn-outline-danger"><i class="fas fa-plus-circle"></i>Добавить задания</button></li></a>-->
-</div>
+<style>
+.blog_post {
+  background: #fff;
+  max-width: 500px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
+  position: relative;
 
+}
+
+.img_pod {
+  height: 70px;
+  width: 69px;
+  z-index: 10;
+  box-shadow: 1px 1px 5rem rgba(255, 0, 0, 0.71);
+  border-radius: 100%;
+  position: absolute;
+  left: 1%;
+  top: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+img {
+  width: 3.3rem;
+  position: relative;
+  border-radius: 100%;
+  box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+h3 {
+  margin: 0 0 0.5rem 0;
+  color: #999;
+
+}
+
+h1 {
+  margin: 0 0 1rem 0;
+  font-size: 2.5rem;
+  letter-spacing: 0.5px;
+  color: #333;
+}
+
+p {
+  margin: 0 0 2.5rem 0;
+  line-height: 1.45;
+  color: #333;
+
+}
+
+.btn_primary {
+  border: none;
+  outline: none;
+  background: linear-gradient(90deg, #ff9966, #ff5e62);
+  padding: 0.9rem 1rem;
+  border-radius: 50px;
+  color: white;
+  font-size: 1.0rem;
+  box-shadow: 1px 10px 2rem rgba(255, 94, 98, 0.5);
+  transition: all 0.2s ease-in;
+  text-decoration: none;
+
+}
+
+.features {
+    padding: 1em;
+    padding: 1em;
+    width: 60%;
+    margin: auto;
+    text-align: center;
+    box-sizing: content-box;
+}
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+@media (max-width: 600px) {
+.img_pod {
+  height: 53px;
+  width: 45px;
+  z-index: 10;
+  box-shadow: 1px 1px 5rem rgba(255, 0, 0, 0.79);
+  border-radius: 100%;
+  position: absolute;
+  left: -5%;
+  top: -12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+img {
+  width: 2.3rem;
+  position: relative;
+  border-radius: 100%;
+  box-shadow: 1px 1px 2rem rgba(140, 0, 0, 0.9);
+  z-index: 1;
+}
+}
+
+@media (max-width: 300px) {
+.img_pod {
+  height: 64px;
+  width: 57px;
+  z-index: 10;
+  box-shadow: 1px 1px 5rem rgba(255, 0, 0, 0.71);
+  border-radius: 100%;
+  position: absolute;
+  left: -8%;
+  top: -20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+img {
+  width: 2.3rem;
+  position: relative;
+  border-radius: 100%;
+  box-shadow: 1px 1px 2rem rgba(140, 0, 0, 0.9);
+  z-index: 1;
+}
+
+    }
+}
+</style>
 <div class="features">
     {% if tasks_all %}
         {% for el in tasks_all %}
             <div class="alert alert-dark">
+            {% if el.user_name == user.username %}
+            <div class="img_pod">
+              <img class="profile-pic" src="{{ user.profile.profile_picture.url }}">
+            </div>
+                {% else %}
+                <div class="img_pod">
+                    <img src="https://www.meme-arsenal.com/memes/4cdee02fbf6649b4e2c7b597f9d4d143.jpg" alt="UPS">
+                </div>
+            {% endif %}
                 <p>Пользователь {{ el.user_name }}</p>
                 <h3>{{ el.title }}</h3>
                 <p>Что взять с собой ({{ el.anons }})</p>
                 <h4>{{ el.prise }} ₽</h4>
-                <a href="{% url 'details_tasks' el.id %}" class="btn btn-warning">Читать полностью</a>
+        <a class="btn_primary" href="{% url 'details_tasks' el.id %}">Читать полностью</a>
             </div>
         {% endfor %}
         {% else %}

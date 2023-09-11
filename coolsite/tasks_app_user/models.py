@@ -27,6 +27,9 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField()
+    telegram_url = models.URLField(blank=True, null=True)
+    youtube_url = models.URLField(blank=True, null=True)
+    vk_url = models.URLField(blank=True, null=True)
     profile_picture = models.ImageField("Изображения", default="logo.jpg", null=True, blank=True, upload_to='media/profile_pictures')
 
     def __str__(self):

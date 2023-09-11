@@ -53,6 +53,7 @@ class TasksDetailView(DetailView, LoginRequiredMixin):
 
 def create(request):
     error = ''
+
     if request.method == 'POST':
         form = ArticlesForm(request.POST)
         if form.is_valid():
@@ -62,10 +63,11 @@ def create(request):
         else:
             error = 'Форма была неверной'
 
-    form = ArticlesForm()
+    form = ArticlesForm(user=request.user)
     date = {
         'form': form,
         'error': error,
+
     }
 
     return render(request, 'tasks_app_user/create.html', date)

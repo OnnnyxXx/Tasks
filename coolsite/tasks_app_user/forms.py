@@ -1,5 +1,5 @@
 from .models import Articles, Profile
-from django.forms import ModelForm, TextInput, DateTimeInput, Textarea
+from django.forms import ModelForm, TextInput, Textarea, EmailInput, URLInput
 
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -26,7 +26,8 @@ class ArticlesForm(ModelForm):
             }),
             "prise": TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Цена'
+                'placeholder': 'Цена',
+
             }),
             "full_text": Textarea(attrs={
                 'class': 'form-control',
@@ -35,17 +36,55 @@ class ArticlesForm(ModelForm):
 
             "user_name": TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Ваш Логин'
+                'placeholder': 'Ваш Логин',
+
             }),
 
+
         }
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)  # Получите пользователя из kwargs
+        super(ArticlesForm, self).__init__(*args, **kwargs)
+        if user and user.is_authenticated:
+            self.fields['user_name'].widget.attrs['value'] = user.username
 
 
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['first_name', 'last_name', 'email', 'profile_picture']
+        fields = ['first_name', 'last_name', 'email', 'profile_picture', 'telegram_url', "youtube_url", "vk_url"]
 
+        widgets = {
+            "first_name": TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Ваше имя'
+            }),
+            "last_name": TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Ваша Фамилия'
+            }),
+            "email": EmailInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Ваш email'
+            }),
+            "telegram_url": URLInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Ваш Телеграмм (Не обязательно)'
+            }),
+            "youtube_url": URLInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Ваш Ютуб Канал (Не обязательно)'
+            }),
+            "vk_url": URLInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Ваш Вк (Не обязательно)'
+            }),
+
+
+
+
+        }
 
 # class SignUpForm(UserCreationForm):
 #   email = forms.CharField(max_length=254, required=True, widget=forms.EmailInput())
