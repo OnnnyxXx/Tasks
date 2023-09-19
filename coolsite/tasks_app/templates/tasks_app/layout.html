@@ -70,7 +70,7 @@
                     {{ user.username }}
                   </a>
                   <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="{% url 'user_home'  %}">Профиль</a></li>
+                      <li><a class="dropdown-item" href="{% url 'user_home' %}">Профиль</a></li>
                       <hr>
                       <li><a class="dropdown-item" href="{% url 'logout' %}">Выйти</a></li>
                   </ul>
@@ -88,17 +88,16 @@
             <li class="nav-link">
                 <a class="nav-link" href="{% url 'tasks_home' %}">Задания</a>
             </li>
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" href="">Поддержка</a>-->
-<!--            </li>-->
             <li class="nav-link">
                 <a class="nav-link" href="{% url 'about' %}">О нас</a>
             </li>
+            <li class="nav-link">
+                <a class="nav-link" target="_blank" href="https://www.donationalerts.com/r/onnnyxxx">Поддержать проект</a>
+            </li>
 
-    <a href="{% url 'create' %}"><li><button class="btn btn-outline-danger"><i class="fas fa-plus-circle"></i>Добавить задания</button></li></a>
-    <style>
 
-    </style>
+    <a href="{% url 'create' %}"><li><button class="btn btn-outline-info"><i class="fas fa-plus-circle"></i>Добавить задания</button></li></a>
+
 </div>
 <div style="float: left;">
     <label class="side-button-1" for="side-checkbox">

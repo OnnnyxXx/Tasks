@@ -6,6 +6,7 @@
 
 {% block content %}
 <style>
+
 .blog_post {
   background: #fff;
   max-width: 500px;
@@ -142,9 +143,9 @@ img {
               <img class="profile-pic" src="{{ user.profile.profile_picture.url }}">
             </div>
                 {% else %}
-                <div class="img_pod">
-                    <img src="https://www.meme-arsenal.com/memes/4cdee02fbf6649b4e2c7b597f9d4d143.jpg" alt="UPS">
-                </div>
+<!--                <div class="img_pod">-->
+<!--                    <img src="https://www.meme-arsenal.com/memes/4cdee02fbf6649b4e2c7b597f9d4d143.jpg" alt="UPS">-->
+<!--                </div>-->
             {% endif %}
                 <p>Пользователь {{ el.user_name }}</p>
                 <h3>{{ el.title }}</h3>

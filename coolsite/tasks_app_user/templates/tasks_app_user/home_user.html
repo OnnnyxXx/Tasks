@@ -10,13 +10,14 @@
     margin-top:20px;
     color: #1a202c;
     text-align: left;
+
+
 }
 	.profile-pic{
 		max-width: 205px;
 		max-height:200px;
 
         border-radius: 50%;
-		width: 400;
 		height: auto;
 		transform: scale(1);
 	}
@@ -116,7 +117,19 @@
     width: 32px;
     height: 32px;
     margin-top: -40px;
+    border-radius: 60px;
 }
+
+dl, ol, ul {
+  margin-top: -13px;
+  margin-bottom: 0rem;
+
+}
+ol, ul {
+  padding-left: 1rem;
+
+}
+
 </style>
 <div class="container">
     <div class="main-body">
@@ -141,7 +154,7 @@
                         {% if not form.vk_url.value %}
 
                          {% else %}
-                            <a href="{{ form.vk_url.value }}" target="_blank"><img src="https://w7.pngwing.com/pngs/926/338/png-transparent-logo-vk-vkontakte-social-media-and-logos-icon-thumbnail.png" alt="Logo"></a>
+                            <a href="{{ form.vk_url.value }}" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/VK_Compact_Logo_%282021-present%29.svg/800px-VK_Compact_Logo_%282021-present%29.svg.png" alt="Logo"></a>
                         {% endif %}
 
                         {% if not form.telegram_url.value %}

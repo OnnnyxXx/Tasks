@@ -3,6 +3,21 @@
 {% block title %}Форма по добавлению задания{% endblock %}
 
 {% block content %}
+<style>
+.color-btn_create {
+  border: none;
+  outline: none;
+  background: linear-gradient(90deg, #0045ea, #f0090f);
+  padding: 0.9rem 1rem;
+  border-radius: 50px;
+  color: white;
+  font-size: 1.0rem;
+  box-shadow: 1px 10px 2rem rgba(255, 94, 98, 0.5);
+  transition: all 0.2s ease-in;
+  text-decoration: none;
+
+}
+</style>
     {% if request.user.is_authenticated %}
     <div class="features">
     <h1>Форма по добавлению задания</h1>
@@ -15,7 +30,7 @@
         {{ form.prise}}<br>
         {{ form.full_text }}<br>
         <span>{{ error }}</span>
-      <button class="btn btn-outline-success" type="submit">Опубликовать</button><br>
+      <button class="color-btn_create" type="submit">Опубликовать</button><br>
     </form>
 </div>
         {% else %}

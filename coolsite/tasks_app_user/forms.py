@@ -37,7 +37,7 @@ class ArticlesForm(ModelForm):
             "user_name": TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Ваш Логин',
-
+                "readonly": 'readonly'
             }),
 
 
