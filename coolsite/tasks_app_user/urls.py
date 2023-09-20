@@ -14,4 +14,7 @@ urlpatterns = [
     path('<int:pk>/delete', views.TasksDeleteView.as_view(), name='delete_tasks'),
     path('profile/', views.profile, name='profile'),
     path('user_home/', views.User_View, name='user_home'),
+    path('profile/', views.profile, name='profile'),
+    path('user_home/', views.User_View, name='user_home'),
+    path('profile_user/<str:username>/', views.user_profile, name='user_profile'),
 ]

@@ -1,0 +1,295 @@
+{% extends 'tasks_app/layout.html' %}
+
+
+{% block title %}{{ form.first_name.value }}{% endblock %}
+
+
+{% block content %}
+<style>
+  body{
+    margin-top:20px;
+    color: #1a202c;
+    text-align: left;
+
+
+}
+	.profile-pic{
+		max-width: 205px;
+		max-height:200px;
+
+        border-radius: 50%;
+		height: auto;
+		transform: scale(1);
+	}
+.main-body {
+    padding: 15px;
+}
+.card {
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+
+    background-clip: border-box;
+    border: 0 solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1rem;
+}
+
+.gutters-sm {
+    margin-right: -8px;
+    margin-left: -8px;
+}
+
+.gutters-sm>.col, .gutters-sm>[class*=col-] {
+    padding-right: 8px;
+    padding-left: 8px;
+}
+.mb-3, .my-3 {
+    margin-bottom: 1rem!important;
+}
+
+.bg-gray-300 {
+
+}
+.h-100 {
+    height: 100%!important;
+}
+.shadow-none {
+    box-shadow: none!important;
+}
+<!--соцсети-->
+.social-icons-1 {
+    padding: 0;
+    list-style: none;
+    margin: 10px;
+}
+.social-icons-1 li {
+    display: inline-block;
+    position: relative;
+    font-size: 24px;
+}
+.social-icons-1 i,
+.social-icons-1 img {
+
+
+    top: 18px;
+    left: 18px;
+    width: 24px;
+    height: 24px;
+    text-align:center;
+    transition: all 0.3s ease-out;
+}
+.social-icons-1 a {
+    display: inline-block;
+}
+.social-icons-1 a:before {
+    transform: scale(1);
+    content: "";
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    display: block;
+
+    transition: all 0.3s ease-out;
+}
+.social-icons-1 a:hover:before {
+    transform: scale(0);
+    transition: all 0.3s ease-in;
+}
+.social-icons-1 a:hover i,
+.social-icons-1 a:hover img {
+    transform: scale(1.8);
+    color: #337AB7;
+    transition: all 0.3s ease-in;
+}
+.social-icons-1 a img {
+    width: 32px;
+    height: 32px;
+    margin-top: -40px;
+    border-radius: 60px;
+}
+
+dl, ol, ul {
+  margin-top: -13px;
+  margin-bottom: 0rem;
+
+}
+ol, ul {
+  padding-left: 1rem;
+
+}
+
+</style>
+<div class="container">
+    <div class="main-body">
+          <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex flex-column align-items-center text-center">
+           <img class="profile-pic" src="{{ form.profile_picture.value.url }}" alt="logo">
+                 <div class="mt-3">
+<!--                      <p class="text-secondary mb-1">Full Stack Developer</p>-->
+<!--                      <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>-->
+<!--                      <button class="btn btn-primary">Follow</button>-->
+<!--                      <button class="btn btn-outline-primary">Message</button>-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+                <div class="card mt-3">
+                    <ul class="social-icons-1">
+                        {% if not form.vk_url.value %}
+
+                         {% else %}
+                            <a href="{{ form.vk_url.value }}" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/VK_Compact_Logo_%282021-present%29.svg/800px-VK_Compact_Logo_%282021-present%29.svg.png" alt="Logo"></a>
+                        {% endif %}
+
+                        {% if not form.telegram_url.value %}
+
+                        {% else %}
+                        <a href="{{ form.telegram_url.value }}" target="_blank"><img src="data:image/png;base64,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" alt="Logo"></a>
+                        {% endif %}
+
+                        {% if not form.youtube_url.value %}
+
+                         {% else %}
+                            <a href="{{ form.youtube_url.value }}" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/YouTube_full-color_icon_%282017%29.svg/1024px-YouTube_full-color_icon_%282017%29.svg.png" alt="Logo"></a>
+                        {% endif %}
+                    </ul>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Имя</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{ form.first_name.value }}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Фамилия</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                    {{ form.last_name.value }}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Email</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{ form.email.value }}
+                    </div>
+                  </div>
+                  <hr>
+<!--                  <div class="row">-->
+<!--                    <div class="col-sm-3">-->
+<!--                      <h6 class="mb-0">Mobile</h6>-->
+<!--                    </div>-->
+<!--                    <div class="col-sm-9 text-secondary">-->
+<!--                      (320) 380-4539-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <hr>-->
+<!--                  <div class="row">-->
+<!--                    <div class="col-sm-3">-->
+<!--                      <h6 class="mb-0">Address</h6>-->
+<!--                    </div>-->
+<!--                    <div class="col-sm-9 text-secondary">-->
+<!--                      Bay Area, San Francisco, CA-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <hr>-->
+                  <div class="row">
+                    <div class="col-sm-12">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+<!--Древо  со скилами-->
+<!--              <div class="row gutters-sm">-->
+<!--                <div class="col-sm-6 mb-3">-->
+<!--                  <div class="card h-100">-->
+<!--                    <div class="card-body">-->
+<!--                      <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project Status</h6>-->
+<!--                      <small>Web Design</small>-->
+<!--                      <div class="progress mb-3" style="height: 5px">-->
+<!--                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>-->
+<!--                      </div>-->
+<!--                      <small>Website Markup</small>-->
+<!--                      <div class="progress mb-3" style="height: 5px">-->
+<!--                        <div class="progress-bar bg-primary" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>-->
+<!--                      </div>-->
+<!--                      <small>One Page</small>-->
+<!--                      <div class="progress mb-3" style="height: 5px">-->
+<!--                        <div class="progress-bar bg-primary" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>-->
+<!--                      </div>-->
+<!--                      <small>Mobile Template</small>-->
+<!--                      <div class="progress mb-3" style="height: 5px">-->
+<!--                        <div class="progress-bar bg-primary" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>-->
+<!--                      </div>-->
+<!--                      <small>Backend API</small>-->
+<!--                      <div class="progress mb-3" style="height: 5px">-->
+<!--                        <div class="progress-bar bg-primary" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="col-sm-6 mb-3">-->
+<!--                  <div class="card h-100">-->
+<!--                    <div class="card-body">-->
+<!--                      <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project Status</h6>-->
+<!--                      <small>Web Design</small>-->
+<!--                      <div class="progress mb-3" style="height: 5px">-->
+<!--                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>-->
+<!--                      </div>-->
+<!--                      <small>Website Markup</small>-->
+<!--                      <div class="progress mb-3" style="height: 5px">-->
+<!--                        <div class="progress-bar bg-primary" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>-->
+<!--                      </div>-->
+<!--                      <small>One Page</small>-->
+<!--                      <div class="progress mb-3" style="height: 5px">-->
+<!--                        <div class="progress-bar bg-primary" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>-->
+<!--                      </div>-->
+<!--                      <small>Mobile Template</small>-->
+<!--                      <div class="progress mb-3" style="height: 5px">-->
+<!--                        <div class="progress-bar bg-primary" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>-->
+<!--                      </div>-->
+<!--                      <small>Backend API</small>-->
+<!--                      <div class="progress mb-3" style="height: 5px">-->
+<!--                        <div class="progress-bar bg-primary" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>-->
+<!--                      </div>-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+            </div>
+          </div>
+
+        </div>
+    </div>
+<!--https://www.youtube.com/watch?v=BOx0wAXink8-->
+
+{% endblock %}

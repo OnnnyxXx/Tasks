@@ -22,7 +22,10 @@ from .models import *
 
 def tasks_home(request):
     tasks_all = Articles.objects.order_by('-data')
-    return render(request, 'tasks_app_user/tasks_home.html', {"tasks_all": tasks_all})
+    context = {
+        'tasks_all': tasks_all
+    }
+    return render(request, 'tasks_app_user/tasks_home.html', context)
 
 
 # AutoDeleteTasks
@@ -105,6 +108,7 @@ def logout_user(request):
     return redirect('login')
 
 
+
 @login_required
 def profile(request):
     profile = request.user.profile
@@ -133,3 +137,19 @@ def User_View(request):
     context = {'form': form}
 
     return render(request, 'tasks_app_user/home_user.html', context)
+
+
+def user_profile(request, username):
+    user = get_object_or_404(User, username=username)
+    profile = user.profile
+    form = ProfileForm(instance=profile)
+
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('user_home')
+
+    context = {'form': form, 'profile': profile}
+
+    return render(request, 'tasks_app_user/user_profile.html', context)

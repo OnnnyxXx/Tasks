@@ -9,7 +9,8 @@ class Articles(models.Model):
     prise = models.CharField('Цена', max_length=15)
     full_text = models.TextField("Задания")
     data = models.DateTimeField(auto_now_add=True)
-    user_name = models.CharField("User_name", max_length=15,)
+    user_name = models.CharField("User_name", max_length=15, )
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)  # Внешний ключ к пользователю
 
     def __str__(self):
         return self.title
@@ -17,6 +18,12 @@ class Articles(models.Model):
     class Meta:
         verbose_name = "Задания"
         verbose_name_plural = "Задании"
+
+    def save(self, *args, **kwargs):
+        # Автоматически заполняем поле author при сохранении статьи
+        if not self.author:
+            self.author = User.objects.get(username=self.user_name)
+        super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return f'/tasks/{self.id}'
@@ -30,7 +37,8 @@ class Profile(models.Model):
     telegram_url = models.URLField(blank=True, null=True)
     youtube_url = models.URLField(blank=True, null=True)
     vk_url = models.URLField(blank=True, null=True)
-    profile_picture = models.ImageField("Изображения", default="logo.jpg", null=True, blank=True, upload_to='media/profile_pictures')
+    profile_picture = models.ImageField("Изображения", default="logo.jpg", null=True, blank=True,
+                                        upload_to='media/profile_pictures')
 
     def __str__(self):
         return self.user.username

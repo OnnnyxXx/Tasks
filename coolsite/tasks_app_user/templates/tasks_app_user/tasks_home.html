@@ -138,15 +138,7 @@ img {
     {% if tasks_all %}
         {% for el in tasks_all %}
             <div class="alert alert-dark">
-            {% if el.user_name == user.username %}
-            <div class="img_pod">
-              <img class="profile-pic" src="{{ user.profile.profile_picture.url }}">
-            </div>
-                {% else %}
-<!--                <div class="img_pod">-->
-<!--                    <img src="https://www.meme-arsenal.com/memes/4cdee02fbf6649b4e2c7b597f9d4d143.jpg" alt="UPS">-->
-<!--                </div>-->
-            {% endif %}
+            <a href="{% url 'user_profile' el.user_name %}">Профиль автора</a>
                 <p>Пользователь {{ el.user_name }}</p>
                 <h3>{{ el.title }}</h3>
                 <p>Что взять с собой ({{ el.anons }})</p>
