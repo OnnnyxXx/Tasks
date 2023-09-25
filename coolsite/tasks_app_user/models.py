@@ -37,8 +37,8 @@ class Profile(models.Model):
     telegram_url = models.URLField(blank=True, null=True)
     youtube_url = models.URLField(blank=True, null=True)
     vk_url = models.URLField(blank=True, null=True)
-    profile_picture = models.ImageField("Изображения", default="logo.jpg", null=True, blank=True,
-                                        upload_to='media/profile_pictures')
+    profile_picture = models.ImageField("Изображения", default="profile_pictures/default_profile_picture.jpg", null=True,
+                                        blank=True, upload_to='media/profile_pictures')
 
     def __str__(self):
         return self.user.username
