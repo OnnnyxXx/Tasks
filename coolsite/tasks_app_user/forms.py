@@ -1,4 +1,4 @@
-from .models import Articles, Profile
+from .models import Articles, Profile, Comment
 from django.forms import ModelForm, TextInput, Textarea, EmailInput, URLInput
 
 from django import forms
@@ -80,11 +80,25 @@ class ProfileForm(forms.ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Ваш Вк (Не обязательно)'
             }),
-
-
-
-
         }
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content', 'stars']
+        widgets = {
+            "content": Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Отзыв'
+            }),
+            "stars": TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Звезды',
+
+            })
+        }
+
 
 # class SignUpForm(UserCreationForm):
 #   email = forms.CharField(max_length=254, required=True, widget=forms.EmailInput())

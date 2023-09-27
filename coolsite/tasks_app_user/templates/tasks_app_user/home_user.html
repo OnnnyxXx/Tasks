@@ -280,7 +280,43 @@ ol, ul {
                   </div>
                 </div>
               </div>
+<details>
+    <summary>Отзывы</summary>
+    {% if reviews %}
+        {% for review in reviews %}
+            <div class="container1">
+                <img class='container img' src="{{ review.author.profile.profile_picture.url }}" alt="Avatar" style="width:90px">
+                <p>Author: <a href="{% url 'user_profile' review.author.username %}">{{ review.author.username }}</a></p>
+<!--                <p>{{ review.profile }}</p>-->
+                <p>{{ review.content|linebreaks|urlize }}</p>
 
+                {% if review.stars == 5 %}
+                    <p>Rating: <span class="required">☆☆☆☆☆</span></p>
+                {% endif %}
+
+                {% if review.stars == 4 %}
+                    <p>Rating: <span class="required">☆☆☆☆</span></p>
+                {% endif %}
+
+                {% if review.stars == 3 %}
+                     <p>Rating: <span class="required">☆☆☆</span></p>
+                {% endif %}
+
+                {% if review.stars == 2 %}
+                    <p>Rating: <span class="required">☆☆</span></p>
+                {% endif %}
+
+                {% if review.stars == 1 %}
+                    <p>Rating: <span class="required">☆</span></p>
+                {% endif %}
+
+                <p>Дата публикации: {{ review.created_at }}</p>
+            </div>
+    {% endfor %}
+    {% else %}
+    <p>У тебя еще нет отзывов, чмо ленивое, упс, прости за правду</p>
+    {% endif %}
+  </details>
 <!--Древо  со скилами-->
 <!--              <div class="row gutters-sm">-->
 <!--                <div class="col-sm-6 mb-3">-->

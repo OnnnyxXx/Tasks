@@ -139,7 +139,7 @@ nav justify-content-left{
     top: 0;
     left: -360px;
     background: black;
-    transition: all 1.5s;
+    transition: all 0.5s;
     width: 320px;
     height: 100vh;
     box-shadow: 10px 0 20px rgba(0,0,0,0.4);

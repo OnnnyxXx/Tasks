@@ -1,8 +1,9 @@
 from django.contrib.auth.views import LoginView
 from django.http import HttpResponseForbidden
 from django.urls import reverse_lazy
+from django.views import View
 
-from .forms import ArticlesForm, RegisterUserForm, LoginUserForm, ProfileForm
+from .forms import ArticlesForm, RegisterUserForm, LoginUserForm, ProfileForm, CommentForm
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 
 from django.shortcuts import render, redirect, get_object_or_404
@@ -108,7 +109,6 @@ def logout_user(request):
     return redirect('login')
 
 
-
 @login_required
 def profile(request):
     profile = request.user.profile
@@ -126,6 +126,8 @@ def profile(request):
 
 def User_View(request):
     profile = request.user.profile
+    reviews = Comment.objects.filter(profile=profile).order_by('-created_at')
+
     form = ProfileForm(instance=profile)
 
     if request.method == 'POST':
@@ -134,7 +136,7 @@ def User_View(request):
             form.save()
             return redirect('user_home')
 
-    context = {'form': form}
+    context = {'form': form, 'reviews': reviews}
 
     return render(request, 'tasks_app_user/home_user.html', context)
 
@@ -142,6 +144,8 @@ def User_View(request):
 def user_profile(request, username):
     user = get_object_or_404(User, username=username)
     profile = user.profile
+    reviews = Comment.objects.filter(profile=profile).order_by('-created_at')
+
     form = ProfileForm(instance=profile)
 
     if request.method == 'POST':
@@ -150,6 +154,26 @@ def user_profile(request, username):
             form.save()
             return redirect('user_home')
 
-    context = {'form': form, 'profile': profile}
+    context = {'form': form, 'profile': profile, 'reviews': reviews}
 
     return render(request, 'tasks_app_user/user_profile.html', context)
+
+
+def AddCommentView(request, username):
+    user = get_object_or_404(User, username=username)
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            author = request.user
+            profile = user.profile  # Get the profile of the user being reviewed
+            content = form.cleaned_data['content']
+            stars = form.cleaned_data['stars']
+            Comment.objects.create(author=author, profile=profile, content=content, stars=stars)
+            return redirect('user_profile', user.username)
+
+    else:
+        form = CommentForm()
+
+    return render(request, 'tasks_app_user/user_reviews.html', {'form': form, 'user': user})
