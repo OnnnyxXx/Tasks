@@ -13,13 +13,18 @@
 
 
 }
-	.profile-pic{
-		max-width: 205px;
-		max-height:200px;
-
-        border-radius: 50%;
-		height: auto;
-		transform: scale(1);
+.profile-pic{
+  height: 110px;
+  width: 110px;
+  background: linear-gradient(90deg, #ff9966, #ff5e62);
+  z-index: 10;
+  box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
+  border-radius: 100%;
+  left: -10%;
+  top: -13%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 	}
 .main-body {
     padding: 15px;
@@ -172,6 +177,9 @@ ol, ul {
     float: none;
     display: block;
   }
+}
+.required {
+  color: red;
 }
 </style>
 <div class="container">

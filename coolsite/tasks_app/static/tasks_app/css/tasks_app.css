@@ -121,9 +121,10 @@ nav justify-content-left{
     }
 
 .nav-img {
-    max-width: 25px;
+    max-width: 60px;
     border-radius: 55%;
-	width: 40;
+    width: 40;
+    height: 32px;
 
 }
 

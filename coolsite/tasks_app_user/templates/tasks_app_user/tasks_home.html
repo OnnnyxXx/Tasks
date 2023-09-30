@@ -17,25 +17,27 @@
 }
 
 .img_pod {
-  height: 70px;
-  width: 69px;
+  height: 110px;
+  width: 110px;
+  background: linear-gradient(90deg, #ff9966, #ff5e62);
   z-index: 10;
-  box-shadow: 1px 1px 5rem rgba(255, 0, 0, 0.71);
+  box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
   border-radius: 100%;
   position: absolute;
-  left: 1%;
-  top: 0px;
+  left: -10%;
+  top: -13%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 img {
-  width: 3.3rem;
+  width: 6.3rem;
   position: relative;
   border-radius: 100%;
-  box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
+  box-shadow: 1px 1px 2rem rgba(255, 10, 10, 0.3);
   z-index: 1;
+  height: 100px;
 }
 
 h3 {
@@ -74,7 +76,7 @@ p {
 
 .features {
     padding: 1em;
-    padding: 1em;
+    padding: 4em;
     width: 60%;
     margin: auto;
     text-align: center;
@@ -101,11 +103,12 @@ p {
   justify-content: center;
 }
 img {
-  width: 2.3rem;
+  width: 3.3rem;
   position: relative;
   border-radius: 100%;
   box-shadow: 1px 1px 2rem rgba(140, 0, 0, 0.9);
   z-index: 1;
+  height: 100%;
 }
 }
 
@@ -131,14 +134,35 @@ img {
   z-index: 1;
 }
 
+
     }
 }
+@media (max-width: 335px){
+.btn_primary {
+  border: none;
+  outline: none;
+  background: linear-gradient(90deg, #ff9966, #ff5e62);
+  padding: 0.7rem;
+  border-radius: 50px;
+  color: white;
+  font-size: 1.0rem;
+  box-shadow: 1px 10px 2rem rgba(255, 94, 98, 0.5);
+  transition: all 0.2s ease-in;
+  text-decoration: none;
+
+}
+
+}
+
 </style>
 <div class="features">
     {% if tasks_all %}
         {% for el in tasks_all %}
             <div class="alert alert-dark">
-            <a href="{% url 'user_profile' el.user_name %}">Профиль автора</a>
+                <div class="img_pod">
+            <img class="profile-pic" src="{{ el.author.profile.profile_picture.url }}" alt="Profile Picture">
+                </div>
+                    <a href="{% url 'user_profile' el.user_name %}">Профиль автора</a>
                 <p>Пользователь {{ el.user_name }}</p>
                 <h3>{{ el.title }}</h3>
                 <p>Что взять с собой ({{ el.anons }})</p>
