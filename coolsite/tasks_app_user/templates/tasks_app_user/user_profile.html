@@ -164,18 +164,7 @@ ol, ul {
     margin-right: 15px;
 }
 
-/* Add media queries for responsiveness. This will center both the text and the image inside the container */
-@media (max-width: 500px) {
-  .container1 {
-    text-align: center;
-  }
 
-  .container img {
-    margin: auto;
-    float: none;
-    display: block;
-  }
-}
 
 p {
    margin-top: 12px;
@@ -222,6 +211,12 @@ p {
 
 .required {
     color: red;
+    font-size: 50px;
+
+}
+a {
+    text-decoration: none; /* Убираем подчеркивание ссылок */
+    color: #333; /* Цвет текста ссылок */
 }
 </style>
 <div class="container">
@@ -314,7 +309,7 @@ p {
 <!--                  <hr>-->
                   <div class="row">
                       {% if user.username != profile.user.username %}
-                          <a class="btn btn-dark" href="{% url 'add_comment' profile.user.username %}">Оставить отзыв для {{ profile.user.username }}</a>
+                          <a class="btn btn-dark" href="{% url 'add_comment' profile.user.username %}">Оставить отзыв</a>
                       {% endif %}
                     <div class="col-sm-12">
                     </div>
@@ -326,8 +321,10 @@ p {
     {% if reviews %}
         {% for review in reviews %}
             <div class="container1">
+                <a href="{% url 'user_profile' review.author.username %}">
                 <img class='container img' src="{{ review.author.profile.profile_picture.url }}" alt="Avatar" style="width:90px">
-                <p>Author: <a href="{% url 'user_profile' review.author.username %}">{{ review.author.username }}</a></p>
+                </a>
+                <a href="{% url 'user_profile' review.author.username %}">{{ review.author.profile.first_name }}  {{ review.author.profile.last_name }}</a>
 <!--                <p>{{ review.profile }}</p>-->
                 <p>{{ review.content|linebreaks|urlize }}</p>
 
