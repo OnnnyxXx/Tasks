@@ -40,7 +40,6 @@ class ArticlesForm(ModelForm):
                 "readonly": 'readonly'
             }),
 
-
         }
 
     def __init__(self, *args, **kwargs):
@@ -81,6 +80,19 @@ class ProfileForm(forms.ModelForm):
                 'placeholder': 'Ваш Вк (Не обязательно)'
             }),
         }
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+        super(ProfileForm, self).__init__(*args, **kwargs)
+        if user and user.is_authenticated:
+            self.fields['email'].widget.attrs['value'] = user.email
+            self.fields['first_name'].widget.attrs['value'] = user.first_name
+            self.fields['last_name'].widget.attrs['value'] = user.last_name
+
+            # Проверяем, что у пользователя есть профиль
+            if hasattr(user, 'profile'):
+                profile = user.profile
+                self.fields['profile_picture'].widget.attrs['value'] = profile.profile_picture
 
 
 class CommentForm(forms.ModelForm):

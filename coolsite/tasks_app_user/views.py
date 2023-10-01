@@ -111,14 +111,16 @@ def logout_user(request):
 
 @login_required
 def profile(request):
-    profile = request.user.profile
-    form = ProfileForm(instance=profile)
+    user = request.user
+    profile = user.profile if hasattr(user, 'profile') else None  # Проверяем наличие профиля
 
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
             return redirect('user_home')
+    else:
+        form = ProfileForm(instance=profile, user=user)  # Передача пользователя в форму
 
     context = {'form': form}
     return render(request, 'tasks_app_user/profile.html', context)
