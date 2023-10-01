@@ -96,6 +96,7 @@
     fill: #BFE2FF;
 }
 </style>
+    {% if request.user.is_authenticated %}
 <div class="features">
 
   <h2>Add a Review:</h2>
@@ -173,7 +174,9 @@
   </form>
 
 </div>
-
+        {% else %}
+            <h1>Вы не сможете продолжить, пока не войдёте в свой профиль</h1>
+{% endif %}
 
 
 

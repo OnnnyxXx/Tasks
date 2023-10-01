@@ -6,173 +6,93 @@
 
 {% block content %}
 <style>
-
-.blog_post {
-  background: #fff;
-  max-width: 500px;
-  border-radius: 10px;
-  box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
-  position: relative;
-
-}
-
-.img_pod {
-  height: 110px;
-  width: 110px;
-  background: linear-gradient(90deg, #ff9966, #ff5e62);
-  z-index: 10;
-  box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
-  border-radius: 100%;
-  position: absolute;
-  left: -10%;
-  top: -13%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-img {
-  width: 6.3rem;
-  position: relative;
-  border-radius: 100%;
-  box-shadow: 1px 1px 2rem rgba(255, 10, 10, 0.3);
-  z-index: 1;
-  height: 100px;
-}
-
-h3 {
-  margin: 0 0 0.5rem 0;
-  color: #999;
-
-}
-
-h1 {
-  margin: 0 0 1rem 0;
-  font-size: 2.5rem;
-  letter-spacing: 0.5px;
-  color: #333;
-}
-
-p {
-  margin: 0 0 2.5rem 0;
-  line-height: 1.45;
-  color: #333;
-
-}
-
-.btn_primary {
-  border: none;
-  outline: none;
-  background: linear-gradient(90deg, #ff9966, #ff5e62);
-  padding: 0.9rem 1rem;
-  border-radius: 50px;
-  color: white;
-  font-size: 1.0rem;
-  box-shadow: 1px 10px 2rem rgba(255, 94, 98, 0.5);
-  transition: all 0.2s ease-in;
-  text-decoration: none;
-
-}
-
 .features {
     padding: 1em;
-    padding: 4em;
     width: 60%;
     margin: auto;
-    text-align: center;
+    border-radius: 10px; /* Добавляем скругление краев */
+    text-align: left; /* Выравниваем текст по левому краю */
     box-sizing: content-box;
 }
-.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
-  margin-top: 0;
-  margin-bottom: 1.5rem;
-  font-weight: 500;
-  line-height: 1.2;
-}
-@media (max-width: 600px) {
+
+/* Стили для фотографии и информации о пользователе */
 .img_pod {
-  height: 53px;
-  width: 45px;
-  z-index: 10;
-  box-shadow: 1px 1px 5rem rgba(255, 0, 0, 0.79);
-  border-radius: 100%;
-  position: absolute;
-  left: -5%;
-  top: -12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-img {
-  width: 3.3rem;
-  position: relative;
-  border-radius: 100%;
-  box-shadow: 1px 1px 2rem rgba(140, 0, 0, 0.9);
-  z-index: 1;
-  height: 100%;
-}
+    float: left; /* Размещаем фото слева */
+    margin-right: 20px; /* Расстояние между фото и информацией */
+    width: 80px; /* Уменьшаем ширину фото */
+    height: 80px; /* Уменьшаем высоту фото */
+    background: linear-gradient(90deg, #ff9966, #ff5e62);
+    border-radius: 50%; /* Создаем круглое фото */
+    box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
 }
 
-@media (max-width: 300px) {
-.img_pod {
-  height: 64px;
-  width: 57px;
-  z-index: 10;
-  box-shadow: 1px 1px 5rem rgba(255, 0, 0, 0.71);
-  border-radius: 100%;
-  position: absolute;
-  left: -8%;
-  top: -20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-img {
-  width: 2.3rem;
-  position: relative;
-  border-radius: 100%;
-  box-shadow: 1px 1px 2rem rgba(140, 0, 0, 0.9);
-  z-index: 1;
+.profile-pic {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%; /* Круглое фото */
 }
 
-
-    }
+/* Стили для заголовка и остальной информации */
+h3, h4, p {
+    font-size: 0.9rem; /* Уменьшаем размер шрифта для title, prise, anons */
+    margin: 12px;
 }
-@media (max-width: 335px){
+
+a {
+    text-decoration: none; /* Убираем подчеркивание ссылок */
+    color: #333; /* Цвет текста ссылок */
+}
+
 .btn_primary {
-  border: none;
-  outline: none;
-  background: linear-gradient(90deg, #ff9966, #ff5e62);
-  padding: 0.7rem;
-  border-radius: 50px;
-  color: white;
-  font-size: 1.0rem;
-  box-shadow: 1px 10px 2rem rgba(255, 94, 98, 0.5);
-  transition: all 0.2s ease-in;
-  text-decoration: none;
-
+    border: none;
+    outline: none;
+    background: linear-gradient(90deg, #ff9966, #ff5e62);
+    padding: 0.7rem 1rem; /* Уменьшаем отступы кнопки */
+    border-radius: 50px;
+    color: white;
+    font-size: 1.0rem;
+    box-shadow: 1px 10px 2rem rgba(255, 94, 98, 0.5);
+    transition: all 0.2s ease-in;
 }
 
+.alert {
+    margin-bottom: 20px; /* Добавляем отступ между блоками */
+}
+@media(max-width: 470px) {
+.features {
+  padding: 1em;
+  width: 75%;
+  margin: auto;
+  border-radius: 10px;
+  text-align: left;
+  box-sizing: content-box;
+}
+h3, h4, p {
+  font-size: 0.9rem;
+  margin: 4px;
+}
 }
 
 </style>
 <div class="features">
     {% if tasks_all %}
         {% for el in tasks_all %}
-            <div class="alert alert-dark">
+            <div class="alert alert-dark" onclick="window.location.href='{% url 'details_tasks' el.id %}'" style="cursor: pointer;">
                 <div class="img_pod">
-            <img class="profile-pic" src="{{ el.author.profile.profile_picture.url }}" alt="Profile Picture">
+                    <a href="{% url 'user_profile' el.user_name %}">
+                        <img class="profile-pic" src="{{ el.author.profile.profile_picture.url }}" alt="Profile Picture">
+                    </a>
                 </div>
-                    <a href="{% url 'user_profile' el.user_name %}">Профиль автора</a>
-                <p>Пользователь {{ el.user_name }}</p>
-                <h3>{{ el.title }}</h3>
-                <p>Что взять с собой ({{ el.anons }})</p>
-                <h4>{{ el.prise }} ₽</h4>
-        <a class="btn_primary" href="{% url 'details_tasks' el.id %}">Читать полностью</a>
+                <a href="{% url 'user_profile' el.user_name %}">{{ el.author.profile.first_name }} {{ el.author.profile.last_name }}</a>
+
+                <h3>Название: {{ el.title }}</h3><br>
+                <h4>Цена: {{ el.prise }} ₽</h4>
             </div>
         {% endfor %}
-        {% else %}
-            <p>Нет задания!</p>
-        {% endif %}
-
+    {% else %}
+        <p>Нет задания!</p>
+    {% endif %}
 </div>
+
+
 {% endblock %}

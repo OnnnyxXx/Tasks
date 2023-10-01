@@ -4,87 +4,71 @@
 {% block content %}
 <style>
     .blog_post {
-  background: #fff;
-  max-width: max-content;
-  border-radius: 10px;
-  box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
-  position: relative;
-  margin: 0 auto;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
+        margin: 0 auto;
+        padding: 20px;
+        display: flex;
+        flex-direction: row; /* Оставляем горизонтальное расположение */
+    }
+
+    .container_copy {
+        flex: 1; /* Растягиваем блоки внутри .blog_post для равного распределения места */
+        padding: 10px; /* Уменьшаем внутренний отступ для сохранения компактного вида */
+    }
+
+    .vertical-line {
+        border-left: 1px solid #999;
+        margin-left: 20px;
+        padding-left: 20px;
+    }
+
+    .right-content {
+        flex: 1;
+        padding: 10px;
+    }
+
+@media screen and (max-width: 768px) {
+    .blog_post {
+        flex-direction: column; /* Переключение на вертикальное расположение на узких экранах */
+    }
+    .vertical-line {
+        display: none; /* Скрытие вертикальной линии на узких экранах */
+    }
 }
-
-.img_pod {
-  height: 110px;
-  width: 110px;
-  z-index: 10;
-    box-shadow: 1px 1px 5rem rgba(7, 46, 255, 0.71);
-  border-radius: 100%;
-  position: absolute;
-  left: -10%;
-  top: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+h3, h4, p {
+    color: black;
 }
+hr {
 
-img {
-  width: 4.3rem;
-  position: relative;
-  border-radius: 100%;
-  box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
-  z-index: 1;
+  color: black;
 }
-
-h3 {
-  margin: 0 0 0.5rem 0;
-  color: #999;
-}
-
-h1 {
-  margin: 0 0 1rem 0;
-  font-size: 2.5rem;
-  letter-spacing: 0.5px;
-  color: #333;
-}
-
-p {
-  margin: 0 0 2.5rem 0;
-  line-height: 1.45;
-  color: #333;
-
-}
-
-.btn_primary {
-  border: none;
-  outline: none;
-  background: linear-gradient(90deg, #ff9966, #ff5e62);
-  padding: 0.9rem 1rem;
-  border-radius: 50px;
-  color: white;
-  font-size: 1.2rem;
-  box-shadow: 1px 10px 2rem rgba(255, 94, 98, 0.5);
-  transition: all 0.2s ease-in;
-  text-decoration: none;
-}
-
-
 </style>
 <div class="features">
-<div class="blog_post">
-<!--  <div class="img_pod">-->
-<!--      <img src="{{ request.user.profile.profile_picture.url }}">-->
-<!--  </div>-->
-  <div class="container_copy">
-        <h1>{{ article.title }}</h1><br>
-        <p>{{ article.full_text|linebreaks|urlize  }} </p>
-         <p>Цена-{{ article.prise }}₽</p>
-       <p>Позвонить заказчику {{ article.phope }}</p>
-        <p>Дата публикации {{ article.data }}</p>
-        {% if article.user_name == user.username %}
-            <a href="{% url 'delete_tasks' article.id %}" class="btn btn-danger">Удалить задания</a>
-            <a href="{% url 'update_tasks' article.id %}" class="btn btn-info">Редактировать задания</a>
-        {% endif %}
-            </div>
-  </div>
 
+    <div class="blog_post">
+        <div class="container_copy">
+            <p>{{ article.full_text|linebreaks|urlize }}</p>
+            {% if article.user_name == user.username %}
+                <a href="{% url 'delete_tasks' article.id %}" class="btn btn-danger">Удалить задания</a>
+                <a href="{% url 'update_tasks' article.id %}" class="btn btn-info">Редактировать задания</a>
+            {% endif %}
+        </div>
+
+        <div class="vertical-line"></div> <!-- Vertical line to separate content -->
+
+        <div class="container_copy right-content">
+            <p>Что взять с собой: ({{ article.anons }})</p>
+            <hr>
+            <p>Цена: {{ article.prise }}₽</p>
+            <hr>
+            <p>Связаться: {{ article.phope }}</p>
+            <hr>
+            <p>Дата публикации: {{ article.data }}</p>
+            <hr>
+        </div>
+    </div>
 </div>
+
 {% endblock %}
