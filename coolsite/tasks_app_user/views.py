@@ -1,5 +1,5 @@
 from django.contrib.auth.views import LoginView
-from django.http import HttpResponseForbidden
+from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views import View
 
@@ -17,7 +17,8 @@ from datetime import timedelta
 from django.contrib.auth.decorators import login_required
 
 from django.views.generic.detail import DetailView
-
+from django.utils.decorators import method_decorator
+from django.http import Http404
 from .models import *
 
 
@@ -35,17 +36,39 @@ def tasks_home(request):
 
 
 # UpdateTasks
+@method_decorator(login_required, name='dispatch')
 class TasksUpdateView(UpdateView):
     model = Articles
     template_name = 'tasks_app_user/create.html'
     form_class = ArticlesForm
 
+    def dispatch(self, request, *args, **kwargs):
+        # Get the article object
+        Articles = self.get_object()
+
+        # Check if the current user is the owner of the article
+        if Articles.author != self.request.user:
+            return redirect("tasks_home")
+
+        return super().dispatch(request, *args, **kwargs)
+
 
 # DeleteTasks
+@method_decorator(login_required, name='dispatch')
 class TasksDeleteView(DeleteView):
     model = Articles
-    success_url = '/tasks'
+    success_url = reverse_lazy('tasks_home')  # Replace with your desired URL
     template_name = 'tasks_app_user/delete_tasks.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        # Get the article object
+        Articles = self.get_object()
+
+        # Check if the current user is the owner of the article
+        if Articles.author != self.request.user:
+            return redirect("tasks_home")
+
+        return super().dispatch(request, *args, **kwargs)
 
 
 class TasksDetailView(DetailView, LoginRequiredMixin):
@@ -179,3 +202,54 @@ def AddCommentView(request, username):
         form = CommentForm()
 
     return render(request, 'tasks_app_user/user_reviews.html', {'form': form, 'user': user})
+
+
+# UpdateComment
+@method_decorator(login_required, name='dispatch')
+class CommentUpdateView(UpdateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'tasks_app_user/user_reviews.html'
+    success_url = reverse_lazy('user_profile')
+
+    def dispatch(self, request, *args, **kwargs):
+        # Получить объект комментария
+        comment = self.get_object()
+
+        # Проверьте, является ли текущий пользователь автором комментария
+        if comment.author != self.request.user:
+            return redirect("home")
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_success_url(self):
+        profile = self.object.profile
+        user = profile.user
+        # Redirect to the user profile page of the author of the comment
+        return reverse_lazy('user_profile', kwargs={'username': user.username})
+
+
+# DeleteComment
+
+@method_decorator(login_required, name='dispatch')
+class CommentDeleteView(DeleteView):
+    model = Comment
+    success_url = reverse_lazy('user_profile')
+    template_name = 'tasks_app_user/delete_comment.html'
+
+
+    def dispatch(self, request, *args, **kwargs):
+        # Получить объект комментария
+        comment = self.get_object()
+
+        # Проверьте, является ли текущий пользователь автором комментария
+        if comment.author != self.request.user:
+            return redirect("home")
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_success_url(self):
+        profile = self.object.profile
+        user = profile.user
+        # Redirect to the user profile page of the author of the comment
+        return reverse_lazy('user_profile', kwargs={'username': user.username})

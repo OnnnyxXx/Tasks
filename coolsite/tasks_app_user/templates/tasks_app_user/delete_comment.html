@@ -1,0 +1,18 @@
+{% extends 'tasks_app/layout.html' %}
+
+{% block title %}Удаление отзыва{% endblock %}
+
+{% block content %}
+    <div class="features">
+        {% if request.user.is_authenticated %}
+    <h1>Удалить отзыв ?</h1>
+    <form method="post">
+        {% csrf_token %}<br>
+      <button class="btn btn-success" type="submit">Удалить отзыв</button>
+    </form>
+        {% endif %}
+
+</div>
+
+
+{% endblock %}

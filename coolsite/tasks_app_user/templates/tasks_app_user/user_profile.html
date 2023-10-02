@@ -318,9 +318,14 @@ a {
               </div>
 <details>
     <summary>Отзывы</summary>
+
+
+
     {% if reviews %}
         {% for review in reviews %}
+
             <div class="container1">
+
                 <a href="{% url 'user_profile' review.author.username %}">
                 <img class='container img' src="{{ review.author.profile.profile_picture.url }}" alt="Avatar" style="width:90px">
                 </a>
@@ -349,6 +354,10 @@ a {
                 {% endif %}
 
                 <p>Дата публикации: {{ review.created_at }}</p>
+                {% if user.is_authenticated and user == review.author %}
+                <button><a href="{% url 'update_comment' review.id %}">Редактировать</a></button>
+                <button><a href="{% url 'delete_comment' review.id %}">Удалить</a></button>
+                {% endif %}
             </div>
     {% endfor %}
     {% else %}
