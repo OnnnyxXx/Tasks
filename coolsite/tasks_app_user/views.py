@@ -23,9 +23,12 @@ from .models import *
 
 
 def tasks_home(request):
+    unique_cities = Profile.objects.values_list('city', flat=True).distinct()
     tasks_all = Articles.objects.order_by('-data')
+    unique_cities = [city for city in unique_cities if city is not None]
     context = {
-        'tasks_all': tasks_all
+        'tasks_all': tasks_all,
+        'unique_cities': unique_cities
     }
     return render(request, 'tasks_app_user/tasks_home.html', context)
 

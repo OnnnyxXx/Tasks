@@ -52,7 +52,7 @@ class ArticlesForm(ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['first_name', 'last_name', 'email', 'profile_picture', 'telegram_url', "youtube_url", "vk_url"]
+        fields = ['first_name', 'last_name', 'email', 'city','profile_picture', 'telegram_url', "youtube_url", "vk_url"]
 
         widgets = {
             "first_name": TextInput(attrs={
@@ -79,15 +79,20 @@ class ProfileForm(forms.ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Ваш Вк (Не обязательно)'
             }),
+            "city": TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Ваш город'
+            }),
         }
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
         super(ProfileForm, self).__init__(*args, **kwargs)
         if user and user.is_authenticated:
-            self.fields['email'].widget.attrs['value'] = user.email
-            self.fields['first_name'].widget.attrs['value'] = user.first_name
-            self.fields['last_name'].widget.attrs['value'] = user.last_name
+            self.fields['email'].widget.attrs['value'] = user.email or "PUSTO"
+            self.fields['first_name'].widget.attrs['value'] = user.first_name or "PUSTO"
+            self.fields['last_name'].widget.attrs['value'] = user.last_name or "PUSTO"
+
 
             # Проверяем, что у пользователя есть профиль
             if hasattr(user, 'profile'):

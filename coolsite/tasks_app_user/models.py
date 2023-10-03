@@ -40,6 +40,7 @@ class Profile(models.Model):
     vk_url = models.URLField(blank=True, null=True)
     profile_picture = models.ImageField("Изображения", default="profile_pictures/default_profile_picture.jpg", null=True,
                                         blank=True, upload_to='media/profile_pictures')
+    city = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
         return self.user.username
