@@ -152,10 +152,15 @@ ol, ul {
 }
 
 /* Float images inside the container to the left. Add a right margin, and style the image as a circle */
-.container img {
-    float: left;
-    margin-right: 20px;
+.container_img_user {
     border-radius: 50%;
+    text-align: center; /* Выравнивание по центру */
+    font-style: italic; /* Курсивное начертание */
+    margin-top: 0; /* Отступ сверху */
+    margin-bottom: 5px; /* Отступ снизу */
+    color: #666; /* Цвет подрисуночной подписи */
+    max-width: 80px;
+    max-height: 70px;
 }
 
 /* Increase the font-size of a span element */
@@ -327,7 +332,7 @@ a {
             <div class="container1">
 
                 <a href="{% url 'user_profile' review.author.username %}">
-                <img class='container img' src="{{ review.author.profile.profile_picture.url }}" alt="Avatar" style="width:90px">
+                <img class='container_img_user' src="{{ review.author.profile.profile_picture.url }}" alt="Avatar">
                 </a>
                 <a href="{% url 'user_profile' review.author.username %}">{{ review.author.profile.first_name }}  {{ review.author.profile.last_name }}</a>
 <!--                <p>{{ review.profile }}</p>-->

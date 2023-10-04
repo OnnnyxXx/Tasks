@@ -1,64 +1,76 @@
 {% extends 'tasks_app/layout.html' %}
 
-
 {% block title %}Account Settings{% endblock %}
-
 
 {% block content %}
 
 <style>
-	.profile-pic{
-		max-width: 157px;
-		max-height:200px;
-		margin: auto;
+    .profile-pic {
+        max-width: 157px;
+        max-height: 200px;
+        margin: auto;
+        width: 400;
+        height: auto;
+    }
 
-		width: 400;
-		height: auto;
-	}
-.color-btn {
-  border: none;
-  outline: none;
-  background: linear-gradient(90deg, #0045ea, #f0090f);
-  padding: 0.9rem 1rem;
-  border-radius: 50px;
-  color: white;
-  font-size: 1.0rem;
-  box-shadow: 1px 10px 2rem rgba(255, 94, 98, 0.5);
-  transition: all 0.2s ease-in;
-  text-decoration: none;
-
-}
+    .color-btn {
+        border: none;
+        outline: none;
+        background: linear-gradient(90deg, #0045ea, #f0090f);
+        padding: 0.9rem 1rem;
+        border-radius: 50px;
+        color: white;
+        font-size: 1.0rem;
+        box-shadow: 1px 10px 2rem rgba(255, 94, 98, 0.5);
+        transition: all 0.2s ease-in;
+        text-decoration: none;
+    }
 </style>
 
 <br>
 <div class="row">
-	<div class="col-md-3">
-		<div class="card card-body">
-			<hr>
-			<h3 style="text-align: center">Account Settings</h3>
-			<hr>
-           <img class="profile-pic" src="{{ request.user.profile.profile_picture.url }}" >
-
-		</div>
-	</div>
-	<div class="col-md-9">
-		<div class="card card-body">
-			<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-	<p>Фото: {{ form.profile_picture }}</p>
-    <p>Имя: {{ form.first_name }}</p>
-    <p>Фамилия: {{ form.last_name }}</p>
-    <p>Email: {{ form.email }}</p>
-	<p>Ваш город: {{ form.city }}</p>
-	<p>Вк: {{ form.vk_url }}</p>
-    <p>Телеграмм: {{ form.telegram_url }}</p>
-    <p>Youtube: {{ form.youtube_url }}</p>
-    <button class='color-btn' type="submit">Сохранить</button>
-  			</form>
-		</div>
-	</div>
+    <div class="col-md-3">
+        <div class="card card-body">
+            <hr>
+            <h3 style="text-align: center">Account Settings</h3>
+            <hr>
+            <img class="profile-pic" id="preview" src="{{ request.user.profile.profile_picture.url }}">
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="card card-body">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" id="fileInput" name="profile_picture" accept="image/*" onchange="previewImage()">
+                <p>Имя: {{ form.first_name }}</p>
+                <p>Фамилия: {{ form.last_name }}</p>
+                <p>Email: {{ form.email }}</p>
+                <p>Ваш город: {{ form.city }}</p>
+                <p>Вк: {{ form.vk_url }}</p>
+                <p>Телеграмм: {{ form.telegram_url }}</p>
+                <p>Youtube: {{ form.youtube_url }}</p>
+                <button class='color-btn' type="submit">Сохранить</button>
+            </form>
+        </div>
+    </div>
 </div>
 
-<!--https://www.youtube.com/watch?v=BOx0wAXink8-->
+<script>
+    function previewImage() {
+        var preview = document.getElementById('preview');
+        var fileInput = document.getElementById('fileInput');
+        var file = fileInput.files[0];
+        var reader = new FileReader();
 
+        reader.onloadend = function () {
+            preview.src = reader.result;
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = "{{ request.user.profile.profile_picture.url }}";
+        }
+    }
+</script>
 {% endblock %}
