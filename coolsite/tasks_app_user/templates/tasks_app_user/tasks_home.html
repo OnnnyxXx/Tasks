@@ -72,27 +72,29 @@ h3, h4, p {
   margin: 4px;
 }
 }
-.city {
-
+#no-tasks-message {
+    display: none;
+    text-align: center; /* Выравниваем текст по центру */
+    font-size: 1.2rem; /* Увеличиваем размер шрифта */
+    margin-top: 20px; /* Добавляем отступ сверху для разделения от других элементов */
+    color: Black; /* Цвет текста можно настроить по вашему выбору */
 }
 </style>
-
-
-
 <div class="features">
-    <form method="GET" >
-    <div>
-        <select id="city_filter" name="city" onchange="filterTasks(this.value)" style="position: absolute; top: 10px; right: 10px;">        <option value="">Все города</option>
-
-            {% for city in unique_cities %}
-                <option value="{{ city }}">{{ city }}</option>
-            {% endfor %}
-        </select>
-    </div>
-</form>
-    {% if tasks_all %}
-        {% for el in tasks_all %}
-            <div class="alert alert-dark" onclick="window.location.href='{% url 'details_tasks' el.id %}'" style="cursor: pointer;">
+    <form method="GET">
+        <div>
+            <select id="city_filter" name="city" onchange="filterTasks(this.value)" style="position: absolute; top: 10px; right: 10px;">
+                <option value="">Все города</option>
+                {% for city in unique_cities %}
+                    <option value="{{ city }}">{{ city }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </form>
+    <div id="tasks-container"> <!-- Оберните задания в контейнер для управления их видимостью -->
+        {% if tasks_all %}
+            {% for el in tasks_all %}
+                <div class="alert alert-dark" onclick="window.location.href='{% url 'details_tasks' el.id %}'" style="cursor: pointer;">
                 <div class="img_pod">
                     <a href="{% url 'user_profile' el.user_name %}">
                         <img class="profile-pic" src="{{ el.author.profile.profile_picture.url }}" alt="Profile Picture">
@@ -105,11 +107,11 @@ h3, h4, p {
                 <div class="city" align="right">{{ el.author.profile.city }}</div>
 
 
-            </div>
-        {% endfor %}
-    {% else %}
-        <p>Нет задания!</p>
-    {% endif %}
+             </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <p id="no-tasks-message" style="display: none; text-align: center; font-size: 1.2rem;">В этом городе нет заданий</p>
 </div>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -119,18 +121,29 @@ h3, h4, p {
         });
     });
 
-    function filterTasks(selectedCity) {
-        var elements = document.getElementsByClassName("alert");
-        for (var i = 0; i < elements.length; i++) {
-            var element = elements[i];
-            var cityElement = element.querySelector(".city");
-            if (!selectedCity || cityElement.textContent.trim() === selectedCity) {
-                element.style.display = "block";
-            } else {
-                element.style.display = "none";
-            }
+function filterTasks(selectedCity) {
+    var elements = document.getElementsByClassName("alert");
+    var noTasksMessage = document.getElementById("no-tasks-message");
+    var tasksFound = false; // Флаг для отслеживания наличия заданий
+
+    for (var i = 0; i < elements.length; i++) {
+        var element = elements[i];
+        var cityElement = element.querySelector(".city");
+        if (!selectedCity || cityElement.textContent.trim() === selectedCity) {
+            element.style.display = "block";
+            tasksFound = true; // Установите флаг, если найдено хотя бы одно задание
+        } else {
+            element.style.display = "none";
         }
     }
+
+    // Отобразите или скройте сообщение в зависимости от наличия заданий
+    if (tasksFound) {
+        noTasksMessage.style.display = "none";
+    } else {
+        noTasksMessage.style.display = "block";
+    }
+}
 </script>
 
 
