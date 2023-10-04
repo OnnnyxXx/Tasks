@@ -1,0 +1,43 @@
+{% extends 'tasks_app/layout.html' %}
+
+{% block title %}Сообщения{% endblock %}
+
+{% block content %}
+<style>
+    /* Фон белого цвета */
+    body {
+        background-color: white;
+    }
+
+    /* Стиль для фотографии */
+    .profile-pic {
+        width: 40px; /* Можете изменить размер по своему усмотрению */
+        height: 40px;
+        border-radius: 50%; /* Круглое фото */
+        margin-right: 10px; /* Отступ между фотографией и текстом сообщения */
+    }
+</style>
+<h1 class="mb-6 text-3xl">Сообщения</h1>
+
+<div class="space-y-6">
+    {% for conversation in conversations %}
+        <a href="{% url 'detail' conversation.id %}">
+            <div class="p-6 flex bg-gray-100 rounded-xl">
+                <div class="pr-6">
+                    <img class="profile-pic " src="{{ conversation.item.author.profile.profile_picture.url }}">
+                </div>
+
+                <div>
+                    {% for member in conversation.members.all %}
+                        {% if member != request.user %}
+<!--                            <p class="mb-2 text-lg"><strong>{{ member.first_name }} {{ member.last_name }}</strong></p>-->
+                            <p class="mb-1 text-sm">{{ member.username }} | {{ conversation.modified_at }}</p>
+                            <p class="text-sm">{{ conversation.item.name }}</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+</div>
+{% endblock %}

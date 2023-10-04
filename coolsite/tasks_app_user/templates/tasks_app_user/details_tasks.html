@@ -67,6 +67,7 @@ hr {
             <hr>
             <p>Дата публикации: {{ article.data }}</p>
             <hr>
+            <a href="{% url 'new' article.id %}" class="btn btn-info">Откликнуться</a>
         </div>
     </div>
 </div>

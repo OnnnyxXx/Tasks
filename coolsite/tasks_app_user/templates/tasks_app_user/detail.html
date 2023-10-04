@@ -1,0 +1,63 @@
+{% extends 'tasks_app/layout.html' %}
+
+{% block title %}Чат{% endblock %}
+
+{% block content %}
+<style>
+    /* Фон белого цвета */
+    body {
+        background-color: white;
+    }
+
+    /* Поле для заполнения текста снизу экрана */
+    textarea {
+        width: 100%;
+        height: 50px; /* Можете изменить высоту по своему усмотрению */
+        resize: none;
+    }
+
+    /* Мои сообщения справа, а сообщения собеседника слева */
+    .message-container {
+        display: flex;
+        justify-content: flex-end; /* Мои сообщения справа */
+        margin-bottom: 10px; /* Отступ между сообщениями */
+    }
+
+    .message-container.left {
+        justify-content: flex-start; /* Сообщения собеседника слева */
+    }
+
+    /* Стиль для фотографии */
+    .profile-pic {
+        width: 40px; /* Можете изменить размер по своему усмотрению */
+        height: 40px;
+        border-radius: 50%; /* Круглое фото */
+        margin-right: 10px; /* Отступ между фотографией и текстом сообщения */
+    }
+.container_chat{
+    padding: 39px;
+    margin: 39px;
+    background-color: #000000ab;
+}
+</style>
+<h1 class="mb-6 text-3xl">Беседа</h1>
+<div class="container_chat">
+    <div class="space-y-6">
+    {% for message in conversation.messages.all %}
+        <div class="p-6 flex {% if message.created_by == request.user %}bg-blue-100{% else %}bg-gray-100{% endif %} rounded-xl">
+            <div>
+               <a href="/tasks/profile_user/{{ message.created_by.username }}">{{ message.created_by.username }} @ {{ message.created_at }}</a>
+                <p>{{ message.content }}</p>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+</div>
+
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.content }}
+    <button class="btn btn-info">отправить</button>
+</form>
+{% endblock %}

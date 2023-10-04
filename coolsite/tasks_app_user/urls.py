@@ -20,4 +20,7 @@ urlpatterns = [
     path('profile_user/<str:username>/add_comment/', views.AddCommentView, name='add_comment'),
     path('comment/update/<int:pk>/', CommentUpdateView.as_view(), name='update_comment'),
     path('comment/delete/<int:pk>/', CommentDeleteView.as_view(), name='delete_comment'),
+    path('<int:pk>/', views.detail, name='detail'),
+    path('message/', views.inbox, name='inbox'),
+    path('new/<int:item_pk>/', views.new_conversation, name='new'),
 ]

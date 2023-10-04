@@ -1,4 +1,4 @@
-from .models import Articles, Profile, Comment
+from .models import Articles, Profile, Comment, ConversationMessage
 from django.forms import ModelForm, TextInput, Textarea, EmailInput, URLInput
 
 from django import forms
@@ -52,7 +52,8 @@ class ArticlesForm(ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['first_name', 'last_name', 'email', 'city','profile_picture', 'telegram_url', "youtube_url", "vk_url"]
+        fields = ['first_name', 'last_name', 'email', 'city', 'profile_picture', 'telegram_url', "youtube_url",
+                  "vk_url"]
 
         widgets = {
             "first_name": TextInput(attrs={
@@ -93,7 +94,6 @@ class ProfileForm(forms.ModelForm):
             self.fields['first_name'].widget.attrs['value'] = user.first_name or "PUSTO"
             self.fields['last_name'].widget.attrs['value'] = user.last_name or "PUSTO"
 
-
             # Проверяем, что у пользователя есть профиль
             if hasattr(user, 'profile'):
                 profile = user.profile
@@ -114,6 +114,18 @@ class CommentForm(forms.ModelForm):
                 'placeholder': 'Звезды',
 
             })
+        }
+
+
+class ConversationMessageForm(forms.ModelForm):
+    class Meta:
+        model = ConversationMessage
+        fields = ['content']
+        widgets = {
+            "content": Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Сообщения'
+            }),
         }
 
 
