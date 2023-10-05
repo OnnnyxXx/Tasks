@@ -240,7 +240,6 @@ class CommentDeleteView(DeleteView):
     success_url = reverse_lazy('user_profile')
     template_name = 'tasks_app_user/delete_comment.html'
 
-
     def dispatch(self, request, *args, **kwargs):
         # Получить объект комментария
         comment = self.get_object()
@@ -265,10 +264,10 @@ def new_conversation(request, item_pk):
     if item.author == request.user:
         return redirect('home')
 
-    conversations = Conversation.objects.filter(item=item).filter(members__in=[request.user.id])
+    conversations = Conversation.objects.filter(item=item, members=request.user)
 
-    if conversations.exists():  # Проверка наличия беседы
-        return redirect('detail', pk=conversations.first().id)
+    if conversations.exists():
+        return redirect('inbox')
 
     if request.method == 'POST':
         form = ConversationMessageForm(request.POST)
@@ -277,20 +276,20 @@ def new_conversation(request, item_pk):
             conversation = Conversation.objects.create(item=item)
             conversation.members.add(request.user)
             conversation.members.add(item.author)
-            conversation.save()
 
             conversation_message = form.save(commit=False)
             conversation_message.conversation = conversation
             conversation_message.created_by = request.user
             conversation_message.save()
 
-            return redirect('detail', pk=item_pk)
+            return redirect('inbox')
     else:
         form = ConversationMessageForm()
 
     return render(request, 'tasks_app_user/new.html', {
         'form': form
     })
+
 
 @login_required
 def inbox(request):

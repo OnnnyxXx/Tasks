@@ -9,35 +9,100 @@
         background-color: white;
     }
 
-    /* Стиль для фотографии */
-    .profile-pic {
-        width: 40px; /* Можете изменить размер по своему усмотрению */
-        height: 40px;
-        border-radius: 50%; /* Круглое фото */
-        margin-right: 10px; /* Отступ между фотографией и текстом сообщения */
-    }
-</style>
-<h1 class="mb-6 text-3xl">Сообщения</h1>
+    .features {
+    padding: 1em;
+    width: 40%;
+    margin: auto;
+    border-radius: 10px; /* Добавляем скругление краев */
+    text-align: left; /* Выравниваем текст по левому краю */
+    box-sizing: content-box;
+}
 
-<div class="space-y-6">
+
+.profile-pic {
+    float: left; /* Размещаем фото слева */
+    margin-right: 20px; /* Расстояние между фото и информацией */
+    width: 80px; /* Уменьшаем ширину фото */
+    height: 80px; /* Уменьшаем высоту фото */
+    background: linear-gradient(90deg, #ff9966, #ff5e62);
+    border-radius: 50%; /* Создаем круглое фото */
+    box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
+}
+
+
+
+a {
+    text-decoration: none; /* Убираем подчеркивание ссылок */
+    color: #333; /* Цвет текста ссылок */
+}
+.blog_post {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
+        margin: 0 auto;
+        padding: 20px;
+<!--        display: flex;-->
+        flex-direction: row; /* Оставляем горизонтальное расположение */
+    }
+.time{
+
+}
+
+h3, h4 {
+    font-size: 0.9rem;
+    margin: -4px;
+    margin-bottom: -4px;
+    padding: 28px;
+}
+@media(max-width: 870px) {
+.features {
+  padding: 2em;
+  width: 75%;
+  margin: auto;
+  border-radius: 10px;
+  text-align: left;
+  box-sizing: content-box;
+}
+h3, h4, p {
+  font-size: 0.9rem;
+  margin: 4px;
+}
+}
+</style>
+<h1 class="mb-6 text-3xl" style="text-align: center;">Сообщения</h1>
     {% for conversation in conversations %}
+<div class="features">
+
+    <div class="blog_post">
+        <div class="space-y-6">
+
         <a href="{% url 'detail' conversation.id %}">
             <div class="p-6 flex bg-gray-100 rounded-xl">
-                <div class="pr-6">
-                    <img class="profile-pic " src="{{ conversation.item.author.profile.profile_picture.url }}">
-                </div>
-
+            <div class="pr-6">
+                <img class="profile-pic" src="{{ conversation.messages.first.created_by.profile.profile_picture.url }}">
+            </div>
                 <div>
                     {% for member in conversation.members.all %}
                         {% if member != request.user %}
 <!--                            <p class="mb-2 text-lg"><strong>{{ member.first_name }} {{ member.last_name }}</strong></p>-->
-                            <p class="mb-1 text-sm">{{ member.username }} | {{ conversation.modified_at }}</p>
-                            <p class="text-sm">{{ conversation.item.name }}</p>
+                                    <p class="mb-1 text-sm">{{ member.profile.first_name }} {{ member.profile.last_name }} </p>
+                    <hr>
+                                    <p><strong>Задания:</strong> {{ conversation.item.title }}</p>
+                    <hr>
+                                    <p><strong>Цена:</strong> {{ conversation.item.prise }}</p>
+                    <hr>
+                            <p><strong>Сообщения:</strong> {{ conversation.messages.last.content|slice:":20" }}</p>
+                            <div class="time" align="right">{{ conversation.modified_at }}</div>
+
                         {% endif %}
                     {% endfor %}
                 </div>
             </div>
         </a>
-    {% endfor %}
+
 </div>
+</div>
+    </div>
+
+    {% endfor %}
 {% endblock %}
