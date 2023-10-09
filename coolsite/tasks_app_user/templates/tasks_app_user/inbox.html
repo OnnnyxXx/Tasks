@@ -69,40 +69,43 @@ h3, h4, p {
 }
 }
 </style>
+
+{% if conversations %}
 <h1 class="mb-6 text-3xl" style="text-align: center;">Сообщения</h1>
-    {% for conversation in conversations %}
-<div class="features">
-
-    <div class="blog_post">
-        <div class="space-y-6">
-
-        <a href="{% url 'detail' conversation.id %}">
-            <div class="p-6 flex bg-gray-100 rounded-xl">
-            <div class="pr-6">
-                <img class="profile-pic" src="{{ conversation.messages.first.created_by.profile.profile_picture.url }}">
-            </div>
-                <div>
-                    {% for member in conversation.members.all %}
-                        {% if member != request.user %}
-<!--                            <p class="mb-2 text-lg"><strong>{{ member.first_name }} {{ member.last_name }}</strong></p>-->
+{% for conversation in conversations %}
+    <div class="features">
+        <div class="blog_post">
+            <div class="space-y-6">
+                <a href="{% url 'detail' conversation.id %}">
+                    <div class="p-6 flex bg-gray-100 rounded-xl">
+                        <div class="pr-6">
+                            {% if conversation.messages.first.created_by != request.user %}
+                                <img class="profile-pic" src="{{ conversation.messages.first.created_by.profile.profile_picture.url }}">
+                            {% else %}
+                                <img class="profile-pic" src="{{ request.user.profile.profile_picture.url }}">
+                            {% endif %}
+                        </div>
+                        <div>
+                            {% for member in conversation.members.all %}
+                                {% if member != request.user %}
                                     <p class="mb-1 text-sm">{{ member.profile.first_name }} {{ member.profile.last_name }} </p>
-                    <hr>
+                                    <hr>
                                     <p><strong>Задания:</strong> {{ conversation.item.title }}</p>
-                    <hr>
-                                    <p><strong>Цена:</strong> {{ conversation.item.prise }}</p>
-                    <hr>
-                            <p><strong>Сообщения:</strong> {{ conversation.messages.last.content|slice:":20" }}</p>
-                            <div class="time" align="right">{{ conversation.modified_at }}</div>
-
-                        {% endif %}
-                    {% endfor %}
-                </div>
+                                    <hr>
+<!--                                    <p><strong>Цена:</strong> {{ conversation.item.prise }}</p>-->
+<!--                                    <hr>-->
+                                    <p><strong>Сообщения:</strong> {{ conversation.messages.last.content|slice:":20" }}</p>
+                                    <div class="time" align="right">{{ conversation.modified_at }}</div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </a>
             </div>
-        </a>
-
-</div>
-</div>
+        </div>
     </div>
-
-    {% endfor %}
+{% endfor %}
+{% else %}
+<h1 class="mb-6 text-3xl" style="text-align: center;">У вас не сообщений</h1>
+{% endif %}
 {% endblock %}

@@ -272,11 +272,7 @@ a {
                       <h6 class="mb-0">Имя</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                        {% if form.first_name.value %}
-                            {{ form.first_name.value }}
-                        {% else %}
-                            PUSTO
-                        {% endif %}
+                      {{ form.first_name.value }}
                     </div>
                   </div>
                   <hr>
@@ -285,11 +281,7 @@ a {
                       <h6 class="mb-0">Фамилия</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                                            {% if form.last_name.value %}
-                            {{ form.last_name.value }}
-                        {% else %}
-                            PUSTO
-                        {% endif %}
+                    {{ form.last_name.value }}
                     </div>
                   </div>
                   <hr>
@@ -298,11 +290,7 @@ a {
                       <h6 class="mb-0">Email</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                    {% if form.email.value %}
                         {{ form.email.value }}
-                    {% else %}
-                        {{ user.email }}
-                    {% endif %}
                     </div>
                   </div>
                   <hr>
@@ -315,6 +303,7 @@ a {
                     </div>
                   </div>
                   <hr>
+                  <p>Средний рейтинг:  {{ average_stars|default:"Нет отзывов" }}</p>
 <!--                  <div class="row">-->
 <!--                    <div class="col-sm-3">-->
 <!--                      <h6 class="mb-0">Address</h6>-->
@@ -344,7 +333,7 @@ a {
             <div class="container1">
 
                 <a href="{% url 'user_profile' review.author.username %}">
-                <img class='container_img_user' src="{{ review.author.profile.profile_picture.url }}" alt="Avatar">
+                <img class='container_img_user' src="{{ review.author.profile.profile_picture.url }}" alt="Avatar" style="width:90px">
                 </a>
                 <a href="{% url 'user_profile' review.author.username %}">{{ review.author.profile.first_name }}  {{ review.author.profile.last_name }}</a>
 <!--                <p>{{ review.profile }}</p>-->
@@ -378,7 +367,7 @@ a {
             </div>
     {% endfor %}
     {% else %}
-    <p>У тебя еще нет отзывов, чмо ленивое, упс, прости за правду</p>
+    <p>Нет отзывов</p>
     {% endif %}
   </details>
 

@@ -4,29 +4,68 @@
 
 {% block content %}
 <style>
-
-    /* Фон белого цвета */
     body {
         background-color: white;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
     }
 
-    /* Поле для заполнения текста снизу экрана */
-    textarea {
-        width: 100%;
-        height: 50px; /* Можете изменить высоту по своему усмотрению */
-        resize: none;
+    .chat-container {
+        background-color: #000000ab;
+        padding: 20px;
+        border-radius: 20px;
+        color: white;
+        height: calc(100vh - 160px); /* Устанавливаем высоту чата с учетом ввода сообщения внизу */
+        overflow-y: auto; /* Добавляем возможность прокрутки сообщений */
+        margin-right: 49px;
     }
 
-    /* Мои сообщения справа, а сообщения собеседника слева */
     .message-container {
-        display: flex;
-        justify-content: flex-end; /* Мои сообщения справа */
-        margin-bottom: 10px; /* Отступ между сообщениями */
+
+        margin-bottom: 10px;
     }
 
-    .message-container.left {
-          justify-content: center;
+    .message {
+        padding: 10px;
+        border-radius: 10px;
+        max-width: 70%;
+        word-wrap: break-word;
     }
+
+    .message.left {
+        background-color: #f2f2f2;
+        align-self: flex-start;
+    }
+
+    .message.right {
+        background-color: #4CAF50;
+        color: white;
+        align-self: flex-end;
+    }
+
+    #message-input-container {
+        display: flex;
+        align-items: center;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 10px;
+        background-color: #fff;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 50px;
+    }
+
+    #message-input {
+        width: 85%;
+        border: none;
+        outline: none;
+        font-size: 18px;
+        padding: 10px;
+        border-radius: 50px;
+    }
+
 
     /* Стиль для фотографии */
     .profile-pic {
@@ -35,66 +74,35 @@
         border-radius: 50%; /* Круглое фото */
         margin-right: 10px; /* Отступ между фотографией и текстом сообщения */
     }
-
-    .container_chat {
-        padding: 39px;
-        margin: 39px;
-        background-color: #000000ab;
-        border-radius: 88px;
-    }
-
-    /* Стили для сообщений */
-    .message {
-        padding: 10px;
-        border-radius: 10px;
-        max-width: 70%; /* Максимальная ширина сообщения */
-        word-wrap: break-word; /* Перенос длинных слов */
-    }
-
-    .message.left {
-        background-color: #f2f2f2; /* Цвет фона сообщения собеседника */
-        align-self: flex-start;
-    }
-
-    .message.right {
-        background-color: #4CAF50; /* Цвет фона ваших сообщений */
-        color: white; /* Цвет текста */
-        align-self: flex-end;
-    }
 </style>
 
+<h1 style="text-align: center;">Чат</h1>
 
-<h1 class="mb-6 text-3xl">Беседа</h1>
-<div class="container_chat">
-    <div class="space-y-6">
+<div class="chat-container">
     {% for message in conversation.messages.all %}
-        <div class="p-6 flex {% if message.created_by == request.user %}bg-blue-100{% else %}bg-gray-100{% endif %} rounded-xl">
+        <div class="message-container {% if message.created_by == request.user %}right{% else %}left{% endif %}">
             <div>
-                    <img class="profile-pic" src="{{ message.created_by.profile.profile_picture.url }}">
-
+                <img class="profile-pic" src="{{ message.created_by.profile.profile_picture.url }}">
                 <a href="/tasks/profile_user/{{ message.created_by.username }}" style="text-decoration: none; color: inherit;">
                     {{ message.created_by.profile.first_name }} {{ message.created_by.profile.last_name }}
                 </a>
                 <p>{{ message.content|linebreaks|urlize }}</p>
                 <div class="time_mess" align="right">{{ message.created_at|time:"H:i" }}</div>
-
-                <hr>
+            <hr>
             </div>
         </div>
-
     {% endfor %}
 </div>
-</div>
-
 
 <form method="post">
     {% csrf_token %}
-    <div class="message-container left" style="margin-bottom: 20px;">
-        <img class="profile-pic" src="{{ request.user.profile.profile_picture.url }}" style="margin-right: 10px;">
-        <div style="display: flex; align-items: center;">
-        {{ form.content }}
-            <button type="submit" class="send-button" style="background-color: #0040FF; border-radius: 50%; padding: 5px 10px; color: white;">&#8594;</button>
-        </div>
+    <div id="message-input-container">
+        <img id="profile-pic" class="profile-pic" src="{{ request.user.profile.profile_picture.url }}">
+        <input id="message-input" type="text" name="content" placeholder="Введите сообщение" required>
+        <button type="submit" class="send-button" style="background-color: #0040FF; border-radius: 50%; padding: 5px 10px;
+         color: white; margin-left: 120px;">
+           ➤
+        </button>
     </div>
 </form>
 {% endblock %}

@@ -19,6 +19,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic.detail import DetailView
 from django.utils.decorators import method_decorator
 from django.http import Http404
+from django.db.models import Avg
 from .models import *
 
 
@@ -26,9 +27,11 @@ def tasks_home(request):
     unique_cities = Profile.objects.values_list('city', flat=True).distinct()
     tasks_all = Articles.objects.order_by('-data')
     unique_cities = [city for city in unique_cities if city is not None]
+    tasks_count = tasks_all.count()
     context = {
         'tasks_all': tasks_all,
-        'unique_cities': unique_cities
+        'unique_cities': unique_cities,
+        'tasks_count': tasks_count,
     }
     return render(request, 'tasks_app_user/tasks_home.html', context)
 
@@ -155,6 +158,7 @@ def profile(request):
 def User_View(request):
     profile = request.user.profile
     reviews = Comment.objects.filter(profile=profile).order_by('-created_at')
+    average_stars = reviews.aggregate(Avg('stars'))['stars__avg']
 
     form = ProfileForm(instance=profile)
 
@@ -164,7 +168,7 @@ def User_View(request):
             form.save()
             return redirect('user_home')
 
-    context = {'form': form, 'reviews': reviews}
+    context = {'form': form, 'reviews': reviews, 'average_stars': average_stars}
 
     return render(request, 'tasks_app_user/home_user.html', context)
 
@@ -173,7 +177,7 @@ def user_profile(request, username):
     user = get_object_or_404(User, username=username)
     profile = user.profile
     reviews = Comment.objects.filter(profile=profile).order_by('-created_at')
-
+    average_stars = reviews.aggregate(Avg('stars'))['stars__avg']
     form = ProfileForm(instance=profile)
 
     if request.method == 'POST':
@@ -182,7 +186,7 @@ def user_profile(request, username):
             form.save()
             return redirect('user_home')
 
-    context = {'form': form, 'profile': profile, 'reviews': reviews}
+    context = {'form': form, 'profile': profile, 'reviews': reviews, 'average_stars': average_stars}
 
     return render(request, 'tasks_app_user/user_profile.html', context)
 
@@ -294,9 +298,10 @@ def new_conversation(request, item_pk):
 @login_required
 def inbox(request):
     conversations = Conversation.objects.filter(members__in=[request.user.id])
-
+    message_count = conversations.count()
     return render(request, 'tasks_app_user/inbox.html', {
-        'conversations': conversations
+        'conversations': conversations,
+        'message_count': message_count
     })
 
 
