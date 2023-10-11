@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 class ArticlesForm(ModelForm):
     class Meta:
         model = Articles
-        fields = ['title', 'anons', 'phope', 'prise', 'full_text', 'user_name']
+        fields = ['title', 'anons', 'phope', 'prise', 'full_text', 'user_name', 'category']
 
         widgets = {
             "title": TextInput(attrs={
@@ -38,6 +38,11 @@ class ArticlesForm(ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Ваш Логин',
                 "readonly": 'readonly'
+            }),
+            "category": TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Категория',
+
             }),
 
         }

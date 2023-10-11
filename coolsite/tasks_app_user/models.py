@@ -3,6 +3,13 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.auth.models import User
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Articles(models.Model):
     title = models.CharField("Название Задания", max_length=35)
     anons = models.CharField("О задании", max_length=25)
@@ -12,6 +19,7 @@ class Articles(models.Model):
     data = models.DateTimeField(auto_now_add=True)
     user_name = models.CharField("User_name", max_length=15, )
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)  # Внешний ключ к пользователю
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.title
@@ -38,7 +46,8 @@ class Profile(models.Model):
     telegram_url = models.URLField(blank=True, null=True)
     youtube_url = models.URLField(blank=True, null=True)
     vk_url = models.URLField(blank=True, null=True)
-    profile_picture = models.ImageField("Изображения", default="profile_pictures/default_profile_picture.jpg", null=True,
+    profile_picture = models.ImageField("Изображения", default="profile_pictures/default_profile_picture.jpg",
+                                        null=True,
                                         blank=True, upload_to='media/profile_pictures')
     city = models.CharField(max_length=100)
 
@@ -50,7 +59,8 @@ class Comment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     content = models.TextField()
-    stars = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])  # Добавляем поле для звездочек
+    stars = models.PositiveIntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(5)])  # Добавляем поле для звездочек
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

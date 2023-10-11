@@ -24,17 +24,35 @@ from .models import *
 
 
 def tasks_home(request):
+    category = request.GET.get('category')  # Получаем категорию из параметра запроса
+
     unique_cities = Profile.objects.values_list('city', flat=True).distinct()
-    tasks_all = Articles.objects.order_by('-data')
+
+    if category:
+        tasks_all = Articles.objects.filter(category__name=category).order_by('-data')
+    else:
+        tasks_all = Articles.objects.order_by('-data')
+
     unique_cities = [city for city in unique_cities if city is not None]
-    tasks_count = tasks_all.count()
+    categories = Category.objects.all()
+
     context = {
         'tasks_all': tasks_all,
         'unique_cities': unique_cities,
-        'tasks_count': tasks_count,
+        'categories': categories,
     }
     return render(request, 'tasks_app_user/tasks_home.html', context)
 
+
+def category(request):
+    categories = Category.objects.all()
+    tasks_all = Articles.objects.order_by('-data')
+    context = {
+        'categories': categories,
+        'tasks_all': tasks_all
+    }
+
+    return render(request, 'tasks_app_user/category.html', context)
 
 # AutoDeleteTasks
 # timezone.now() - timedelta(7)
@@ -86,12 +104,18 @@ class TasksDetailView(DetailView, LoginRequiredMixin):
 
 def create(request):
     error = ''
+    categories = Category.objects.all()
 
     if request.method == 'POST':
         form = ArticlesForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('tasks_home')
+
+            selected_category_id = request.POST.get('category')
+            article = form.save(commit=False)
+            article.category_id = selected_category_id
+            article.save()
+
+            return redirect('category')
 
         else:
             error = 'Форма была неверной'
@@ -100,7 +124,7 @@ def create(request):
     date = {
         'form': form,
         'error': error,
-
+        'categories': categories
     }
 
     return render(request, 'tasks_app_user/create.html', date)
@@ -298,10 +322,9 @@ def new_conversation(request, item_pk):
 @login_required
 def inbox(request):
     conversations = Conversation.objects.filter(members__in=[request.user.id])
-    message_count = conversations.count()
     return render(request, 'tasks_app_user/inbox.html', {
         'conversations': conversations,
-        'message_count': message_count
+
     })
 
 

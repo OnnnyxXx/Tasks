@@ -1,0 +1,101 @@
+{% extends 'tasks_app/layout.html' %}
+
+{% block title %}Категории{% endblock %}
+
+{% block content %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+.categories {
+    display: flex;
+    flex-direction: row; /* Располагать блоки горизонтально */
+    flex-wrap: wrap; /* Переносить блоки, если не помещаются */
+    justify-content: center; /* Центрировать блоки горизонтально */
+}
+
+.category-button {
+    background-color: #000;
+    color: white;
+    padding: 15px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 16%;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    border: none;
+    width: 100px;
+    height: 100px;
+    text-decoration: none;
+}
+
+        .category-posts {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .category-posts.active {
+            display: block;
+        }
+
+        .category-posts .post {
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin: 5px 0;
+        }
+
+        .category-posts .post a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .category-posts .post a:hover {
+            text-decoration: underline;
+        }
+
+
+.blink {
+    animation: blink 5s infinite;
+}
+
+@keyframes blink {
+    0%, 49.9%, 100% {
+        background-color: #3498db;
+    }
+    50%, 99.9% {
+        background-color: #2980b9;
+    }
+}
+    </style>
+
+<body>
+<div class="categories">
+
+    <a href="{% url 'tasks_home' %}" class="category-button" data-category="all">Все категории</a>
+    {% for category in categories %}
+        <a href="{% url 'tasks_home' %}?category={{ category.name }}" class="category-button" data-category="{{ category.name }}">{{ category.name }}</a>
+    {% endfor %}
+</div>
+
+<script>
+categoryButtons.forEach((button, index) => {
+    button.addEventListener("click", () => {
+        const selectedCategory = button.getAttribute("data-category");
+
+        // Добавить класс blink для мигания
+        button.classList.add("blink");
+
+        // Остальной код оставить без изменений
+        categoryPosts.forEach(post => post.classList.remove("active"));
+        const selectedPosts = document.querySelector(`.category-posts.${selectedCategory}`);
+        if (selectedPosts) {
+            selectedPosts.classList.add("active");
+        }
+    });
+});
+</script>
+
+{% endblock %}

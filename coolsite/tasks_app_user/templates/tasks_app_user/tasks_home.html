@@ -91,7 +91,7 @@ h3, h4, p {
             </select>
         </div>
     </form>
-    <div id="tasks-container"> <!-- Оберните задания в контейнер для управления их видимостью -->
+    <div id="tasks-container">
         {% if tasks_all %}
             {% for el in tasks_all %}
                 <div class="alert alert-dark" onclick="window.location.href='{% url 'details_tasks' el.id %}'" style="cursor: pointer;">
@@ -104,9 +104,8 @@ h3, h4, p {
 
                 <h3>Название: {{ el.title }}</h3><br>
                 <h4>Цена: {{ el.prise }} ₽</h4>
+                    <h1>{{ el.category }}</h1>
                 <div class="city" align="right">{{ el.author.profile.city }}</div>
-
-
              </div>
             {% endfor %}
         {% endif %}

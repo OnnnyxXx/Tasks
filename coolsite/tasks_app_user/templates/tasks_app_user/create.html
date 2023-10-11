@@ -33,13 +33,25 @@
         {{ form.anons }}<br>
         {{ form.phope }}<br>
         {{ form.prise}}<br>
-        {{ form.full_text }}<br>
+        {{ form.full_text }}
+        <div class="categories"><br>
+            <h2>Выберите категорию:</h2>
+        <select name="category">
+            <option value="" selected disabled>Select a category</option>
+            {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+        <br>
         <span>{{ error }}</span>
       <button class="color-btn_create" type="submit">Опубликовать</button><br>
     </form>
+
 </div>
-        {% else %}
-            <h1>Вы не сможете продолжить, пока не войдёте в свой профиль</h1>
+
+{% else %}
+    <h1>Вы не сможете продолжить, пока не войдёте в свой профиль</h1>
 {% endif %}
 
 
