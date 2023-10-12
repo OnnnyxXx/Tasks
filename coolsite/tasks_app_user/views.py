@@ -49,7 +49,7 @@ def category(request):
     tasks_all = Articles.objects.order_by('-data')
     context = {
         'categories': categories,
-        'tasks_all': tasks_all
+        'tasks_all': tasks_all,
     }
 
     return render(request, 'tasks_app_user/category.html', context)
@@ -67,21 +67,30 @@ class TasksUpdateView(UpdateView):
     form_class = ArticlesForm
 
     def dispatch(self, request, *args, **kwargs):
-        # Get the article object
-        Articles = self.get_object()
+        article = self.get_object()
 
-        # Check if the current user is the owner of the article
-        if Articles.author != self.request.user:
-            return redirect("tasks_home")
+        if article.author != self.request.user:
+            return redirect("category")
 
         return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        article = form.save(commit=False)
+        article.category = form.cleaned_data['category']
+        article.save()
+        return redirect('category')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
 
 
 # DeleteTasks
 @method_decorator(login_required, name='dispatch')
 class TasksDeleteView(DeleteView):
     model = Articles
-    success_url = reverse_lazy('tasks_home')  # Replace with your desired URL
+    success_url = reverse_lazy('category')  # Replace with your desired URL
     template_name = 'tasks_app_user/delete_tasks.html'
 
     def dispatch(self, request, *args, **kwargs):
@@ -90,7 +99,7 @@ class TasksDeleteView(DeleteView):
 
         # Check if the current user is the owner of the article
         if Articles.author != self.request.user:
-            return redirect("tasks_home")
+            return redirect("category")
 
         return super().dispatch(request, *args, **kwargs)
 

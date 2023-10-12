@@ -8,9 +8,9 @@
     <style>
 .categories {
     display: flex;
-    flex-direction: row; /* Располагать блоки горизонтально */
-    flex-wrap: wrap; /* Переносить блоки, если не помещаются */
-    justify-content: center; /* Центрировать блоки горизонтально */
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .category-button {
@@ -29,6 +29,7 @@
     width: 100px;
     height: 100px;
     text-decoration: none;
+    font-family: Verdana;
 }
 
         .category-posts {
@@ -73,7 +74,6 @@
 
 <body>
 <div class="categories">
-
     <a href="{% url 'tasks_home' %}" class="category-button" data-category="all">Все категории</a>
     {% for category in categories %}
         <a href="{% url 'tasks_home' %}?category={{ category.name }}" class="category-button" data-category="{{ category.name }}">{{ category.name }}</a>
@@ -85,10 +85,10 @@ categoryButtons.forEach((button, index) => {
     button.addEventListener("click", () => {
         const selectedCategory = button.getAttribute("data-category");
 
-        // Добавить класс blink для мигания
+
         button.classList.add("blink");
 
-        // Остальной код оставить без изменений
+
         categoryPosts.forEach(post => post.classList.remove("active"));
         const selectedPosts = document.querySelector(`.category-posts.${selectedCategory}`);
         if (selectedPosts) {

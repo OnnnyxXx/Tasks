@@ -37,7 +37,7 @@
         <div class="categories"><br>
             <h2>Выберите категорию:</h2>
         <select name="category">
-            <option value="" selected disabled>Select a category</option>
+            <option value="" selected disabled>Категории</option>
             {% for category in categories %}
                 <option value="{{ category.id }}">{{ category.name }}</option>
             {% endfor %}
