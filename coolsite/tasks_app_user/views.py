@@ -20,6 +20,7 @@ from django.views.generic.detail import DetailView
 from django.utils.decorators import method_decorator
 from django.http import Http404
 from django.db.models import Avg
+from django.db.models import Count
 from .models import *
 
 
@@ -45,11 +46,12 @@ def tasks_home(request):
 
 
 def category(request):
-    categories = Category.objects.all()
+    categories = Category.objects.all().annotate(task_count=Count('articles'))
     tasks_all = Articles.objects.order_by('-data')
     context = {
         'categories': categories,
         'tasks_all': tasks_all,
+
     }
 
     return render(request, 'tasks_app_user/category.html', context)

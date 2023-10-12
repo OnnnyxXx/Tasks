@@ -14,9 +14,11 @@
 }
 
 .category-button {
-    background-color: #000;
-    color: white;
-    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    color: Black;
+    padding: 20px 12px;
     margin: 10px;
     border: none;
     border-radius: 16%;
@@ -26,12 +28,12 @@
     text-align: center;
     transition: background-color 0.3s ease;
     border: none;
-    width: 100px;
-    height: 100px;
+    width: 286px;
+    height: 122px;
     text-decoration: none;
     font-family: Verdana;
+    position: relative;
 }
-
         .category-posts {
             display: none;
             text-align: center;
@@ -70,13 +72,44 @@
         background-color: #2980b9;
     }
 }
+.img_cat{
+    margin-right: 10px;
+    height: 100px;
+    flex-shrink: 0;
+     border-radius: 50%;
+}
+
+.category-text {
+    border-left: 1px solid Black;
+    padding-left: 10px;
+
+}
+.task_count{
+  position: absolute;
+  top: 93px;
+  right: 7px;
+}
     </style>
 
 <body>
 <div class="categories">
-    <a href="{% url 'tasks_home' %}" class="category-button" data-category="all">Все категории</a>
+    <a href="{% url 'tasks_home' %}" class="category-button" data-category="all">
+        <span class="category-text">Все категории</span>
+    </a>
     {% for category in categories %}
-        <a href="{% url 'tasks_home' %}?category={{ category.name }}" class="category-button" data-category="{{ category.name }}">{{ category.name }}</a>
+        <a href="{% url 'tasks_home' %}?category={{ category.name }}" class="category-button" data-category="{{ category.name }}">
+            {% if category.image %}
+                <img class="img_cat" src="{{ category.image.url }}" alt="{{ category.name }}">
+            {% endif %}
+            <span class="category-text">{{ category.name }}</span>
+            {% if category.task_count  %}
+            <span class="task_count">Заданий:+ {{ category.task_count }}</span>
+
+            {% else %}
+
+            <span class="task_count">Заданий: 0</span>
+{% endif %}
+        </a>
     {% endfor %}
 </div>
 
