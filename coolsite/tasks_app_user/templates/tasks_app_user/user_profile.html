@@ -303,7 +303,7 @@ a {
                     </div>
                   </div>
                   <hr>
-                  <p>Средний рейтинг:  {{ average_stars|default:"Нет отзывов" }}</p>
+                  <p>Средний рейтинг:  {{ average_stars|floatformat:'2'|default:"Нет отзывов" }}</p>
 <!--                  <div class="row">-->
 <!--                    <div class="col-sm-3">-->
 <!--                      <h6 class="mb-0">Address</h6>-->
@@ -367,7 +367,7 @@ a {
             </div>
     {% endfor %}
     {% else %}
-    <p>Нет отзывов</p>
+    <p>У вас еще нет отзывов</p>
     {% endif %}
   </details>
 

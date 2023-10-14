@@ -85,9 +85,11 @@
             <li class="nav-link">
                 <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Главная страница</a>
             </li>
+    {% if request.user.is_authenticated %}
             <li class="nav-link">
                 <a class="nav-link active" aria-current="page" href="{% url 'inbox' %}">Сообщения</a>
             </li>
+    {% endif %}
             <li class="nav-link">
                 <a class="nav-link" href="{% url 'category' %}">Задания</a>
             </li>
