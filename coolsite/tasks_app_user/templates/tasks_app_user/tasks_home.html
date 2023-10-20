@@ -79,7 +79,29 @@ h3, h4, p {
     margin-top: 20px; /* Добавляем отступ сверху для разделения от других элементов */
     color: Black; /* Цвет текста можно настроить по вашему выбору */
 }
+    .return-arrow {
+        text-decoration: none;
+        color: white;
+        margin-right: 30px;
+    }
+    .side-button-1 .side-b {
+        margin: -999px;
+  }
+      .side-button-1 .side-b {
+        margin: -999px;
+  }
+      .top-bar {
+        background-color: #000000;
+        width: 100%;
+        color: white;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+    }
 </style>
+<div class="top-bar">
+    <a href="{% url 'category' %}" class="return-arrow">❮</a>
+</div>
 <div class="features">
     <form method="GET">
         <div>

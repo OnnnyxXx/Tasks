@@ -18,7 +18,9 @@
         color: white;
         height: calc(100vh - 160px); /* Устанавливаем высоту чата с учетом ввода сообщения внизу */
         overflow-y: auto; /* Добавляем возможность прокрутки сообщений */
-        margin-right: 49px;
+        margin-left: auto;
+        margin-right: auto;
+
     }
 
     .message-container {
@@ -74,9 +76,42 @@
         border-radius: 50%; /* Круглое фото */
         margin-right: 10px; /* Отступ между фотографией и текстом сообщения */
     }
+        /* Стили для верхней полосы */
+    .top-bar {
+        background-color: #000000;
+        width: 100%;
+        color: white;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+    }
+
+     /* Стили для ссылки на профиль пользователя */
+    .user-link {
+        color: white;
+        text-decoration: none;
+        margin-left: 10px;
+    }
+
+    /* Стили для стрелки возврата */
+    .return-arrow {
+        text-decoration: none;
+        color: white;
+        margin-right: 30px;
+    }
+    .side-button-1 .side-b {
+        margin: -999px;
+  }
 </style>
 
-<h1 style="text-align: center;">Чат</h1>
+<div class="top-bar">
+    <a href="/tasks/message/" class="return-arrow">❮</a>
+
+    <a href="{% url 'user_profile' interlocutor.username %}" class="user-link">
+        <img class="profile-pic" src="{{ interlocutor.profile.profile_picture.url }}">
+        {{ interlocutor.profile.first_name }} {{ interlocutor.profile.last_name }}
+    </a>
+</div>
 
 <div class="chat-container">
     {% for message in conversation.messages.all %}
@@ -105,4 +140,5 @@
         </button>
     </div>
 </form>
+
 {% endblock %}

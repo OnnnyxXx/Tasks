@@ -342,6 +342,7 @@ def inbox(request):
 @login_required
 def detail(request, pk):
     conversation = Conversation.objects.filter(members__in=[request.user.id]).get(pk=pk)
+    interlocutor = conversation.members.exclude(id=request.user.id).first()
 
     if request.method == 'POST':
         form = ConversationMessageForm(request.POST)
@@ -360,5 +361,6 @@ def detail(request, pk):
 
     return render(request, 'tasks_app_user/detail.html', {
         'conversation': conversation,
-        'form': form
+        'form': form,
+        'interlocutor': interlocutor
     })
