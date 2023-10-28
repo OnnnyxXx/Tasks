@@ -3,47 +3,63 @@
 {% block title %}Главная страница{% endblock %}
 
 {% block content %}
+<!-- Здесь ваша прежняя разметка -->
 <style>
-.row-cols-1 > * {
-    padding: 4px;
+.profile-picture {
+      height: 53px;
+      width: 53px;
+      background: linear-gradient(90deg, #ff9966, #ff5e62);
+      z-index: 10;
+      box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
+      border-radius: 100%;
+      margin-right: 15px;
+    }
+
+.profile-card{
+  background: #3a62db;
+  border-radius: 50px;
+  align-items: center;
+  border: 1px solid black;
+  padding: 20px;
+  margin-bottom: 20px;
+  justify-content: space-between;
+}
+
+
+
+
+a {
+    text-decoration: none; /* Убираем подчеркивание ссылок */
+    color: #333;
+}
+h2 {
+    text-align: center;
 }
 </style>
+<h2>Лучшие пользователи:</h2>
 <div class="features">
-  <h1>Для чего нужен сайт ?</h1>
-  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
-    <div class="col">
-             <div class="card">
+    {% for profile in profiles %}
+        <div class="profile-card">
+            <a href="{% url 'user_profile' profile.user.username %}">
+            <img src="{{ profile.profile_picture.url }}" alt="Profile picture" class="profile-picture">
+            <div class="user-info">
+                <h3>
+                        {{ profile.first_name }} {{ profile.last_name }}
+                </h3>
 
-  <img src="static/tasks_app/img/job_search.png" class="card-img-top"  alt="logo">
-  <div class="card-body">
-    <p class="card-text">Ну во-первых: Для удобного поиска работы/подработки</p>
-  </div>
+            </div>
+                </a>
+            <div class="user-rating" align="right">
+                {% if profile.avg_rating %}
+            	<p>Рейтинг: {{ profile.avg_rating }}/5</p>
+                {% else %}
+                <p>НЕТ ОТЗЫВОВ</p>
+                {% endif %}
+            </div>
+        </div>
+{% empty %}
+    <p>Не найдено профилей.</p>
+{% endfor %}
 </div>
-  </div>
-        <div class="col">
-             <div class="card">
-
-  <img src="static/tasks_app/img/people.jpg" class="card-img-top"  alt="logo">
-  <div class="card-body">
-    <p class="card-text">Во-вторых: Для удобного размещения задания</p>
-  </div>
-</div>
-  </div>
-        <div class="col">
-             <div class="card">
-
-  <img src="static/tasks_app/img/beta-testing.png" class="card-img-top"  alt="logo">
-  <div class="card-body">
-    <p class="card-text">В-третьих: Сайт в beta testing</p>
-  </div>
-</div>
-
-
-    </div>
-
-
-
-</div>
-
 
 {% endblock %}

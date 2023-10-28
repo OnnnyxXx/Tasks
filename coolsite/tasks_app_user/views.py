@@ -56,6 +56,7 @@ def category(request):
 
     return render(request, 'tasks_app_user/category.html', context)
 
+
 # AutoDeleteTasks
 # timezone.now() - timedelta(7)
 # Articles.objects.all().delete()
