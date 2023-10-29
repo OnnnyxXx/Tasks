@@ -327,7 +327,8 @@ def new_conversation(request, item_pk):
         form = ConversationMessageForm()
 
     return render(request, 'tasks_app_user/new.html', {
-        'form': form
+        'form': form,
+        'item': item
     })
 
 

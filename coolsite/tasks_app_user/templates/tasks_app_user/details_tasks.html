@@ -91,11 +91,7 @@ hr {
 </style>
 
 <div class="col">
-    {% if request.META.HTTP_REFERER %}
-        <a class="arrow-3" href="{{ request.META.HTTP_REFERER }}">
-    {% else %}
-        <a class="arrow-3" href="{% url 'category' %}">
-    {% endif %}
+    <a class="arrow-3" href="{% url 'tasks_home' %}?category={{ article.category.name }}">
         <svg class="arrow-3-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
             <g fill="none" stroke="#337AB7" stroke-width="1.5" stroke-linejoin="round" stroke-miterlimit="10">
                 <circle class="arrow-3-iconcircle" cx="16" cy="16" r="15.12"></circle>
@@ -107,6 +103,7 @@ hr {
 </div>
 
 
+{{ category }}
 <div class="features">
 
     <div class="blog_post">

@@ -3,9 +3,82 @@
 {% block title %}Новое Сообщения{% endblock %}
 
 {% block content %}
-<h1 class="mb-6 text-3xl" style="text-align: center;">Новое Сообщения</h1>
 
-<form method="post">
+<style>
+.control {
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: .375rem;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.side-button-1 {
+  display: inline-block;
+  margin: -168px;
+}
+
+.arrow-3 {
+    color: #000;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 16px;
+    height: 43px;
+    line-height: 18px;
+    display: inline-flex;
+    align-items: center;
+
+}
+.arrow-3 .arrow-3-icon {
+    position: relative;
+    top: -1px;
+    transition: transform 0.3s ease;
+    vertical-align: middle;
+    transform: rotate(180deg);
+    margin: 6px;
+
+}
+
+.arrow-3 .arrow-3-iconcircle {
+    transition: stroke-dashoffset .3s ease;
+    stroke-dasharray: 95;
+    stroke-dashoffset: 95;
+}
+
+.arrow-3:hover .arrow-3-icon {
+    transform: rotate(180deg) translate3d(5px, 0, 0);
+}
+
+.arrow-3:hover .arrow-3-iconcircle {
+    stroke-dashoffset: 0;
+}
+.col {
+    background: #31ecff;
+    width: 130px;
+    border-radius: 50px;
+}
+</style>
+<h1 class="mb-6 text-3xl" style="text-align: center;">Новое Сообщения</h1>
+<div class="col">
+    <a class="arrow-3" href="{% url 'details_tasks' pk=item.pk %}">
+        <svg class="arrow-3-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+            <g fill="none" stroke="#337AB7" stroke-width="1.5" stroke-linejoin="round" stroke-miterlimit="10">
+                <circle class="arrow-3-iconcircle" cx="16" cy="16" r="15.12"></circle>
+                <path class="arrow-3-icon--arrow" d="M16.14 9.93L22.21 16l-6.07 6.07M8.23 16h13.98"></path>
+            </g>
+        </svg>
+        Вернуться
+    </a>
+</div>
+
+<div class="control">
+    <form method="post">
     {% csrf_token %}
 
     <div class="space-y-4">
@@ -22,6 +95,8 @@
         </div>
     {% endif %}
 
-    <button class="btn btn-info">Отправить</button>
+    <button class="btn btn-info" align="right">Отправить</button>
 </form>
+</div>
+
 {% endblock %}
