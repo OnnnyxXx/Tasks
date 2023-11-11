@@ -1,4 +1,10 @@
 from django.urls import path, include
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+    TokenVerifyView,
+)
+
 from . import views
 from .views import *
 
@@ -8,8 +14,13 @@ urlpatterns = [
     path('create/', views.create, name='create'),
     path('category/', views.category, name='category'),
     path('<int:pk>', views.TasksDetailView.as_view(), name='details_tasks'),
-    path('register/', views.RegisterUser.as_view(), name='register'),
-    path('login/', views.LoginUser.as_view(), name='login'),
+    # path('register/', views.RegisterUser.as_view(), name='register'),
+    path('api/register/', views.RegisterUserView.as_view(), name='register-api'),
+    # path('login/', views.LoginUser.as_view(), name='login'),
+    path('api/tasks-auth/', include('rest_framework.urls')),
+    path('api/v1/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/v1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/v1/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path('logout/', views.logout_user, name='logout'),
     path('<int:pk>/update', views.TasksUpdateView.as_view(), name='update_tasks'),
     path('<int:pk>/delete', views.TasksDeleteView.as_view(), name='delete_tasks'),

@@ -212,11 +212,11 @@
 </div>
 </div>
 
-
-<div class="chat-container">
+<div id="here">
+    <div   class="chat-container">
     {% for message in conversation.messages.all %}
-        <div class="message-container {% if message.created_by == request.user %}right{% else %}left{% endif %}">
-            <div>
+        <div  class="message-container {% if message.created_by == request.user %}right{% else %}left{% endif %}">
+            <div class="messages">
                 <img class="profile-pic" src="{{ message.created_by.profile.profile_picture.url }}">
                 <a href="/tasks/profile_user/{{ message.created_by.username }}" style="text-decoration: none; color: inherit;">
                     {{ message.created_by.profile.first_name }} {{ message.created_by.profile.last_name }}
@@ -228,6 +228,8 @@
         </div>
     {% endfor %}
 </div>
+</div>
+
 
 <form method="post">
     {% csrf_token %}
@@ -235,12 +237,19 @@
         <img id="profile-pic" class="profile-pic" src="{{ request.user.profile.profile_picture.url }}">
         <input id="message-input" type="text" name="content" placeholder="Введите сообщение" required>
         <button type="submit" class="send-button" style="background-color: #0040FF; border-radius: 50%; padding: 5px 10px;
-         color: white; margin-left: 120px;">
+         color: white; margin-left: 120px;" onclick="updateChat({{ conversation.pk }})">
            ➤
         </button>
     </div>
 </form>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script>
+$(document).ready(function(){
+setInterval(function(){
+      $("#here").load(window.location.href + " #here" );
+}, 6000);
+});
+
     document.querySelector('.dropbtn').addEventListener('click', function() {
     document.querySelector('.dropdown-content').style.display =
         document.querySelector('.dropdown-content').style.display === 'none' ? 'block' : 'none';
