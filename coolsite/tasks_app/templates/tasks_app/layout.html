@@ -25,7 +25,7 @@
 <!--        <ul class="nav justify-content-center navbar navbar-expand-lg navbar-dark bg-dark ">-->
 <!--&lt;!&ndash;             <img src="static/tasks_app/img/IB.png" alt="logo" width="40">&ndash;&gt;-->
 <!--            <li class="nav-item">-->
-<!--                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Главная страница</a>-->
+<!--                <a class="nav-link active" aria-current="page" href="#">Главная страница</a>-->
 <!--            </li>-->
 <!--            <li class="nav-item">-->
 <!--                <a class="nav-link" href="{% url 'tasks_home' %}">Задания</a>-->
@@ -34,7 +34,7 @@
 <!--&lt;!&ndash;                <a class="nav-link" href="">Поддержка</a>&ndash;&gt;-->
 <!--&lt;!&ndash;            </li>&ndash;&gt;-->
 <!--            <li class="nav-item">-->
-<!--                <a class="nav-link" href="{% url 'about' %}">О нас</a>-->
+<!--                <a class="nav-link" href="#">О нас</a>-->
 <!--            </li>-->
 <!--                <ul class="nav justify-content-end">-->
 <!--                    {% if request.user.is_authenticated %}-->
@@ -83,7 +83,7 @@
                 {% endif %}
 
             <li class="nav-link">
-                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Главная страница</a>
+                <a class="nav-link active" aria-current="page" href="#">Главная страница</a>
             </li>
     {% if request.user.is_authenticated %}
             <li class="nav-link">
@@ -94,7 +94,7 @@
                 <a class="nav-link" href="{% url 'category' %}">Задания</a>
             </li>
             <li class="nav-link">
-                <a class="nav-link" href="{% url 'about' %}">О нас</a>
+                <a class="nav-link" href="#">О нас</a>
             </li>
             <li class="nav-link">
                 <a class="nav-link" target="_blank" href="https://www.donationalerts.com/r/onnnyxxx">Поддержать проект</a>
