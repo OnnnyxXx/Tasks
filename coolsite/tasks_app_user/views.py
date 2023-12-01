@@ -13,7 +13,7 @@ from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views import View
 
-from .forms import ArticlesForm, LoginUserForm, ProfileForm, CommentForm, ConversationMessageForm
+from .forms import ArticlesForm, LoginUserForm, ProfileForm, CommentForm, ConversationMessageForm, RegisterUserForm
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 
 from django.shortcuts import render, redirect, get_object_or_404
@@ -152,69 +152,69 @@ def create(request):
     return render(request, 'tasks_app_user/create.html', date)
 
 
-# class RegisterUser(CreateView):
-#     form_class = RegisterUserForm
-#     template_name = 'tasks_app_user/register.html'
-#     success_url = reverse_lazy('home')
+class RegisterUser(CreateView):
+    form_class = RegisterUserForm
+    template_name = 'tasks_app_user/register.html'
+    success_url = reverse_lazy('home')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return dict(list(context.items()))
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('home')
+
+# class RegisterUserView(CreateAPIView):
+#     serializer_class = RegisterUserSerializer
 #
-#     def get_context_data(self, *, object_list=None, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         return dict(list(context.items()))
+#     def create(self, request, *args, **kwargs):
+#         serializer = self.get_serializer(data=request.data)
+#         serializer.is_valid(raise_exception=True)
 #
-#     def form_valid(self, form):
-#         user = form.save()
-#         login(self.request, user)
-#         return redirect('home')
+#         user = self.perform_create(serializer)
 #
-class RegisterUserView(CreateAPIView):
-    serializer_class = RegisterUserSerializer
-
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-
-        user = self.perform_create(serializer)
-
-        refresh = RefreshToken.for_user(user)
-        token_data = {
-            'refresh': str(refresh),
-            'access': str(refresh.access_token),
-        }
-
-        headers = self.get_success_headers(serializer.data)
-        return Response(token_data, status=status.HTTP_201_CREATED, headers=headers)
-
-    def perform_create(self, serializer):
-        return serializer.save()
-
-
-# class LoginUser(LoginView):
-#     form_class = LoginUserForm
-#     template_name = 'tasks_app_user/login.html'
+#         refresh = RefreshToken.for_user(user)
+#         token_data = {
+#             'refresh': str(refresh),
+#             'access': str(refresh.access_token),
+#         }
 #
-#     def get_context_data(self, *, object_list=None, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         return dict(list(context.items()))
+#         headers = self.get_success_headers(serializer.data)
+#         return Response(token_data, status=status.HTTP_201_CREATED, headers=headers)
 #
-#     def get_success_url(self):
-#         return reverse_lazy('home')
-class LoginUserView(APIView):
-    def get(self, request, *args, **kwargs):
-        return Response({"detail": "GET request is not allowed"}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
-
-    def post(self, request, *args, **kwargs):
-        serializer = LoginUserSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data['user']
-
-        refresh = RefreshToken.for_user(user)
-        token_data = {
-            'refresh': str(refresh),
-            'access': str(refresh.access_token),
-        }
+#     def perform_create(self, serializer):
+#         return serializer.save()
 
 
-        return redirect('tasks_home')
+class LoginUser(LoginView):
+    form_class = LoginUserForm
+    template_name = 'tasks_app_user/login.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return dict(list(context.items()))
+
+    def get_success_url(self):
+        return reverse_lazy('home')
+# class LoginUserView(APIView):
+#     def get(self, request, *args, **kwargs):
+#         return Response({"detail": "GET request is not allowed"}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+#
+#     def post(self, request, *args, **kwargs):
+#         serializer = LoginUserSerializer(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         user = serializer.validated_data['user']
+#
+#         refresh = RefreshToken.for_user(user)
+#         token_data = {
+#             'refresh': str(refresh),
+#             'access': str(refresh.access_token),
+#         }
+#
+#         return redirect('tasks_home')
+#
 
 def logout_user(request):
     logout(request)

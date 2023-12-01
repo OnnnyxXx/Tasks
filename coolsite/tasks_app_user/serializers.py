@@ -40,9 +40,12 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = ('author', 'profile', 'content', 'stars', 'created_at')
 
+
 class ProfileSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True, read_only=True)
 
     class Meta:
         model = Profile
-        fields = ('user', 'first_name', 'last_name', 'email', 'telegram_url', 'youtube_url', 'vk_url', 'profile_picture', 'city', 'comments', 'rating')
+        fields = (
+        'user', 'first_name', 'last_name', 'email', 'telegram_url', 'youtube_url', 'vk_url', 'profile_picture', 'city',
+        'comments', 'rating')
