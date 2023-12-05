@@ -2,7 +2,13 @@ html, body {
   width: 100%;
   height:100%;
 }
-
+body {
+  background:
+    linear-gradient(to bottom right, #3C4BBD 15%, transparent),
+    radial-gradient(circle at 100% 0%, rgba(255,255,255,.2) 10%, transparent 20%) center center / 15px 15px,
+    linear-gradient(to bottom right, #3C4BBD, #57ADD8);
+}
+/*
 body {
     background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
     background-size: 400% 400%;
@@ -32,7 +38,7 @@ body {
   background-color: var(--var-bgcolor);
   color: var(--var-fontcolor);
 }
-
+*/
 .card {
   background-color: var(--var-bgcolor);
   color: var(--var-fontcolor);
@@ -97,12 +103,16 @@ nav justify-content-left{
     width: 60%;
     margin: auto;
 }
-
+.dropdown-menu.show {
+    display: block;
+    margin-top: -28px;
+}
 .nav-link {
     margin-top: 18px;
-    margin-block: 45px;
+    margin-block: 26px;
     margin-block-start: -1px;
     margin-left: 2px;
+    color: #f0ff0c;
 
 }
 }
@@ -127,6 +137,8 @@ nav justify-content-left{
     height: 32px;
 
 }
+
+
 
 /*NewNav_Panel */
 
@@ -237,3 +249,77 @@ nav justify-content-left{
     transform: rotate(45deg) scale(1.1);
     color: #FFF;
 }
+
+
+.mobile-nav {
+  background: #F1F1F1;
+  position: fixed;
+  bottom: 0;
+  height: 65px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  transition: transform 0.3s ease;
+  z-index: 1;
+
+}
+
+.bloc-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+}
+
+.bloc-icon img {
+  width: 64px;
+  border-radius: 50%;
+  height: 57px;
+
+}
+
+.img {
+  width: 98px;
+  border-radius: 50%;
+  position: relative;
+  left: -12px;
+
+
+}
+
+@media screen and (min-width: 767px) {
+  .mobile-nav {
+    display: none;
+  }
+}
+
+.gg-list {
+  padding: 15px 15px 19px 15px;
+  left: -20px;
+
+}
+
+.mes{
+    width: 55px;
+    position: relative;
+    left: -5px;
+
+}
+
+.gg-home{
+ width: 98px;
+  border-radius: 50%;
+  position: relative;
+  left: -12px;
+}
+.aside {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #ffffff;
+  z-index: 9999;
+  box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.1);
+}
+

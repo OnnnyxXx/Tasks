@@ -12,8 +12,10 @@ from .serializers import ProfileSerializer
 
 def index(request):
     profiles = Profile.objects.annotate(avg_rating=Avg('comment__stars')).order_by('-avg_rating')
-    return render(request, 'tasks_app/index.html', {'profiles': profiles})
-
+    best_profiles = profiles.filter(avg_rating__gt=3.5)
+    return render(request, 'tasks_app/index.html', {'best_profiles': best_profiles})
+# def index(request):
+#     return render(request, 'tasks_app/index.html')
 
 def about(reqeust):
     return render(reqeust, 'tasks_app/about.html')

@@ -18,61 +18,86 @@
 
 </head>
 <body>
-<!--<aside>-->
-<!--    <style>-->
+<style>
+    @media (max-width: 767px) {
+        .bar  {
+        position: fixed;
+        bottom: 999px;
+        width: 100%;
+    }
+.ul{
+  padding: 12px;
+}
 
-<!--    </style>-->
-<!--        <ul class="nav justify-content-center navbar navbar-expand-lg navbar-dark bg-dark ">-->
-<!--&lt;!&ndash;             <img src="static/tasks_app/img/IB.png" alt="logo" width="40">&ndash;&gt;-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Главная страница</a>-->
-<!--            </li>-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" href="{% url 'tasks_home' %}">Задания</a>-->
-<!--            </li>-->
-<!--&lt;!&ndash;            <li class="nav-item">&ndash;&gt;-->
-<!--&lt;!&ndash;                <a class="nav-link" href="">Поддержка</a>&ndash;&gt;-->
-<!--&lt;!&ndash;            </li>&ndash;&gt;-->
+
+#circle-menu {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: -98px;
+  margin-left: -320px;
+}
+
+#circle-menu button {
+  display: block;
+  margin: 20px auto;
+  background-color: #e2ed0f;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.bloc-icon:hover + #circle-menu,
+#circle-menu:hover {
+  display: block;
+}
+</style>
+    <aside>
+        <div class="bar">
+                   <ul class="nav justify-content-center navbar navbar-expand-lg navbar-dark bg-dark ">
+<!--             <img src="static/tasks_app/img/IB.png" alt="logo" width="40">-->
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Главная страница</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'category' %}">Задания</a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'create' %}" class="bloc-icon">
+                    <div class="img">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="#f0ff0c"  x="0px" y="0px" width="100" height="50" viewBox="0 0 50 50">
+                            <path d="M 25 2 C 12.264481 2 2 12.264481 2 25 C 2 37.735519 12.264481 48 25 48 C
+                            37.735519 48 48 37.735519 48 25 C 48 12.264481 37.735519 2 25 2 z M 25 4 C 36.664481 4 46 13.335519 46
+                            25 C 46 36.664481 36.664481 46 25 46 C 13.335519 46 4 36.664481 4 25 C 4 13.335519 13.335519 4 25 4 z M 24
+                            13 L 24 24 L 13 24 L 13 26 L 24 26 L 24 37 L 26 37 L 26 26 L 37 26 L 37 24 L 26 24 L 26 13 L 24 13 z"></path>
+                        </svg>
+                    </div>
+                </a>
+            </li>
 <!--            <li class="nav-item">-->
 <!--                <a class="nav-link" href="{% url 'about' %}">О нас</a>-->
 <!--            </li>-->
-<!--                <ul class="nav justify-content-end">-->
-<!--                    {% if request.user.is_authenticated %}-->
-<!--                            <li class="nav-item dropdown">-->
-<!--                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">-->
-<!--                    {{ user.username }}-->
-<!--                  </a>-->
-<!--                  <ul class="dropdown-menu">-->
-
-<!--                    <li><a class="dropdown-item" href="{% url 'logout' %}">Выйти</a></li>-->
-<!--                  </ul>-->
-<!--                    {% else %}-->
-<!--                </ul>-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" href="{% url 'register' %}">Регистрация</a>-->
-<!--            </li>-->
-<!--            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Войти</a>-->
-<!--                {% endif %}-->
-
-<!--            </li>-->
-<!--        </ul>-->
-<!--    </aside>-->
-
-<input type="checkbox" id="side-checkbox" />
-<div class="side-panel">
-    <label class="side-button-2" for="side-checkbox">+</label>
-    <div class="side-title">Выдвижная панель:</div>
-     <ul class="nav-link">
+                       {% if request.user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'inbox' %}">Сообщения</a>
+            </li>
+                {% endif %}
+                <ul class="nav justify-content-end">
                     {% if request.user.is_authenticated %}
-                    <img class="nav-img" src="{{ request.user.profile.profile_picture.url }}">
                             <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     {{ user.username }}
                   </a>
                   <ul class="dropdown-menu">
                       <li><a class="dropdown-item" href="{% url 'user_home' %}">Профиль</a></li>
-                      <hr>
-                      <li><a class="dropdown-item" href="{% url 'logout' %}">Выйти</a></li>
+                    <li><a class="dropdown-item" href="{% url 'logout' %}">Выйти</a></li>
                   </ul>
                     {% else %}
                 </ul>
@@ -82,38 +107,189 @@
             <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Войти</a>
                 {% endif %}
 
-            <li class="nav-link">
-                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Главная страница</a>
             </li>
-    {% if request.user.is_authenticated %}
-            <li class="nav-link">
-                <a class="nav-link active" aria-current="page" href="{% url 'inbox' %}">Сообщения</a>
-            </li>
-    {% endif %}
-            <li class="nav-link">
-                <a class="nav-link" href="{% url 'category' %}">Задания</a>
-            </li>
-            <li class="nav-link">
-                <a class="nav-link" href="{% url 'about' %}">О нас</a>
-            </li>
-            <li class="nav-link">
-                <a class="nav-link" target="_blank" href="https://www.donationalerts.com/r/onnnyxxx">Поддержать проект</a>
-            </li>
+        </ul>
+        </div>
+
+    </aside>
+
+<!--<input type="checkbox" id="side-checkbox" />-->
+<!--<div class="side-panel">-->
+<!--    <label class="side-button-2" for="side-checkbox">+</label>-->
+<!--    <div class="side-title">Выдвижная панель:</div>-->
+<!--     <ul class="nav-link">-->
+<!--                    {% if request.user.is_authenticated %}-->
+<!--                    <img class="nav-img" src="{{ request.user.profile.profile_picture.url }}">-->
+<!--                            <li class="nav-item dropdown">-->
+<!--                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">-->
+<!--                    {{ user.username }}-->
+<!--                  </a>-->
+<!--                  <ul class="dropdown-menu">-->
+<!--                      <li><a class="dropdown-item" href="{% url 'user_home' %}">Профиль</a></li>-->
+<!--                      <hr>-->
+<!--                      <li><a class="dropdown-item" href="{% url 'logout' %}">Выйти</a></li>-->
+<!--                  </ul>-->
+<!--                    {% else %}-->
+<!--                </ul>-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="{% url 'register' %}">Регистрация</a>-->
+<!--            </li>-->
+<!--            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Войти</a>-->
+<!--                {% endif %}-->
+
+<!--            <li class="nav-link">-->
+<!--                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Главная страница</a>-->
+<!--            </li>-->
+<!--    {% if request.user.is_authenticated %}-->
+<!--            <li class="nav-link">-->
+<!--                <a class="nav-link active" aria-current="page" href="{% url 'inbox' %}">Сообщения</a>-->
+<!--            </li>-->
+<!--    {% endif %}-->
+<!--            <li class="nav-link">-->
+<!--                <a class="nav-link" href="{% url 'category' %}">Задания</a>-->
+<!--            </li>-->
+<!--            <li class="nav-link">-->
+<!--                <a class="nav-link" href="{% url 'about' %}">О нас</a>-->
+<!--            </li>-->
+<!--            <li class="nav-link">-->
+<!--                <a class="nav-link" target="_blank" href="https://www.donationalerts.com/r/onnnyxxx">Поддержать проект</a>-->
+<!--            </li>-->
 
 
-    <a href="{% url 'create' %}"><li><button class="btn btn-outline-info"><i class="fas fa-plus-circle"></i>Добавить задания</button></li></a>
+<!--    <a href="{% url 'create' %}"><li><button class="btn btn-outline-info"><i class="fas fa-plus-circle"></i>Добавить задания</button></li></a>-->
 
-</div>
-<div style="float: left;">
-    <label class="side-button-1" for="side-checkbox">
-        <div class="side-b side-open">☰</div>
-        <div class="side-b side-close">Закрыть</div>
-    </label>
+<!--</div>-->
+<!--<div style="float: left;">-->
+<!--    <label class="side-button-1" for="side-checkbox">-->
+<!--        <div class="side-b side-open">☰</div>-->
+<!--        <div class="side-b side-close">Закрыть</div>-->
+<!--    </label>-->
 
-</div>
+<!--</div>-->
+
+    <div id="navbar">
+        <aside>
+          <nav class="mobile-nav">
+        <a href="{% url 'home' %}" class="bloc-icon">
+            <i class="gg-home">
+<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0,0,256,256">
+<g transform="translate(76.8,76.8) scale(0.4,0.4)"><g fill="#000000" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(10.66667,10.66667)"><path d="M12,2c-0.26712,0.00003 -0.52312,0.10694 -0.71094,0.29688l-10.08594,8.80078c-0.12774,0.09426 -0.20313,0.24359 -0.20312,0.40234c0,0.27614 0.22386,0.5 0.5,0.5h2.5v8c0,0.552 0.448,1 1,1h4c0.552,0 1,-0.448 1,-1v-6h4v6c0,0.552 0.448,1 1,1h4c0.552,0 1,-0.448 1,-1v-8h2.5c0.27614,0 0.5,-0.22386 0.5,-0.5c0.00001,-0.15876 -0.07538,-0.30808 -0.20312,-0.40234l-10.08008,-8.79492c-0.00194,-0.00196 -0.0039,-0.00391 -0.00586,-0.00586c-0.18782,-0.18994 -0.44382,-0.29684 -0.71094,-0.29687z"></path></g></g></g>
+</svg>
+            </i>
+        </a>
+        <a href="{% url 'category' %}" class="bloc-icon">
+            <i class="gg-list">
+                <link href='https://unpkg.com/css.gg@2.0.0/icons/css/list.css' rel='stylesheet'>
+            </i>
+        </a>
+        <a href="{% url 'create' %}" class="bloc-icon">
+            <div class="img">
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="50" viewBox="0 0 50 50">
+<path d="M 25 2 C 12.264481 2 2 12.264481 2 25 C 2 37.735519 12.264481 48 25 48 C
+37.735519 48 48 37.735519 48 25 C 48 12.264481 37.735519 2 25 2 z M 25 4 C 36.664481 4 46 13.335519 46
+25 C 46 36.664481 36.664481 46 25 46 C 13.335519 46 4 36.664481 4 25 C 4 13.335519 13.335519 4 25 4 z M 24
+13 L 24 24 L 13 24 L 13 26 L 24 26 L 24 37 L 26 37 L 26 26 L 37 26 L 37 24 L 26 24 L 26 13 L 24 13 z"></path>
+        </svg>
+            </div>
+
+        </a>
+              {% if request.user.is_authenticated %}
+        <a href="{% url 'inbox' %}" class="bloc-icon">
+            <div class="mes">
+                           <i class="bi bi-send">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+  <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
+</svg>
+            </i>
+            </div>
+
+        </a>
+        <a href="{% url 'user_home' %}" class="bloc-icon" >
+          {% if request.user.profile.profile_picture %}
+            <img src="{{ request.user.profile.profile_picture.url }}" alt="Profile Picture">
+          {% else %}
+            <img src="media/profile_pictures/default_profile_picture.jpg" alt="Default Profile Picture">
+          {% endif %}
+        </a>
+
+    </nav>
+            {% else %}
+
+          <nav class="mobile-nav">
+        <a href="{% url 'home' %}" class="bloc-icon">
+            <i class="gg-home">
+<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0,0,256,256">
+<g transform="translate(76.8,76.8) scale(0.4,0.4)"><g fill="#000000" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(10.66667,10.66667)"><path d="M12,2c-0.26712,0.00003 -0.52312,0.10694 -0.71094,0.29688l-10.08594,8.80078c-0.12774,0.09426 -0.20313,0.24359 -0.20312,0.40234c0,0.27614 0.22386,0.5 0.5,0.5h2.5v8c0,0.552 0.448,1 1,1h4c0.552,0 1,-0.448 1,-1v-6h4v6c0,0.552 0.448,1 1,1h4c0.552,0 1,-0.448 1,-1v-8h2.5c0.27614,0 0.5,-0.22386 0.5,-0.5c0.00001,-0.15876 -0.07538,-0.30808 -0.20312,-0.40234l-10.08008,-8.79492c-0.00194,-0.00196 -0.0039,-0.00391 -0.00586,-0.00586c-0.18782,-0.18994 -0.44382,-0.29684 -0.71094,-0.29687z"></path></g></g></g>
+</svg>
+            </i>
+
+        </a>
+        <a href="{% url 'category' %}" class="bloc-icon">
+            <i class="gg-list">
+                <link href='https://unpkg.com/css.gg@2.0.0/icons/css/list.css' rel='stylesheet'>
+            </i>
+
+        </a>
+        <a href="{% url 'create' %}" class="bloc-icon">
+            <div class="img">
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="50" viewBox="0 0 50 50">
+<path d="M 25 2 C 12.264481 2 2 12.264481 2 25 C 2 37.735519 12.264481 48 25 48 C
+37.735519 48 48 37.735519 48 25 C 48 12.264481 37.735519 2 25 2 z M 25 4 C 36.664481 4 46 13.335519 46
+25 C 46 36.664481 36.664481 46 25 46 C 13.335519 46 4 36.664481 4 25 C 4 13.335519 13.335519 4 25 4 z M 24
+13 L 24 24 L 13 24 L 13 26 L 24 26 L 24 37 L 26 37 L 26 26 L 37 26 L 37 24 L 26 24 L 26 13 L 24 13 z"></path>
+        </svg>
+            </div>
+
+        </a>
+        <a href="{% url 'login' %}" class="bloc-icon">
+            <div class="mes">
+                           <i class="bi bi-send">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+  <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
+</svg>
+            </i>
+            </div>
+
+        </a>
+<a href="{% url 'register' %}" class="bloc-icon">
+    <img src="media/profile_pictures/default_profile_picture.jpg" alt="Default Profile Picture">
+</a>
+    </nav>
+            {% endif %}
+
+            </aside>
+
+    </div>
     <main>
         {% block content %}
         {% endblock %}
     </main>
+<script>
+let lastScrollTop = 0;
+const navbar = document.getElementById('navbar');
+const delta = 5;
+const navbarHeight = navbar.offsetHeight;
+const navbarStyle = getComputedStyle(navbar);
+const navbarTransform = navbarStyle.getPropertyValue('transform');
+
+window.addEventListener('scroll', function () {
+  const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+  if (Math.abs(lastScrollTop - currentScroll) <= delta) {
+    return;
+  }
+
+  if (currentScroll > lastScrollTop && currentScroll > navbarHeight) {
+    // Прокрутка вниз
+    navbar.style.transform = `translateY(${-200}px)`;
+  } else {
+    // Прокрутка вверх или в начале страницы
+    navbar.style.transform = navbarTransform;
+  }
+
+  lastScrollTop = currentScroll;
+});
+</script>
 </body>
+
 </html>
