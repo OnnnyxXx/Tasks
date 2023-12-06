@@ -18,7 +18,7 @@
     }
 
 .profile-card{
-  background: #0ec76b;
+  background: #1F2833;
   border-radius: 50px;
   align-items: center;
   border: 1px solid black;
@@ -27,13 +27,17 @@
   justify-content: space-between;
 }
 
+.profile-card.h3{
+    color: white;
+}
+
 a {
     text-decoration: none; /* Убираем подчеркивание ссылок */
     color: #333;
 }
 .card a{
     text-decoration: none;
-    color: #333;
+    color: #66FCF1;
 }
 h2 {
     text-align: center;
@@ -43,33 +47,28 @@ h2 {
 .slider {
   display: flex;
   flex-direction: row; /* изменяем направление главной оси на горизонтальное */
-  height: 300px;
+  height: 328px;
   overflow: hidden;
 }
 
 .slider .profile-card {
   width: 300px; /* задаем фиксированную ширину блока пользователя */
   margin-right: 20px; /* добавляем отступ между блоками */
-  animation: slide-left 9s linear infinite;
+  animation: slide-left 25s linear infinite;
 }
 
+.features {
+    padding: 1em;
+    padding: 1em;
+    width: 89%;
+    margin: auto;
+    text-align: center;
+    box-sizing: content-box;
+}
 
 @keyframes slide-left {
-  0% {
-    transform: translateX(0);
-  }
-  25% {
-    transform: translateX(-100%);
-  }
-  50% {
-    transform: translateX(-200%);
-  }
-  75% {
-    transform: translateX(-300%);
-  }
-  100% {
-    transform: translateX(-400%);
-  }
+   0% { transform: translateX(300%); }
+   100% { transform: translateX(calc(-400px * var(--count))); }
 }
 
 
@@ -83,7 +82,7 @@ h2 {
 .card {
   grid-area: 1 / 1;
   transform: translateX(10px) rotateY(25deg) rotateX(10deg);
-  background: rgba(249, 198, 26, 0.88);
+  background: #1F2833;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -102,9 +101,9 @@ h1 {
 
 }
 .card .enclosed {
-  background: #000;
+  background: #0B0C10;
   line-height: 1;
-  color: rgba(249, 198, 26, 1);
+  color:  #C5C6C7;
   padding: 0 5px;
   display: inline-block;
   transform: translate(-1px, 1px) scale(0.75);
@@ -145,10 +144,11 @@ h1 {
 .center{
     padding: 160px;
 }
+
 .thebest{
     margin: 42px;
     border-radius: 32px;
-    background: linear-gradient(-45deg, #000000,  #3bed15, #f0ff04, #03fbfb);
+    background: linear-gradient(-45deg, #000000,  #66FCF1, #3586ff, #03fbfb);
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
 }
@@ -186,6 +186,33 @@ linear-gradient(90deg, #4ba3c6, #201e68)
       align-items: center;
 
     }
+  .wrapper {
+
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card {
+    text-align: center;
+    font-size: 40px;
+    margin: -15px;
+    margin-top: 7px;
+  }
+  .wrapper:before {
+  --bw: 9px;
+  grid-area: 1 / 1;
+  content: '';
+  backface-visibility: hidden;
+  height: 100%;
+  width: 100%;
+  margin-top: calc(-1 * var(--bw));
+  margin-left: calc(-1 * var(--bw));
+  background: transparent;
+  transform: translateX(-60px) rotateY(-30deg) rotateX(15deg) scale(1.03);
+  pointer-events: none;
+  margin-left: -5px;
+  padding: 21px;
+}
 }
 
 
@@ -195,7 +222,7 @@ linear-gradient(90deg, #4ba3c6, #201e68)
             justify-content: center;
             align-items: center;
             height: 41vh;
-            background-color: #3498db;
+            background-color: #66FCF1;
             color: white;
             text-align: center;
             border-radius: 50px;
@@ -370,6 +397,31 @@ linear-gradient(90deg, #4ba3c6, #201e68)
     background-positon-x: 0px;
   }
 }
+
+
+.donation-link {
+  position: relative;
+  display: inline-block;
+}
+
+.donation-link a {
+  display: block;
+}
+
+.donate-icon {
+  position: fixed;
+  bottom: 80px;
+  right: 10px;
+  font-size: 2em;
+  color: rgba(255, 0, 0, 0.5); /* полупрозрачный круг */
+  cursor: pointer;
+  background: #18a90778;
+  border-radius: 50px/59px;
+}
+
+.donate-icon:hover {
+  color: rgba(255, 0, 0, 1); /* изменение цвета при наведении */
+}
 </style>
 <div class="center">
     <div class="wrapper">
@@ -406,12 +458,12 @@ linear-gradient(90deg, #4ba3c6, #201e68)
                 <a href="{% url 'user_profile' profile.user.username %}">
                     <img src="{{ profile.profile_picture.url }}" alt="Profile picture" class="profile-picture">
                     <div class="user-info">
-                        <h3>{{ profile.first_name }} {{ profile.last_name }}</h3>
+                        <h3 style="color: white;">{{ profile.first_name }} {{ profile.last_name }}</h3>
                     </div>
                 </a>
                 <div class="user-rating" align="right">
                     {% if profile.avg_rating %}
-                        <p>Рейтинг: {{ profile.avg_rating }}/5</p>
+                        <p style="color: white;">Рейтинг: {{ profile.avg_rating }}/5</p>
                     {% else %}
                         <p>НЕТ ОТЗЫВОВ</p>
                     {% endif %}
@@ -429,26 +481,11 @@ linear-gradient(90deg, #4ba3c6, #201e68)
 <!--    <p>Пока что лучших нет!</p>-->
 <!--    {% endif %}-->
 
-<script>
-    let currentSlide = 0;
-    showSlide();
-
-    function showSlide() {
-        const slides = document.getElementsByClassName('slide');
-
-        for (let i = 0; i < slides.length; i++) {
-            slides[i].style.display = 'none';
-        }
-
-        currentSlide++;
-        if (currentSlide > slides.length) {
-            currentSlide = 1;
-        }
-
-        slides[currentSlide - 1].style.display = 'block';
-        setTimeout(showSlide, 5000); // Показываем следующий слайд через 5 секунд
-    }
-</script>
+  <div class="donation-link">
+    <a target="_blank" href="https://www.donationalerts.com/r/onnnyxxx">
+      <span class="donate-icon">💸</span>
+    </a>
+  </div>
 
 
   <footer class="footer">
@@ -473,10 +510,10 @@ linear-gradient(90deg, #4ba3c6, #201e68)
 <!--        </a></li>-->
     </ul>
     <ul class="menu">
-      <li class="menu__item"><a class="menu__link" href="{% url 'home' %}">Главная страница</a></li>
+<!--      <li class="menu__item"><a class="menu__link" href="{% url 'home' %}">Главная страница</a></li>-->
       <li class="menu__item"><a class="menu__link" href="{% url 'about' %}">О нас</a></li>
       <li class="menu__item"><a class="menu__link" href="{% url 'category' %}">Категории</a></li>
-<!--      <li class="menu__item"><a class="menu__link" href="#">Team</a></li>-->
+      <li class="menu__item"><a class="menu__link" target="_blank" href="https://www.donationalerts.com/r/onnnyxxx">Поддержать проект</a></li>
 <!--      <li class="menu__item"><a class="menu__link" href="#">Contact</a></li>-->
 
     </ul>
@@ -484,4 +521,7 @@ linear-gradient(90deg, #4ba3c6, #201e68)
   </footer>
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script>
+  document.documentElement.style.setProperty('--count', '{{ best_profiles|length }}');
+</script>
 {% endblock %}

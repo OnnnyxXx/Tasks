@@ -1,39 +1,62 @@
 {% extends 'tasks_app/layout.html' %}
 
-
-{% block title %}О сайте{% endblock %}
-
+{% block title %}О нас{% endblock %}
 
 {% block content %}
 <style>
 .row-cols-1 > * {
     padding: 4px;
 }
+
+
+    .features {
+        font-family: revert;
+        font-size: 18px;
+    }
 </style>
-<div class="features">
+
+<div class="features" style="color: white;">
     <h1>О нас</h1>
- <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
-    <div class="col">
-<div class="card">
-  <img src="static/tasks_app/img/it_im.jpg" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Разработчик</h5>
-    <p class="card-text">backend, frontend, Tests, bug fixes for me</p>
-    <a href="https://t.me/onnnyxxxq" target="_blank" class="btn btn-primary">Телеграмм</a>
-  </div>
-</div>
+    <p>Добро пожаловать на наш сайт, где решение ваших задач — наша главная цель! Мы предоставляем уникальный сервис на основе Django, который позволяет вам доверить свои задачи профессионалам или найти решение самостоятельно.</p>
+
+    <h2>Дивиз:</h2>
+    <blockquote>Доверь свою задачу профессионалам Или найди её для себя!</blockquote>
+
+    <h2>О компании:</h2>
+    <p>Мы - команда опытных разработчиков, преданных идее создания инновационной платформы для решения повседневных задач. Наша цель — сделать вашу жизнь проще, предоставив удобный и эффективный инструмент для поиска и решения задач.</p>
+
+    <h2>Преимущества нашего сервиса:</h2>
+    <ol>
+        <li><strong>Широкий спектр задач:</strong> Независимо от того, нужно ли вам разработать веб-приложение, найти профессионала для решения конкретной задачи или просто получить совет, мы здесь, чтобы помочь.</li>
+        <li><strong>Профессионализм:</strong> Наши разработчики — профессионалы своего дела, способные решить широкий спектр задач. Вы можете доверить свою задачу нам и быть уверены в качественном решении.</li>
+        <li><strong>Гибкость и удобство:</strong> Наш сайт на Django обеспечивает гибкость использования. Вы можете легко находить и предлагать решения задач, а также находить специалистов для сотрудничества.</li>
+    </ol>
+
+    <h2>Наши ключевые лица:</h2>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+        <div class="col">
+            <div class="card" style="color: black;">
+                <img src="static/tasks_app/img/it_im.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Разработчик</h5>
+                    <p class="card-text">backend, frontend, Tests, bug fixes for me</p>
+                    <a href="https://t.me/onnnyxxxq" target="_blank" class="btn btn-primary">Телеграмм</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card" style="color: black;">
+                <img src="static/tasks_app/img/cat.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Главный Директор</h5>
+                    <p class="card-text">Я главный директор! По всем вопросам жмите на ↓</p>
+                    <a href="https://t.me/pirozhochek0" target="_blank" class="btn btn-primary">Телеграмм</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
-         <div class="col">
-<div class="card">
-  <img src="static/tasks_app/img/cat.jpg" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Главный Директор</h5>
-    <p class="card-text">Я главный директор! По вем вопросам жмите на ↓</p>
-    <a href="https://t.me/pirozhochek0" target="_blank" class="btn btn-primary">Телеграмм</a>
-  </div>
-</div>
-</div>
-
-
 {% endblock %}

@@ -25,6 +25,22 @@
         transition: all 0.2s ease-in;
         text-decoration: none;
     }
+
+.card {
+  background-color: var(--var-bgcolor);
+  color: var(--var-fontcolor);
+}
+:root {
+  --var-bgcolor: #fff;
+  --var-fontcolor: #000;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --var-bgcolor: #0B0C10;
+    --var-fontcolor: #eee;
+  }
+}
 </style>
 
 <br>
