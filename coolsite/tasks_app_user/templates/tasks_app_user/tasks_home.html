@@ -171,11 +171,11 @@ h3, h4, p {
             {% for el in tasks_all %}
                 <div class="alert alert-dark" onclick="window.location.href='{% url 'details_tasks' el.id %}'" style="cursor: pointer;">
                 <div class="img_pod">
-                    <a href="{% url 'user_profile' el.user_name %}">
+                    <a href="{% url 'user_profile' el.author.id %}">
                         <img class="profile-pic" src="{{ el.author.profile.profile_picture.url }}" alt="Profile Picture">
                     </a>
                 </div>
-                <a href="{% url 'user_profile' el.user_name %}">{{ el.author.profile.first_name }} {{ el.author.profile.last_name }}</a>
+                <a href="{% url 'user_profile' el.author.id %}">{{ el.author.profile.first_name }} {{ el.author.profile.last_name }}</a>
 
                 <h3>Название: {{ el.title }}</h3><br>
                 <h4>Цена: {{ el.prise }} ₽</h4>

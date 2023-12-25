@@ -195,7 +195,7 @@
 }
 </style>
 <div class="col">
-    <a class="arrow-3" href="/tasks/message/">
+    <a class="arrow-3" href="/message/">
 
     <svg class="arrow-3-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
         <g fill="none" stroke="#337AB7" stroke-width="1.5" stroke-linejoin="round" stroke-miterlimit="10">
@@ -204,7 +204,7 @@
         </g>
     </svg>
 </a>
-    <a href="{% url 'user_profile' interlocutor.username %}" class="user-link">
+    <a href="{% url 'user_profile' interlocutor.id %}" class="user-link">
         <img class="profile-pic" src="{{ interlocutor.profile.profile_picture.url }}">
         {{ interlocutor.profile.first_name }} {{ interlocutor.profile.last_name }}
     </a>
@@ -225,7 +225,7 @@
         <div  class="message-container {% if message.created_by == request.user %}right{% else %}left{% endif %}">
             <div class="messages">
                 <img class="profile-pic" src="{{ message.created_by.profile.profile_picture.url }}">
-                <a href="/tasks/profile_user/{{ message.created_by.username }}" style="text-decoration: none; color: inherit;">
+                <a href="/me/profile_user/{{ message.created_by.id }}" style="text-decoration: none; color: inherit;">
                     {{ message.created_by.profile.first_name }} {{ message.created_by.profile.last_name }}
                 </a>
                 <p>{{ message.content|linebreaks|urlize }}</p>

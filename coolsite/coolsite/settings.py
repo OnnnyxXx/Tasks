@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'tasks_app.apps.TasksAppConfig',
     'tasks_app_user.apps.TasksAppUserConfig',
+    'user_registration.apps.UserRegistrationConfig',
+    'user_profile.apps.UserProfileConfig',
+    'user_messeges.apps.UserMessegesConfig',
     'rest_framework',
     'corsheaders',
 

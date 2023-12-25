@@ -14,7 +14,9 @@ urlpatterns = [
     path('', include('tasks_app.urls')),
     # path('', include(router.urls)),
     path('tasks/', include('tasks_app_user.urls')),
-
+    path('registers/', include('user_registration.urls')),
+    path('me/', include('user_profile.urls')),
+    path('', include('user_messeges.urls'))
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_URL)
 if settings.DEBUG:

@@ -2,8 +2,7 @@ from django.db.models import Avg
 from django.shortcuts import render, redirect
 from django.views.generic import DetailView
 from rest_framework import viewsets
-from tasks_app_user.models import Profile
-from .serializers import ProfileSerializer
+from user_profile.models import Profile
 
 
 # class TopUsersViewSet(viewsets.ReadOnlyModelViewSet):

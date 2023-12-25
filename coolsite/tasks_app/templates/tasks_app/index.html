@@ -455,7 +455,7 @@ linear-gradient(90deg, #4ba3c6, #201e68)
     {% if best_profiles %}
         {% for profile in best_profiles %}
             <div class="profile-card">
-                <a href="{% url 'user_profile' profile.user.username %}">
+                <a href="{% url 'user_profile' profile.user.id %}">
                     <img src="{{ profile.profile_picture.url }}" alt="Profile picture" class="profile-picture">
                     <div class="user-info">
                         <h3 style="color: white;">{{ profile.first_name }} {{ profile.last_name }}</h3>
