@@ -26,7 +26,7 @@
     height: 80px; /* Уменьшаем высоту фото */
     background: linear-gradient(90deg, #ff9966, #ff5e62);
     border-radius: 50%; /* Создаем круглое фото */
-    box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
+    box-shadow: 1px 1px 2rem rgb(31 202 219);
 }
 
 
@@ -78,16 +78,10 @@ h3, h4, p {
             <div class="space-y-6">
                 <a href="{% url 'detail' conversation.id %}">
                     <div class="p-6 flex bg-gray-100 rounded-xl">
-                        <div class="pr-6">
-                            {% if conversation.messages.first.created_by != request.user %}
-                                <img class="profile-pic" src="{{ conversation.messages.first.created_by.profile.profile_picture.url }}">
-                            {% else %}
-                                <img class="profile-pic" src="{{ request.user.profile.profile_picture.url }}">
-                            {% endif %}
-                        </div>
                         <div>
                             {% for member in conversation.members.all %}
                                 {% if member != request.user %}
+                            <img class="profile-pic" src="{{ member.profile.profile_picture.url }}">
                                     <p class="mb-1 text-sm">{{ member.profile.first_name }} {{ member.profile.last_name }} </p>
                                     <hr>
                                     <p><strong>Задания:</strong> {{ conversation.item.title }}</p>

@@ -23,35 +23,46 @@
 h1, h2{
  color: white;
 }
+.features{
+    border: 1px #ffffff solid;
+}
 </style>
     {% if request.user.is_authenticated %}
-    <div class="features">
-    <h1>Форма по добавлению задания</h1>
-    <form method="post">
-        {% csrf_token %}<br>
-        <div class="skr">
-            {{ form.user_name  }}<br>
-        </div>
-        {{ form.title }}<br>
-        {{ form.anons }}<br>
-        {{ form.phope }}<br>
-        {{ form.prise}}<br>
-        {{ form.full_text }}
-        <div class="categories"><br>
-            <h2>Выберите категорию:</h2>
-        <select name="category">
-            <option value="" selected disabled>Категории</option>
-            {% for category in categories %}
-                <option value="{{ category.id }}">{{ category.name }}</option>
-            {% endfor %}
-        </select>
-    </div>
-        <br>
-        <span>{{ error }}</span>
-      <button class="color-btn_create" type="submit">Опубликовать</button><br>
-    </form>
+    <div class="create">
+        <div class="features">
+            <h1>Форма по добавлению задания</h1>
+            <form method="post">
+                {% csrf_token %}<br>
+                <div class="skr">
+                    {{ form.user_name  }}<br>
+                </div>
+                 <p  style="color:#ffffff ; float: left;">&bull; Пример: Дизайн студии. Помощь по дому. </p>
+                {{ form.title }}<br>
+                <p  style="color:#ffffff ; float: left;">&bull; Пример: Инструменты. Сменную одежду</p>
+                {{ form.anons }}<br>
+                <p  style="color:#ffffff ; float: left;">&bull; Укажите номер телефона если нужно</p>
+                {{ form.phope }}<br>
+                <p  style="color:#ffffff ; float: left;">&bull; Укажите цену за выплниную задачу</p>
+                {{ form.prise}}<br>
+                <p  style="color:#ffffff ; float: left;">&bull; Напишите подробно о том чем придстоит заниматься</p>
+                {{ form.full_text }}
+                <div class="categories"><br>
+                    <p  style="color:#ffffff ;">&bull; Фухх, ну и духота🥵, осталось выбрать категорию</p>
+                    <h2>Выберите категорию:</h2>
+                <select name="category">
+                    <option value="" selected disabled>Категории</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+                <br>
+                <span>{{ error }}</span>
+              <button class="color-btn_create" type="submit">Опубликовать</button><br>
+            </form>
 
 </div>
+    </div>
 
 {% else %}
     <h1>Вы не сможете продолжить, пока не войдёте в свой профиль</h1>

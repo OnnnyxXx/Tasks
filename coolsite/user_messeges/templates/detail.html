@@ -1,11 +1,13 @@
 {% extends 'tasks_app/layout.html' %}
-
+{% load static %}
 {% block title %}Чат{% endblock %}
 
 {% block content %}
+
+
 <style>
     body {
-        background-color: white;
+          background-color: #F5F5F5;
         margin: 0;
         padding: 0;
         font-family: Arial, sans-serif;
@@ -14,10 +16,9 @@
     .chat-container {
         background-color: #000000ab;
         padding: 20px;
-        border-radius: 20px;
         color: white;
-        height: calc(100vh - 160px); /* Устанавливаем высоту чата с учетом ввода сообщения внизу */
-        overflow-y: auto; /* Добавляем возможность прокрутки сообщений */
+        height: calc(100vh - 160px);
+        overflow-y: auto;
         margin-left: auto;
         margin-right: auto;
 
@@ -193,6 +194,7 @@
 .bar{
     display: none;
 }
+
 </style>
 <div class="col">
     <a class="arrow-3" href="/message/">
@@ -222,11 +224,11 @@
 <div id="here">
     <div   class="chat-container">
     {% for message in conversation.messages.all %}
-        <div  class="message-container {% if message.created_by == request.user %}right{% else %}left{% endif %}">
+        <div class="message-container {% if message.created_by == request.user %}right{% else %}left{% endif %}"
+             {% if forloop.last %}id="last-message"{% endif %}>
             <div class="messages">
                 <img class="profile-pic" src="{{ message.created_by.profile.profile_picture.url }}">
                 <a href="/me/profile_user/{{ message.created_by.id }}" style="text-decoration: none; color: inherit;">
-                    {{ message.created_by.profile.first_name }} {{ message.created_by.profile.last_name }}
                 </a>
                 <p>{{ message.content|linebreaks|urlize }}</p>
                 <div class="time_mess" align="right">{{ message.created_at|time:"H:i" }}</div>
@@ -244,22 +246,11 @@
         <img id="profile-pic" class="profile-pic" src="{{ request.user.profile.profile_picture.url }}">
         <input id="message-input" type="text" name="content" placeholder="Введите сообщение" required>
         <button type="submit" class="send-button" style="background-color: #0040FF; border-radius: 50%; padding: 5px 10px;
-         color: white; margin-left: 120px;" onclick="updateChat({{ conversation.pk }})">
+         color: white; margin-left: 120px;">
            ➤
         </button>
     </div>
 </form>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script>
-$(document).ready(function(){
-setInterval(function(){
-      $("#here").load(window.location.href + " #here" );
-}, 6000);
-});
-
-    document.querySelector('.dropbtn').addEventListener('click', function() {
-    document.querySelector('.dropdown-content').style.display =
-        document.querySelector('.dropdown-content').style.display === 'none' ? 'block' : 'none';
-});
-</script>
+    <script src="{% static 'user_messeges/js/messages.js' %}"></script>
 {% endblock %}
