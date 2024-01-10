@@ -1,6 +1,6 @@
 {% extends 'tasks_app/layout.html' %}
 
-{% block title %}Главная страница{% endblock %}
+{% block title %}TS{% endblock %}
 
 {% block content %}
 
@@ -46,14 +46,14 @@ h2 {
 
 .slider {
   display: flex;
-  flex-direction: row; /* изменяем направление главной оси на горизонтальное */
+  flex-direction: row;
   height: 328px;
   overflow: hidden;
 }
 
 .slider .profile-card {
-  width: 300px; /* задаем фиксированную ширину блока пользователя */
-  margin-right: 20px; /* добавляем отступ между блоками */
+  width: 300px;
+  margin-right: 20px;
   animation: slide-left 25s linear infinite;
 }
 
@@ -74,7 +74,7 @@ h2 {
 
 .wrapper {
   position: relative;
-  perspective: 40em;
+  perspective: 70em;
   display: grid;
   transform-style: preserve-3d;
 }
@@ -187,9 +187,12 @@ linear-gradient(90deg, #4ba3c6, #201e68)
 
     }
   .wrapper {
-
-    justify-content: center;
-    align-items: center;
+      position: relative;
+      perspective: 40em;
+      display: grid;
+      transform-style: preserve-3d;
+      justify-content: center;
+      align-items: center;
   }
 
   .card {
@@ -257,7 +260,6 @@ linear-gradient(90deg, #4ba3c6, #201e68)
             margin: 0 5px;
             cursor: pointer;
         }
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap");
 
 * {
   margin: 0;
@@ -273,7 +275,7 @@ linear-gradient(90deg, #4ba3c6, #201e68)
   width: 100%;
   background: #3586ff;
   min-height: 100px;
-  padding: 20px 20px; /* Уменьшаем отступы для мобильных устройств */
+  padding: 20px 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -281,14 +283,14 @@ linear-gradient(90deg, #4ba3c6, #201e68)
 }
 
 
-/* Добавляем иконку телеграмм */
+
 .social-icon__item:nth-child(1) ion-icon {
-  content: url('https://phonoteka.org/uploads/posts/2023-03/1679571687_phonoteka-org-p-logotip-telegramma-art-pinterest-37.png'); /* Заменяем иконку телеграмм на нужную */
+  content: url('https://phonoteka.org/uploads/posts/2023-03/1679571687_phonoteka-org-p-logotip-telegramma-art-pinterest-37.png');
 }
 
-/* Добавляем иконку вк */
+
 .social-icon__item:nth-child(2) ion-icon {
-  content: url('https://static.tildacdn.com/tild6330-6337-4534-a361-323935643731/noroot.png'); /* Заменяем иконку вк на нужную */
+  content: url('https://static.tildacdn.com/tild6330-6337-4534-a361-323935643731/noroot.png');
 }
 
 .social-icon,
@@ -306,10 +308,10 @@ linear-gradient(90deg, #4ba3c6, #201e68)
   list-style: none;
 }
 
-/* Общие стили для ссылок и пунктов меню */
+
 .social-icon__link,
 .menu__link {
-  font-size: 1.2rem; /* Уменьшаем размер шрифта для мобильных устройств */
+  font-size: 1.2rem;
   color: #fff;
   margin: 0 10px;
   display: inline-block;
@@ -413,14 +415,14 @@ linear-gradient(90deg, #4ba3c6, #201e68)
   bottom: 80px;
   right: 10px;
   font-size: 2em;
-  color: rgba(255, 0, 0, 0.5); /* полупрозрачный круг */
+  color: rgba(255, 0, 0, 0.5);
   cursor: pointer;
   background: #18a90778;
   border-radius: 50px/59px;
 }
 
 .donate-icon:hover {
-  color: rgba(255, 0, 0, 1); /* изменение цвета при наведении */
+  color: rgba(255, 0, 0, 1);
 }
 </style>
 <div class="center">
@@ -517,11 +519,37 @@ linear-gradient(90deg, #4ba3c6, #201e68)
 <!--      <li class="menu__item"><a class="menu__link" href="#">Contact</a></li>-->
 
     </ul>
-    <p>&copy;2023 Все права защищены</p>
+    <p>&copy;2024 Все права защищены</p>
   </footer>
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <script>
   document.documentElement.style.setProperty('--count', '{{ best_profiles|length }}');
+</script>
+<script>
+    let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+
+function showSlide(index) {
+    slides.forEach(slide => slide.classList.remove('active'));
+    slides[index].classList.add('active');
+}
+
+function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+}
+
+function previousSlide() {
+    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    showSlide(currentSlide);
+}
+
+function initSlider() {
+    showSlide(currentSlide);
+    setInterval(nextSlide, 3000);
+}
+
+initSlider();
 </script>
 {% endblock %}

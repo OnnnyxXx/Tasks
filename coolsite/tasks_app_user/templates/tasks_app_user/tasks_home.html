@@ -158,7 +158,7 @@ h3, h4, p {
 <div class="features">
     <form method="GET">
         <div>
-            <select id="city_filter" name="city" onchange="filterTasks(this.value)" style="position: absolute; top: 56px; right: -2px;">
+            <select id="city_filter" name="city" onchange="filterTasks(this.value)" style="position: absolute; top: 56px; right: 1px;">
                 <option value="">Все города</option>
                 {% for city in unique_cities %}
                     <option value="{{ city }}">{{ city }}</option>
