@@ -5,10 +5,13 @@
     <link rel="icon" href="/static/tasks_app/img/favicon.ico" type="image/x-icon">
     <!--  Конец favicon  -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %} {% endblock %}</title>
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'tasks_app/css/tasks_app.css' %}">
 
@@ -56,10 +59,10 @@
   display: block;
 }
 </style>
-    <aside>
-        <div class="bar">
-                   <ul class="nav justify-content-center navbar navbar-expand-lg navbar-dark bg-dark ">
-<!--             <img src="static/tasks_app/img/IB.png" alt="logo" width="40">-->
+<aside>
+    <div class="bar">
+        <ul class="nav justify-content-center navbar navbar-expand-lg navbar-dark bg-dark ">
+            <!--             <img src="static/tasks_app/img/IB.png" alt="logo" width="40">-->
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Главная страница</a>
             </li>
@@ -69,7 +72,8 @@
             <li class="nav-item">
                 <a href="{% url 'create' %}" class="bloc-icon">
                     <div class="img">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="#fff"  x="0px" y="0px" width="100" height="50" viewBox="0 0 50 50">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" x="0px" y="0px" width="100" height="50"
+                             viewBox="0 0 50 50">
                             <path d="M 25 2 C 12.264481 2 2 12.264481 2 25 C 2 37.735519 12.264481 48 25 48 C
                             37.735519 48 48 37.735519 48 25 C 48 12.264481 37.735519 2 25 2 z M 25 4 C 36.664481 4 46 13.335519 46
                             25 C 46 36.664481 36.664481 46 25 46 C 13.335519 46 4 36.664481 4 25 C 4 13.335519 13.335519 4 25 4 z M 24
@@ -78,26 +82,27 @@
                     </div>
                 </a>
             </li>
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" href="{% url 'about' %}">О нас</a>-->
-<!--            </li>-->
-                       {% if request.user.is_authenticated %}
+            <!--            <li class="nav-item">-->
+            <!--                <a class="nav-link" href="{% url 'about' %}">О нас</a>-->
+            <!--            </li>-->
+            {% if request.user.is_authenticated %}
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{% url 'inbox' %}">Сообщения</a>
             </li>
-                {% endif %}
-                <ul class="nav justify-content-end">
-                    {% if request.user.is_authenticated %}
-                            <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    {{ user.username }}
-                  </a>
-                  <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="{% url 'user_home' %}">Профиль</a></li>
-                    <li><a class="dropdown-item" href="{% url 'logout' %}">Выйти</a></li>
-                  </ul>
+            {% endif %}
+            <ul class="nav justify-content-end">
+                {% if request.user.is_authenticated %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        {{ user.username }}
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'user_home' %}">Профиль</a></li>
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">Выйти</a></li>
+                    </ul>
                     {% else %}
-                </ul>
+            </ul>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'register' %}">Регистрация</a>
             </li>
@@ -106,9 +111,9 @@
 
             </li>
         </ul>
-        </div>
+    </div>
 
-    </aside>
+</aside>
 
 <!--<input type="checkbox" id="side-checkbox" />-->
 <!--<div class="side-panel">-->
@@ -164,128 +169,152 @@
 
 <!--</div>-->
 
-    <div id="navbar">
-        <aside>
-          <nav class="mobile-nav">
-        <a href="{% url 'home' %}" class="bloc-icon">
-            <i class="gg-home">
-<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0,0,256,256">
-<g transform="translate(76.8,76.8) scale(0.4,0.4)"><g fill="#000000" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(10.66667,10.66667)"><path d="M12,2c-0.26712,0.00003 -0.52312,0.10694 -0.71094,0.29688l-10.08594,8.80078c-0.12774,0.09426 -0.20313,0.24359 -0.20312,0.40234c0,0.27614 0.22386,0.5 0.5,0.5h2.5v8c0,0.552 0.448,1 1,1h4c0.552,0 1,-0.448 1,-1v-6h4v6c0,0.552 0.448,1 1,1h4c0.552,0 1,-0.448 1,-1v-8h2.5c0.27614,0 0.5,-0.22386 0.5,-0.5c0.00001,-0.15876 -0.07538,-0.30808 -0.20312,-0.40234l-10.08008,-8.79492c-0.00194,-0.00196 -0.0039,-0.00391 -0.00586,-0.00586c-0.18782,-0.18994 -0.44382,-0.29684 -0.71094,-0.29687z"></path></g></g></g>
-</svg>
-            </i>
-        </a>
-        <a href="{% url 'category' %}" class="bloc-icon">
-            <i class="gg-list">
-                <link href='https://unpkg.com/css.gg@2.0.0/icons/css/list.css' rel='stylesheet'>
-            </i>
-        </a>
-        <a href="{% url 'create' %}" class="bloc-icon">
-            <div class="img">
-                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="50" viewBox="0 0 50 50">
-<path d="M 25 2 C 12.264481 2 2 12.264481 2 25 C 2 37.735519 12.264481 48 25 48 C
+<div id="navbar">
+    <aside>
+        <nav class="mobile-nav">
+            <a href="{% url 'home' %}" class="bloc-icon">
+                <i class="gg-home">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100"
+                         viewBox="0,0,256,256">
+                        <g transform="translate(76.8,76.8) scale(0.4,0.4)">
+                            <g fill="#000000" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                               stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+                               font-family="none" font-weight="none" font-size="none" text-anchor="none"
+                               style="mix-blend-mode: normal">
+                                <g transform="scale(10.66667,10.66667)">
+                                    <path d="M12,2c-0.26712,0.00003 -0.52312,0.10694 -0.71094,0.29688l-10.08594,8.80078c-0.12774,0.09426 -0.20313,0.24359 -0.20312,0.40234c0,0.27614 0.22386,0.5 0.5,0.5h2.5v8c0,0.552 0.448,1 1,1h4c0.552,0 1,-0.448 1,-1v-6h4v6c0,0.552 0.448,1 1,1h4c0.552,0 1,-0.448 1,-1v-8h2.5c0.27614,0 0.5,-0.22386 0.5,-0.5c0.00001,-0.15876 -0.07538,-0.30808 -0.20312,-0.40234l-10.08008,-8.79492c-0.00194,-0.00196 -0.0039,-0.00391 -0.00586,-0.00586c-0.18782,-0.18994 -0.44382,-0.29684 -0.71094,-0.29687z"></path>
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                </i>
+            </a>
+            <a href="{% url 'category' %}" class="bloc-icon">
+                <i class="gg-list">
+                    <link href='https://unpkg.com/css.gg@2.0.0/icons/css/list.css' rel='stylesheet'>
+                </i>
+            </a>
+            <a href="{% url 'create' %}" class="bloc-icon">
+                <div class="img">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="50" viewBox="0 0 50 50">
+                        <path d="M 25 2 C 12.264481 2 2 12.264481 2 25 C 2 37.735519 12.264481 48 25 48 C
 37.735519 48 48 37.735519 48 25 C 48 12.264481 37.735519 2 25 2 z M 25 4 C 36.664481 4 46 13.335519 46
 25 C 46 36.664481 36.664481 46 25 46 C 13.335519 46 4 36.664481 4 25 C 4 13.335519 13.335519 4 25 4 z M 24
 13 L 24 24 L 13 24 L 13 26 L 24 26 L 24 37 L 26 37 L 26 26 L 37 26 L 37 24 L 26 24 L 26 13 L 24 13 z"></path>
-        </svg>
-            </div>
+                    </svg>
+                </div>
 
-        </a>
-              {% if request.user.is_authenticated %}
-        <a href="{% url 'inbox' %}" class="bloc-icon">
-            <div class="mes">
-                           <i class="bi bi-send">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
-  <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
-</svg>
-            </i>
-            </div>
+            </a>
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'inbox' %}" class="bloc-icon">
+                <div class="mes">
+                    <i class="bi bi-send">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                             class="bi bi-send" viewBox="0 0 16 16">
+                            <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
+                        </svg>
+                    </i>
+                </div>
 
-        </a>
-        <a href="{% url 'user_home' %}" class="bloc-icon" >
-          {% if request.user.profile.profile_picture %}
-            <img src="{{ request.user.profile.profile_picture.url }}" alt="Profile Picture">
-          {% else %}
-            <img src="media/profile_pictures/default_profile_picture.jpg" alt="Default Profile Picture">
-          {% endif %}
-        </a>
+            </a>
+            <a href="{% url 'user_home' %}" class="bloc-icon">
+                {% if request.user.profile.profile_picture %}
+                <img src="{{ request.user.profile.profile_picture.url }}" alt="Profile Picture">
+                {% else %}
+                <img src="media/profile_pictures/default_profile_picture.jpg" alt="Default Profile Picture">
+                {% endif %}
+            </a>
 
-    </nav>
-            {% else %}
+        </nav>
+        {% else %}
 
-          <nav class="mobile-nav">
-        <a href="{% url 'home' %}" class="bloc-icon">
-            <i class="gg-home">
-<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0,0,256,256">
-<g transform="translate(76.8,76.8) scale(0.4,0.4)"><g fill="#000000" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(10.66667,10.66667)"><path d="M12,2c-0.26712,0.00003 -0.52312,0.10694 -0.71094,0.29688l-10.08594,8.80078c-0.12774,0.09426 -0.20313,0.24359 -0.20312,0.40234c0,0.27614 0.22386,0.5 0.5,0.5h2.5v8c0,0.552 0.448,1 1,1h4c0.552,0 1,-0.448 1,-1v-6h4v6c0,0.552 0.448,1 1,1h4c0.552,0 1,-0.448 1,-1v-8h2.5c0.27614,0 0.5,-0.22386 0.5,-0.5c0.00001,-0.15876 -0.07538,-0.30808 -0.20312,-0.40234l-10.08008,-8.79492c-0.00194,-0.00196 -0.0039,-0.00391 -0.00586,-0.00586c-0.18782,-0.18994 -0.44382,-0.29684 -0.71094,-0.29687z"></path></g></g></g>
-</svg>
-            </i>
+        <nav class="mobile-nav">
+            <a href="{% url 'home' %}" class="bloc-icon">
+                <i class="gg-home">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100"
+                         viewBox="0,0,256,256">
+                        <g transform="translate(76.8,76.8) scale(0.4,0.4)">
+                            <g fill="#000000" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                               stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+                               font-family="none" font-weight="none" font-size="none" text-anchor="none"
+                               style="mix-blend-mode: normal">
+                                <g transform="scale(10.66667,10.66667)">
+                                    <path d="M12,2c-0.26712,0.00003 -0.52312,0.10694 -0.71094,0.29688l-10.08594,8.80078c-0.12774,0.09426 -0.20313,0.24359 -0.20312,0.40234c0,0.27614 0.22386,0.5 0.5,0.5h2.5v8c0,0.552 0.448,1 1,1h4c0.552,0 1,-0.448 1,-1v-6h4v6c0,0.552 0.448,1 1,1h4c0.552,0 1,-0.448 1,-1v-8h2.5c0.27614,0 0.5,-0.22386 0.5,-0.5c0.00001,-0.15876 -0.07538,-0.30808 -0.20312,-0.40234l-10.08008,-8.79492c-0.00194,-0.00196 -0.0039,-0.00391 -0.00586,-0.00586c-0.18782,-0.18994 -0.44382,-0.29684 -0.71094,-0.29687z"></path>
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                </i>
 
-        </a>
-        <a href="{% url 'category' %}" class="bloc-icon">
-            <i class="gg-list">
-                <link href='https://unpkg.com/css.gg@2.0.0/icons/css/list.css' rel='stylesheet'>
-            </i>
+            </a>
+            <a href="{% url 'category' %}" class="bloc-icon">
+                <i class="gg-list">
+                    <link href='https://unpkg.com/css.gg@2.0.0/icons/css/list.css' rel='stylesheet'>
+                </i>
 
-        </a>
-        <a href="{% url 'create' %}" class="bloc-icon">
-            <div class="img">
-                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="50" viewBox="0 0 50 50">
-<path d="M 25 2 C 12.264481 2 2 12.264481 2 25 C 2 37.735519 12.264481 48 25 48 C
+            </a>
+            <a href="{% url 'create' %}" class="bloc-icon">
+                <div class="img">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="50" viewBox="0 0 50 50">
+                        <path d="M 25 2 C 12.264481 2 2 12.264481 2 25 C 2 37.735519 12.264481 48 25 48 C
 37.735519 48 48 37.735519 48 25 C 48 12.264481 37.735519 2 25 2 z M 25 4 C 36.664481 4 46 13.335519 46
 25 C 46 36.664481 36.664481 46 25 46 C 13.335519 46 4 36.664481 4 25 C 4 13.335519 13.335519 4 25 4 z M 24
 13 L 24 24 L 13 24 L 13 26 L 24 26 L 24 37 L 26 37 L 26 26 L 37 26 L 37 24 L 26 24 L 26 13 L 24 13 z"></path>
-        </svg>
-            </div>
+                    </svg>
+                </div>
 
-        </a>
-        <a href="{% url 'login' %}" class="bloc-icon">
-            <div class="mes">
-                           <i class="bi bi-send">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
-  <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
-</svg>
-            </i>
-            </div>
+            </a>
+            <a href="{% url 'login' %}" class="bloc-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="160" fill="currentColor"
+                     class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                          d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z"/>
+                    <path fill-rule="evenodd"
+                          d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708z"/>
+                </svg>
 
-        </a>
-<a href="{% url 'register' %}" class="bloc-icon">
-    <img src="media/profile_pictures/default_profile_picture.jpg" alt="Default Profile Picture">
-</a>
-    </nav>
-            {% endif %}
+            </a>
+            <a href="{% url 'register' %}" class="bloc-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="160" fill="currentColor" class="bi bi-person"
+                     viewBox="0 0 16 16">
+                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                </svg>
+            </a>
+        </nav>
+        {% endif %}
 
-            </aside>
+    </aside>
 
-    </div>
-    <main>
-        {% block content %}
-        {% endblock %}
-    </main>
+</div>
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
 <script>
-let lastScrollTop = 0;
-const navbar = document.getElementById('navbar');
-const delta = 5;
-const navbarHeight = navbar.offsetHeight;
-const navbarStyle = getComputedStyle(navbar);
-const navbarTransform = navbarStyle.getPropertyValue('transform');
+    let lastScrollTop = 0;
+    const navbar = document.getElementById('navbar');
+    const delta = 5;
+    const navbarHeight = navbar.offsetHeight;
+    const navbarStyle = getComputedStyle(navbar);
+    const navbarTransform = navbarStyle.getPropertyValue('transform');
 
-window.addEventListener('scroll', function () {
-  const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    window.addEventListener('scroll', function () {
+      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
-  if (Math.abs(lastScrollTop - currentScroll) <= delta) {
-    return;
-  }
+      if (Math.abs(lastScrollTop - currentScroll) <= delta) {
+        return;
+      }
 
-  if (currentScroll > lastScrollTop && currentScroll > navbarHeight) {
-    // Прокрутка вниз
-    navbar.style.transform = `translateY(${-200}px)`;
-  } else {
-    // Прокрутка вверх или в начале страницы
-    navbar.style.transform = navbarTransform;
-  }
+      if (currentScroll > lastScrollTop && currentScroll > navbarHeight) {
+        // Прокрутка вниз
+        navbar.style.transform = `translateY(${-200}px)`;
+      } else {
+        // Прокрутка вверх или в начале страницы
+        navbar.style.transform = navbarTransform;
+      }
 
-  lastScrollTop = currentScroll;
-});
+      lastScrollTop = currentScroll;
+    });
 </script>
 </body>
 
