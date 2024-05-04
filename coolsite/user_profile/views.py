@@ -129,4 +129,4 @@ class CommentDeleteView(DeleteView):
         profile = self.object.profile
         user = profile.user
         # Redirect to the user profile page of the author of the comment
-        return reverse_lazy('user_profile',  kwargs={'id': user.id})
+        return reverse_lazy('user_profile', kwargs={'id': user.id})
