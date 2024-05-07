@@ -63,13 +63,13 @@ class ChatConsumer(AsyncWebsocketConsumer):
             profile_picture_url = profile.profile_picture.url if hasattr(profile,
                                                                          'profile_picture') and profile.profile_picture else ''
             return {
-                'username': user.username,
+                # 'username': user.username,
                 'first_name': first_name,
-                'last_name': last_name,
+                # 'last_name': last_name,
                 'profile_image_url': profile_picture_url
             }
         return {
-            'username': user.username,
+            # 'username': user.username,
         }
 
     @database_sync_to_async
