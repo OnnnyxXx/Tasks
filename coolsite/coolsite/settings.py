@@ -16,6 +16,38 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'tasks_app/static/tasks_app/js', 'serviceworker.js')
+PWA_APP_NAME = 'TS'
+
+PWA_APP_DESCRIPTION = "Сайт для решения проблем"
+PWA_APP_THEME_COLOR = '#0A0302'
+PWA_APP_BACKGROUND_COLOR = '#ffffff'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/'
+PWA_APP_ORIENTATION = 'any'
+PWA_APP_START_URL = '/'
+PWA_APP_STATUS_BAR_COLOR = 'default'
+PWA_APP_ICONS = [
+    {
+        'src': 'static/tasks_app/img/apple-touch-icon-144x144.png',
+        'sizes': '144x144'
+    }
+]
+PWA_APP_ICONS_APPLE = [
+    {
+        'src': 'tasks_app/img/apple-touch-icon-120x120.png',
+        'sizes': '120x120px'
+    }
+]
+PWA_APP_SPLASH_SCREEN = [
+    {
+        'src': 'tasks_app/img/favicon-16x16.png',
+        'sizes': '16x16',
+        'type': 'image/png'
+    }
+]
+PWA_APP_DIR = 'ltr'
+PWA_APP_LANG = 'ru-RU'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -27,7 +59,6 @@ SECRET_KEY = 'django-insecure-xt12r*-nd(z9$u54%8tj!kfz!xbf#y8jk*$6oackdi6ezhj#_#
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -48,7 +79,7 @@ INSTALLED_APPS = [
     'user_messeges.apps.UserMessegesConfig',
     'rest_framework',
     'corsheaders',
-
+    'pwa'
 
 ]
 
@@ -67,7 +98,6 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
 ]
 ROOT_URLCONF = 'coolsite.urls'
-
 
 TEMPLATES = [
     {
@@ -89,7 +119,6 @@ WSGI_APPLICATION = 'coolsite.wsgi.application'
 
 ASGI_APPLICATION = 'coolsite.asgi.application'
 
-
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
@@ -109,7 +138,6 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -128,7 +156,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -140,12 +167,10 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -208,3 +233,6 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
+
+# CSRF_COOKIE_SECURE = True  # Использовать только при HTTPS
+# CSRF_COOKIE_HTTPONLY = True  # Не позволяет JavaScript читать куки

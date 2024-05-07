@@ -1,0 +1,36 @@
+{
+    "name": "TS",
+    "short_name": "Tasks",
+    "start_url": "/",
+    "scope": ".",
+    "display": "standalone",
+    "background_color": "#FFF",
+    "theme_color": "#493174",
+    "description": "Сайт для решения задач",
+    "dir": "ltr",
+    "lang": "ru-RU",
+    "orientation": "portrait-primary",
+    "icons": [{
+        "src": "tasks_app/img/mstile-150x150.png",
+        "type": "image/png",
+        "sizes": "150x150"
+    }, {
+        "src": "tasks_app/img/android-chrome-512x512.png",
+        "type": "image/png",
+        "sizes": "512x512"
+    }],
+    "screenshots": [
+    {
+        "src": "tasks_app/img/android-chrome-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "form_factor": "desktop"
+    },
+    {
+        "src": "tasks_app/img/apple-touch-icon-152x152.png",
+        "sizes": "152x152",
+        "type": "image/png",
+        "form_factor": "mobile"
+    }
+]
+}
