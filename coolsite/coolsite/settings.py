@@ -21,7 +21,7 @@ PWA_APP_NAME = 'TS'
 
 PWA_APP_DESCRIPTION = "Сайт для решения проблем"
 PWA_APP_THEME_COLOR = '#0A0302'
-PWA_APP_BACKGROUND_COLOR = '#ffffff'
+PWA_APP_BACKGROUND_COLOR = '#66FCF1'
 PWA_APP_DISPLAY = 'standalone'
 PWA_APP_SCOPE = '/'
 PWA_APP_ORIENTATION = 'any'
@@ -29,19 +29,19 @@ PWA_APP_START_URL = '/'
 PWA_APP_STATUS_BAR_COLOR = 'default'
 PWA_APP_ICONS = [
     {
-        'src': 'static/tasks_app/img/apple-touch-icon-144x144.png',
-        'sizes': '144x144'
+        'src': 'static/tasks_app/img/logo_ts-512x512.png',
+        'sizes': '512x512'
     }
 ]
 PWA_APP_ICONS_APPLE = [
     {
-        'src': 'tasks_app/img/apple-touch-icon-120x120.png',
-        'sizes': '120x120px'
+        'src': 'static/tasks_app/img/logo_ts-144x144.png',
+        'sizes': '144x144'
     }
 ]
 PWA_APP_SPLASH_SCREEN = [
     {
-        'src': 'tasks_app/img/favicon-16x16.png',
+        'src': 'static/tasks_app/img/logo_ts-16x16.png',
         'sizes': '16x16',
         'type': 'image/png'
     }
