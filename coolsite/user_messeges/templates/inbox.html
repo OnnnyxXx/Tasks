@@ -37,14 +37,17 @@ a {
 }
 .blog_post {
         background: #fff;
-        border-radius: 10px;
+        border-radius: 50px;
         box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
         margin: 0 auto;
         padding: 20px;
 <!--        display: flex;-->
         flex-direction: row; /* Оставляем горизонтальное расположение */
     }
+
 .time{
+  background-color: var(--var-bgcolor);
+  color: var(--var-fontcolor);
 
 }
 
@@ -63,9 +66,37 @@ h3, h4 {
   text-align: left;
   box-sizing: content-box;
 }
+
 h3, h4, p {
   font-size: 0.9rem;
   margin: 4px;
+
+}
+}
+
+
+.blog_post {
+  background-color: var(--var-bgcolor);
+  color: var(--var-fontcolor);
+
+
+}
+
+:root {
+  --var-bgcolor: #fff;
+  --var-fontcolor: #000;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --var-bgcolor: #0B0C10;
+    --var-fontcolor: #eee;
+  }
+
+  h3, h4, p {
+    font-size: 0.9rem;
+    margin: 4px;
+    color: white;
 }
 }
 </style>
@@ -73,31 +104,32 @@ h3, h4, p {
 {% if conversations %}
 <h1 class="mb-6 text-3xl" style="text-align: center; color: white;">Сообщения</h1>
 {% for conversation in conversations %}
-    <div class="features">
-        <div class="blog_post">
-            <div class="space-y-6">
-                <a href="{% url 'detail' conversation.id %}">
-                    <div class="p-6 flex bg-gray-100 rounded-xl">
-                        <div>
-                            {% for member in conversation.members.all %}
-                                {% if member != request.user %}
-                            <img class="profile-pic" src="{{ member.profile.profile_picture.url }}">
-                                    <p class="mb-1 text-sm">{{ member.profile.first_name }} {{ member.profile.last_name }} </p>
-                                    <hr>
-                                    <p><strong>Задания:</strong> {{ conversation.item.title }}</p>
-                                    <hr>
-<!--                                    <p><strong>Цена:</strong> {{ conversation.item.prise }}</p>-->
-<!--                                    <hr>-->
-                                    <p><strong>Сообщения:</strong> {{ conversation.messages.last.content|slice:":20" }}</p>
-                                    <div class="time" align="right">{{ conversation.modified_at }}</div>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
+<div class="features">
+    <div class="blog_post">
+        <div class="space-y-6">
+            <a href="{% url 'detail' conversation.id %}">
+                <div class="p-6 flex bg-gray-100 rounded-xl">
+                    <div>
+                        {% for member in conversation.members.all %}
+                        {% if member != request.user %}
+                        <img class="profile-pic" src="{{ member.profile.profile_picture.url }}">
+                        <p class="mb-1 text-sm">{{ member.profile.first_name }} {{ member.profile.last_name }} </p>
+                        <hr>
+                        <p><strong>Задания:</strong> {{ conversation.item.title }}</p>
+                        <hr>
+                        <!--                                    <p><strong>Цена:</strong> {{ conversation.item.prise }}</p>-->
+                        <!--                                    <hr>-->
+                        <p><strong>Сообщения:</strong> {{ conversation.messages.last.content|slice:":20" }}</p>
+                        <hr>
+                        <div class="time" align="right">{{ conversation.modified_at }}</div>
+                        {% endif %}
+                        {% endfor %}
                     </div>
-                </a>
-            </div>
+                </div>
+            </a>
         </div>
     </div>
+</div>
 {% endfor %}
 {% else %}
 <h1 class="mb-6 text-3xl" style="text-align: center;">У вас нет сообщений</h1>

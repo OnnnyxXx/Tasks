@@ -29,6 +29,7 @@ const messageElement = document.createElement('div');
      <p>${jsonData.message}</p>
 <!--      <div class="time_mess" align="right">${jsonData.time}</div>-->
   </div>
+  <hr>
 `;
 
     chatContainer.appendChild(messageContainer);

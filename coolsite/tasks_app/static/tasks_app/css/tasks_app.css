@@ -27,15 +27,7 @@ body {
 
 
 linear-gradient(90deg, #4ba3c6, #201e68)
-:root {
-  --var-bgcolor: #fff;
-  --var-fontcolor: #000;
-}
-
-body {
-  background-color: var(--var-bgcolor);
-  color: var(--var-fontcolor);
-}
+*/
 
 .card {
   background-color: var(--var-bgcolor);
@@ -57,7 +49,7 @@ body {
   background-color: var(--var-bgcolor);
   color: var(--var-fontcolor);
 }
-*/
+
 
 .features {
     padding: 1em;

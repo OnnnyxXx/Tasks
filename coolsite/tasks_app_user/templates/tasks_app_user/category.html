@@ -3,108 +3,129 @@
 {% block title %}Категории{% endblock %}
 
 {% block content %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0…">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0…">
 
-    <style>
-.categories {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.category-button {
-    display: flex;
-    align-items: center;
-    background-color: #fff;
-    color: Black;
-    padding: 20px 12px;
-    margin: 10px;
-    border: none;
-    border-radius: 16%;
-    cursor: pointer;
-    font-size: 12px;
-    font-weight: bold;
-    text-align: center;
-    transition: background-color 0.3s ease;
-    border: none;
-    width: 286px;
-    height: 122px;
-    text-decoration: none;
-    font-family: Verdana;
-    position: relative;
-}
-        .category-posts {
-            display: none;
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .category-posts.active {
-            display: block;
-        }
-
-        .category-posts .post {
-            padding: 10px;
-            border: 1px solid #ccc;
-            margin: 5px 0;
-        }
-
-        .category-posts .post a {
-            color: #3498db;
-            text-decoration: none;
-        }
-
-        .category-posts .post a:hover {
-            text-decoration: underline;
-        }
-
-
-.blink {
-    animation: blink 5s infinite;
-}
-
-@keyframes blink {
-    0%, 49.9%, 100% {
-        background-color: #3498db;
+<style>
+    .categories {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
     }
-    50%, 99.9% {
-        background-color: #2980b9;
+
+    .category-button {
+        display: flex;
+        align-items: center;
+        background-color: #fff;
+        color: Black;
+        padding: 20px 12px;
+        margin: 10px;
+        border: none;
+        border-radius: 16%;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: bold;
+        text-align: center;
+        transition: background-color 0.3s ease;
+        border: none;
+        width: 286px;
+        height: 122px;
+        text-decoration: none;
+        font-family: Verdana;
+        position: relative;
     }
-}
-.img_cat{
-    margin-right: 10px;
-    height: 100px;
-    flex-shrink: 0;
-    border-radius: 50%;
-}
+            .category-posts {
+                display: none;
+                text-align: center;
+                margin-top: 20px;
+            }
 
-.category-text {
-    border-left: 1px solid Black;
-    padding-left: 10px;
-}
+            .category-posts.active {
+                display: block;
+            }
 
-.task_count{
-  position: absolute;
-  top: 93px;
-  right: 7px;
-}
-@keyframes fadeInZoom {
-  from {
-    opacity: 0;
-    transform: scale(0.1);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
+            .category-posts .post {
+                padding: 10px;
+                border: 1px solid #ccc;
+                margin: 5px 0;
+            }
 
-.category-fadeIn {
-  animation: fadeInZoom 1s ease forwards;
-}
-    </style>
+            .category-posts .post a {
+                color: #3498db;
+                text-decoration: none;
+            }
+
+            .category-posts .post a:hover {
+                text-decoration: underline;
+            }
+
+
+    .blink {
+        animation: blink 5s infinite;
+    }
+
+    @keyframes blink {
+        0%, 49.9%, 100% {
+            background-color: #3498db;
+        }
+        50%, 99.9% {
+            background-color: #2980b9;
+        }
+    }
+    .img_cat{
+        margin-right: 10px;
+        height: 100px;
+        flex-shrink: 0;
+        border-radius: 50%;
+    }
+
+    .category-text {
+        border-left: 1px solid Black;
+        padding-left: 10px;
+    }
+
+    .task_count{
+      position: absolute;
+      top: 93px;
+      right: 7px;
+    }
+    @keyframes fadeInZoom {
+      from {
+        opacity: 0;
+        transform: scale(0.1);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .category-fadeIn {
+      animation: fadeInZoom 1s ease forwards;
+    }
+
+    .category-button {
+      background-color: #66fcf1fc;
+      color: var(--var-fontcolor);
+    }
+    :root {
+      --var-bgcolor: #fff;
+      --var-fontcolor: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --var-bgcolor: #0B0C10;
+        --var-fontcolor: #eee;
+      }
+      .category-button {
+        color: black;
+        background-color: #66fcf1fc;
+      }
+
+    }
+</style>
 
 <body>
 <div class="categories">
@@ -112,17 +133,18 @@
         <span class="category-text">Все категории</span>
     </a>
     {% for category in categories %}
-    <a href="{% url 'tasks_home' %}?category={{ category.name }}" class="category-button category-fadeIn" data-category="{{ category.name }}" style="animation-delay: {{ forloop.counter0|add:'0.2' }}s;">
-            {% if category.image %}
-                <img class="img_cat" src="{{ category.image.url }}" alt="{{ category.name }}">
-            {% endif %}
-            <span class="category-text">{{ category.name }}</span>
-            {% if category.task_count %}
-                <span class="task_count">Заданий: {{ category.task_count }}</span>
-            {% else %}
-                <span class="task_count">Заданий: 0</span>
-            {% endif %}
-        </a>
+    <a href="{% url 'tasks_home' %}?category={{ category.name }}" class="category-button category-fadeIn"
+       data-category="{{ category.name }}" style="animation-delay: {{ forloop.counter0|add:'0.2' }}s;">
+        {% if category.image %}
+        <img class="img_cat" src="{{ category.image.url }}" alt="{{ category.name }}">
+        {% endif %}
+        <span class="category-text">{{ category.name }}</span>
+        {% if category.task_count %}
+        <span class="task_count">Заданий: {{ category.task_count }}</span>
+        {% else %}
+        <span class="task_count">Заданий: 0</span>
+        {% endif %}
+    </a>
     {% endfor %}
 </div>
 
