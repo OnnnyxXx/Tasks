@@ -225,7 +225,7 @@
                 justify-content: center;
                 align-items: center;
                 height: 41vh;
-                background-color: #66FCF1;
+                background-color: #0B0C10;
                 color: white;
                 text-align: center;
                 border-radius: 50px;
@@ -424,6 +424,104 @@
     .donate-icon:hover {
       color: rgba(255, 0, 0, 1);
     }
+.reveal {
+  position: relative;
+  display: flex;
+  color: #6ee1f5;
+  font-size: 3.6em;
+  font-family: 'Raleway', sans-serif;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  white-space: pre;
+
+}
+
+
+/* Медиа-запросы для разных размеров экрана */
+@media (max-width: 768px) {
+  .reveal {
+    font-size: 24px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .reveal {
+    font-size: 63px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .reveal {
+      font-size: 3.6em;
+  }
+}
+
+.reveal span {
+  opacity: 0;
+  transform: scale(0);
+  animation: fadeInOut 5s infinite;
+}
+.reveal::before,
+.reveal::after {
+  position: absolute;
+  content: "";
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  height: 100%;
+  background: white;
+  opacity: 0;
+  transform: scale(0);
+}
+
+.reveal::before {
+  left: 50%;
+  animation: slideLeft 1.5s cubic-bezier(0.7, -0.6, 0.3, 1.5) forwards;
+}
+
+.reveal::after {
+  right: 50%;
+  animation: slideRight 1.5s cubic-bezier(0.7, -0.6, 0.3, 1.5) forwards;
+}
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0; transform: scale(0); }
+  50% { opacity: 1; transform: scale(1); }
+}
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+@keyframes slideLeft {
+  to {
+    left: -6%;
+    opacity: 1;
+    transform: scale(0.9);
+  }
+}
+
+@keyframes slideRight {
+  to {
+    right: -6%;
+    opacity: 1;
+    transform: scale(0.9);
+  }
+}
+
+
 </style>
 <div class="center">
     <div class="wrapper">
@@ -437,18 +535,12 @@
     </div>
 </div>
 
-<div class="slider-container">
-    <div class="slide active">
-        <h2>Простота использования</h2>
-        <h2>Мы создали сайт с удобным интерфейсом, который легко освоить даже новичку.</h2>
-    </div>
-    <div class="slide">
-        <h2>Удобство в каждой детали</h2>
-        <h2>Мы обеспечили удобство использования на каждом этапе, чтобы каждый пользователь оценил наш сайт.</h2>
-    </div>
-    <!-- Добавьте дополнительные слайды при необходимости -->
-</div>
 
+<div class="slider-container">
+
+    <div class="reveal" id="textSlider">Почему бы и нет</div>
+
+</div>
 
 <div class="thebest">
     <h2>Лучшие пользователи:</h2>
@@ -490,12 +582,12 @@
 
 
 <footer class="footer">
-<!--    <div class="waves">-->
-<!--        <div class="wave" id="wave1"></div>-->
-<!--        <div class="wave" id="wave2"></div>-->
-<!--        <div class="wave" id="wave3"></div>-->
-<!--        <div class="wave" id="wave4"></div>-->
-<!--    </div>-->
+    <!--    <div class="waves">-->
+    <!--        <div class="wave" id="wave1"></div>-->
+    <!--        <div class="wave" id="wave2"></div>-->
+    <!--        <div class="wave" id="wave3"></div>-->
+    <!--        <div class="wave" id="wave4"></div>-->
+    <!--    </div>-->
     <ul class="social-icon">
         <!--        <li class="social-icon__item"><a class="social-icon__link" target="_blank"-->
         <!--                                         href="https://t.me/+9oFdLhfKiHU0NGEy">-->
@@ -530,30 +622,29 @@
 <script>
     document.documentElement.style.setProperty('--count', '{{ best_profiles|length }}');
 </script>
+
 <script>
-    let currentSlide = 0;
-const slides = document.querySelectorAll('.slide');
+let phrases = ["Искусство меча", "Почему бы и нет", "Удобство в мелочах"];
+let revealText = document.getElementById("textSlider");
+let index = 0;
 
-function showSlide(index) {
-    slides.forEach(slide => slide.classList.remove('active'));
-    slides[index].classList.add('active');
+function changeText() {
+  revealText.textContent = phrases[index];
+  let letters = revealText.textContent.split("");
+  revealText.innerHTML = "";
+  let middle = letters.filter(e => e !== " ").length / 2;
+  letters.forEach((letter, i) => {
+    let span = document.createElement("span");
+    span.textContent = letter;
+    span.style.animationDelay = `${0.3 + Math.abs(i - middle) * 0.1}s`;
+    revealText.append(span);
+  });
+
+  index = (index + 1) % phrases.length;
 }
 
-function nextSlide() {
-    currentSlide = (currentSlide + 1) % slides.length;
-    showSlide(currentSlide);
-}
+setInterval(changeText, 5000); // Меняет текст каждые 5 секунд
 
-function previousSlide() {
-    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-    showSlide(currentSlide);
-}
 
-function initSlider() {
-    showSlide(currentSlide);
-    setInterval(nextSlide, 3000);
-}
-
-initSlider();
 </script>
 {% endblock %}
