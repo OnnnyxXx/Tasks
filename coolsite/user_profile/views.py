@@ -7,24 +7,24 @@ from django.utils.decorators import method_decorator
 from django.views.generic import DeleteView, UpdateView
 
 from user_profile.forms import CommentForm, ProfileForm
-from user_profile.models import Comment
+from user_profile.models import Comment, Profile
 
 
 @login_required
-def profile(request):
+def settings_profile(request):
     user = request.user
-    profile = user.profile if hasattr(user, 'profile') else None  # Проверяем наличие профиля
+    profile, created = Profile.objects.get_or_create(user=user)
 
     if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        form = ProfileForm(request.POST, request.FILES, instance=profile, user=user)
         if form.is_valid():
             form.save()
             return redirect('user_home')
     else:
-        form = ProfileForm(instance=profile, user=user)  # Передача пользователя в форму
+        form = ProfileForm(instance=profile, user=user)
 
     context = {'form': form}
-    return render(request, 'profile.html', context)
+    return render(request, 'settings_profile.html', context)
 
 
 def User_View(request):

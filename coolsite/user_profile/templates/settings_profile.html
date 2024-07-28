@@ -1,6 +1,6 @@
 {% extends 'tasks_app/layout.html' %}
 
-{% block title %}Account Settings{% endblock %}
+{% block title %}Настройка профиля{% endblock %}
 
 {% block content %}
 
@@ -26,31 +26,39 @@
         text-decoration: none;
     }
 
-.card {
-  background-color: var(--var-bgcolor);
-  color: var(--var-fontcolor);
-}
-:root {
-  --var-bgcolor: #fff;
-  --var-fontcolor: #000;
-}
+    .card {
+        background-color: var(--var-bgcolor);
+        color: var(--var-fontcolor);
+    }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --var-bgcolor: #0B0C10;
-    --var-fontcolor: #eee;
-  }
-}
-.row{
-    --bs-gutter-x: 0rem;
-}
+    :root {
+        --var-bgcolor: #fff;
+        --var-fontcolor: #000;
+    }
 
-.profile-pic{
-     height: 110px;
-     width: 110px;
-     border-radius: 100%;
-}
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --var-bgcolor: #0B0C10;
+            --var-fontcolor: #eee;
+        }
+    }
 
+    .row {
+        --bs-gutter-x: 0rem;
+    }
+
+    .profile-pic {
+        height: 110px;
+        width: 110px;
+        border-radius: 100%;
+    }
+
+    .alert-danger {
+        width: 80%;
+        --bs-alert-color: #ff0017;
+        --bs-alert-bg: #000000;
+        --bs-alert-border-color: #bf0a1c;
+}
 </style>
 
 <br>
@@ -68,10 +76,19 @@
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <input type="file" id="fileInput" name="profile_picture" accept="image/*" onchange="previewImage()">
-                <p>Имя: {{ form.first_name }}</p>
-                <p>Фамилия: {{ form.last_name }}</p>
-                <p>Email: {{ form.email }}</p>
-                <p>Ваш город: {{ form.city }}</p>
+
+                <p>Имя: {{ form.first_name }} {% if form.first_name.errors %}
+                <div class="alert alert-danger">{{ form.first_name.errors }}</div>
+                {% endif %}
+                <p>Фамилия: {{ form.last_name }} {% if form.last_name.errors %}
+                <div class="alert alert-danger">{{ form.last_name.errors }}</div>
+                {% endif %}
+                <p>Email: {{ form.email }} {% if form.email.errors %}
+                <div class="alert alert-danger">{{ form.email.errors }}</div>
+                {% endif %}
+                <p>Ваш город: {{ form.city }} {% if form.city.errors %}
+                <div class="alert alert-danger">{{ form.city.errors }}</div>
+                {% endif %}
                 <p>Вк: {{ form.vk_url }}</p>
                 <p>Телеграмм: {{ form.telegram_url }}</p>
                 <p>Youtube: {{ form.youtube_url }}</p>
